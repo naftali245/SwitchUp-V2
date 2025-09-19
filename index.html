@@ -436,6 +436,71 @@
             0% { transform: scale(1.05); box-shadow: 0 0 5px rgba(255,193,7,0.8); }
             100% { transform: scale(1.03); box-shadow: 0 0 15px rgba(255,193,7,0.9); }
         }
+
+        /* --- NEW: Mobile Responsiveness (Media Query) --- */
+        @media (max-width: 768px) {
+            /* 1. Containers: Allow content to stack and remove fixed sidebars */
+            #main-container {
+                flex-direction: column; /* Stack the game and sidebar vertically */
+                gap: 15px;
+                padding: 10px;
+            }
+
+            #sidebar-container {
+                width: 100%; /* Sidebar takes full width when stacked */
+                order: -1; /* Move the Payout table to the top (optional) */
+            }
+
+            /* 2. Headline: Shrink the title */
+            #game-container h1 {
+                font-size: 2.0em; 
+                margin-bottom: 15px;
+                letter-spacing: 1px;
+            }
+
+            /* 3. Cards: Shrink the card size to fit 5 cards across */
+            #card-area {
+                gap: 5px; /* Reduce gap between cards */
+            }
+            
+            .card-image {
+                width: 60px; /* Reduced card width */
+                height: 85px; /* Reduced card height (maintains aspect ratio) */
+                font-size: 1.2em;
+            }
+
+            /* 4. Control Buttons: Make the action button smaller */
+            #action-button {
+                padding: 10px 40px;
+                font-size: 1em;
+            }
+
+            /* 5. Joker Cards: Shrink the buttons */
+            #action-cards-container {
+                gap: 20px;
+                padding: 10px 5px;
+            }
+            
+            .action-card-button {
+                width: 80px;  /* Reduced width */
+                height: 55px; /* Reduced height */
+                /* When the image fails, show the name in a smaller font */
+                font-size: 0.7em; 
+                color: white; 
+            }
+
+            /* 6. Payout Table: Center in small screens */
+            #payout-container {
+                padding: 15px;
+                max-height: none; /* Allow full height */
+            }
+            
+            /* 7. Footer: Shrink logo */
+            #company-logo {
+                font-size: 1.0em;
+            }
+        }
+        /* --- END of Mobile Responsiveness (Media Query) --- */
     </style>
 </head>
 <body>

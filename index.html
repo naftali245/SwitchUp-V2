@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwitchUp Poker</title>
+    <style>
+        /* --- General Styling and Layout --- */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ADD8E6; /* Light Blue Background (Uniform) */
+            color: #000; /* Default text color set to black for light background */
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #main-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 95%;
+            padding: 20px 0;
+        }
+
+        /* --- Game Containers (Unified Background) --- */
+        #game-container, #payout-container {
+            background-color: #F0F8FF; /* Alice Blue */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+        
+        #game-container {
+            flex-grow: 1;
+            max-width: 900px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- MODIFIED: Headline Styling (H1) --- */
+        #game-container h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            /* MODIFIED: Reduced size */
+            font-size: 2.8em; 
+            font-weight: 900;
+            letter-spacing: 2px; /* Slight reduction in spacing */
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            
+            /* MODIFIED: Solid Light Blue color */
+            color: #4169E1; /* Royal Blue / Light Blue */
+            
+            /* MODIFIED: Orange Stroke using expanded text-shadow */
+            text-shadow: 
+                -1px -1px 0 #FF8C00,  /* Dark Orange */
+                 1px -1px 0 #FF8C00,
+                -1px 1px 0 #FF8C00,
+                 1px 1px 0 #FF8C00,
+                 0 0 5px rgba(0, 0, 0, 0.4); /* General drop shadow for depth */
+
+            /* Removed transparent gradient related properties */
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            background-clip: unset;
+            transition: transform 0.3s;
+        }
+        
+        #game-container h1:hover {
+            transform: translateY(-2px); /* Slight lift on hover for flair */
+        }
+        
+        /* --- Company Logo Styling FIX --- */
+        #company-logo {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+
+            /* Enable Gradient on Text */
+            background: linear-gradient(45deg, #FFD700, #FF69B4, #00BFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Ensures text is transparent */
+            background-clip: text;
+            color: transparent; /* Fallback for transparency */
+
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); /* Darker shadow for visibility */
+            display: inline-block; /* Essential for gradient rendering */
+        }
+
+        /* --- NEW: Sidebar Container for Payout --- */
+        #sidebar-container {
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+            gap: 25px;
+            width: 300px; /* Defines the width for this column */
+        }
+        
+        /* --- Payout Table Styling --- */
+        #payout-container {
+            max-height: 420px;
+            color: #333;
+            padding: 30px; /* Retain consistent padding */
+        }
+
+        #payout-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        #payout-table th {
+            padding: 10px 10px;
+            background-color: #A9D1E4; /* Medium Light Blue */
+            color: #000;
+            border-bottom: 2px solid #000;
+            text-align: center;
+        }
+
+        #payout-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #A9D1E4; /* Match table header */
+            text-align: left;
+        }
+
+        #payout-table tr:nth-child(even) {
+            background-color: #F8FFFF; /* Mint Cream */
+        }
+
+        /* NEW: Highlight win row */
+        #payout-table tr.highlight-win {
+            background-color: #FFA500 !important;
+            color: #000;
+            font-weight: bold;
+            transform: scale(1.03);
+            transition: background-color 0.5s;
+        }
+
+        #payout-table td:last-child {
+            text-align: right;
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* --- Stats and Message Area --- */
+        #stats-bar {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ADD8E6; /* Light Blue */
+            border-radius: 8px;
+            color: #000;
+        }
+
+        .stat-box {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        #credits-stat {
+             /* NEW: Smooth transition for font size/color change during count up (Optional) */
+             transition: font-size 0.1s, color 0.1s;
+        }
+
+        #message-area {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            min-height: 40px;
+            color: #CC0000;
+            font-weight: bold;
+        }
+
+        /* --- Instructions Area Styling (Hidden) --- */
+        #instructions-area {
+            display: none;
+        }
+
+        /* --- Hand Status Area (NEW) --- */
+        #hand-status {
+             font-size: 1.5em;
+             font-weight: bold;
+             min-height: 30px;
+             margin-top: 5px;
+             margin-bottom: 10px;
+             color: #333;
+        }
+
+        #hand-status.winning-hand {
+             color: #00CC00; /* Bright Green */
+             text-shadow: 0 0 5px rgba(0, 204, 0, 0.5);
+             animation: statusPulse 1.5s infinite;
+        }
+        
+        @keyframes statusPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        /* --- Card Display Area (Playing Cards) --- */
+        #card-area {
+            display: flex;
+            justify-content: center;
+            /* FIX: Reduced gap to prevent card overflow on smaller screens */
+            gap: 15px;
+            margin-bottom: 5px; /* Reduced margin to bring status bar closer */
+            min-height: 180px;
+        }
+
+        .card-slot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-image {
+            width: 100px;
+            height: 142px;
+            background-color: #fff;
+            border: 3px solid transparent;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            color: #000;
+            flex-direction: column;
+            padding: 5px;
+            white-space: pre-wrap;
+            text-align: center;
+
+            /* NEW: Prep for pre-visualization */
+            position: relative;
+        }
+
+        /* NEW: Pre-visualization Card Styling */
+        .card-image .preview-card {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 3px solid #00BFFF; /* Light Blue Border for preview */
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8em;
+            color: #000;
+            flex-direction: column;
+            padding: 5px;
+            white-space: pre-wrap;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s, top 0.3s;
+            pointer-events: none;
+        }
+
+        .card-image:hover .preview-card.visible {
+            opacity: 1;
+            top: -15px;
+        }
+
+        .card-image.red-suit {
+            color: #cc0000;
+        }
+
+        /* MODIFIED: Stronger border for held cards */
+        .card-image.held {
+            border-color: #004080; /* Darker Blue */
+            border-width: 4px; /* Thicker border */
+        }
+
+        /* NEW: Indicator for Joker Modified Cards */
+        .card-image.modified {
+            border-color: #00CC00 !important; /* Bright green border */
+            animation: modifiedPulse 0.5s ease-out 3; /* Pulse animation */
+        }
+
+        @keyframes modifiedPulse {
+            0% { transform: scale(1); box-shadow: 0 0 5px rgba(0,0,0,0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 0 10px #00CC00; }
+            100% { transform: scale(1); box-shadow: 0 0 5px rgba(0,0,0,0.4); }
+        }
+
+        /* FIX: Hide text only when background image loads successfully */
+        .card-image.has-image {
+            font-size: 0;
+        }
+
+        /* NEW: Fade out animation for card removal (UX Polish) */
+        .card-image.fade-out {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+
+        /* --- Buttons (HOLD) - STYLED --- */
+        .hold-button {
+            padding: 6px 15px;
+            margin-top: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            border: 1px solid #004080;
+            border-radius: 15px;
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            width: 100%;
+            box-shadow: 0 3px 0 #004080;
+            /* NEW: Transition for dynamic text/color */
+            transition: all 0.15s ease-out, background-color 0.4s;
+        }
+
+        .hold-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #004080;
+        }
+
+        .hold-button.held {
+            background-color: #0056b3;
+            box-shadow: 0 3px 0 #002753;
+            border-color: #002753;
+        }
+
+        .hold-button.held:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #002753;
+        }
+
+        /* --- Control Buttons (SINGLE ACTION BUTTON) --- */
+        #control-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+        }
+
+        #action-button {
+            padding: 15px 60px;
+            font-size: 1.3em;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background-color: #ffc107;
+            color: #333;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        #action-button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* --- Joker Cards Container --- */
+        #action-cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ADD8E6; /* Light Blue */
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .action-card-slot {
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .action-card-slot.used {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .action-card-button {
+            background-color: #6f42c1;
+            color: white;
+            width: 180px;
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.2;
+            border: 3px solid transparent;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s, opacity 0.2s;
+
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: transparent;
+            font-size: 0;
+        }
+
+        .action-card-button:hover:not(:disabled) {
+            transform: translateY(-5px);
+        }
+
+        /* NEW: Joker Animation */
+        .action-card-button.selected {
+            border-color: #ffc107;
+            animation: jokerPulse 1s infinite alternate; /* Applied animation */
+        }
+
+        @keyframes jokerPulse {
+            0% { transform: scale(1.05); box-shadow: 0 0 5px rgba(255,193,7,0.8); }
+            100% { transform: scale(1.03); box-shadow: 0 0 15px rgba(255,193,7,0.9); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="sound-deal-draw" src="SOUNDS/dealing-card.wav" preload="auto"></audio>
+    <audio id="sound-hold" src="SOUNDS/Button Click.mp3" preload="auto"></audio>
+    <audio id="sound-win" src="SOUNDS/correct-choice.wav" preload="auto"></audio>
+    <audio id="sound-action-card" src="SOUNDS/HELD.mp3" preload="auto"></audio>
+    <div id="main-container">
+        <div id="game-container">
+            <h1>SWITCHUP POKER</h1>
+            
+            <div id="stats-bar">
+                <div class="stat-box">Credits: <span id="credits-stat">500</span></div>
+                <div class="stat-box">Total Bet: <span id="bet-stat">10</span></div>
+                <div class="stat-box">Last Win: <span id="winnings-stat">0</span></div>
+            </div>
+
+            <div id="message-area">Welcome! Click 'DEAL' to start.</div>
+
+            <h2>Your Hand</h2>
+            <div id="card-area">
+                </div>
+            
+            <div id="hand-status"></div>
+
+            <h2>Joker Cards</h2>
+            <div id="action-cards-container">
+                 </div>
+
+            <div id="control-buttons">
+                <button id="action-button" onclick="game.handleActionButton()">DEAL</button>
+            </div>
+            
+            <div id="company-logo">Brightly Games</div>
+        </div>
+
+        <div id="sidebar-container">
+            <div id="payout-container">
+                <h2>Payouts (5x)</h2>
+                <table id="payout-table">
+                    <thead>
+                        <tr>
+                            <th>Hand</th>
+                            <th>Pays (Credits)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-hand="Royal Flush"><td>Royal Flush</td><td>4000</td></tr>
+                        <tr data-hand="Straight Flush"><td>Straight Flush</td><td>250</td></tr>
+                        <tr data-hand="Four of a Kind"><td>4 of a Kind</td><td>100</td></tr>
+                        <tr data-hand="Full House"><td>Full House</td><td>45</td></tr>
+                        <tr data-hand="Flush"><td>Flush</td><td>30</td></tr>
+                        <tr data-hand="Straight"><td>Straight</td><td>20</td></tr>
+                        <tr data-hand="Three of a Kind"><td>3 of a Kind</td><td>15</td></tr>
+                        <tr data-hand="Two Pair"><td>Two Pair</td><td>10</td></tr>
+                        <tr data-hand="Jacks or Better"><td>Jacks or Better</td><td>5</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="instructions-area" style="display: none;"></div>
+        </div>
+        </div>
+
+<script>
+    // --- SOUND HELPER FUNCTION ADDED HERE ---
+    function playSound(elementId) {
+        const audio = document.getElementById(elementId);
+        if (audio) {
+            audio.currentTime = 0; // Rewind to start for quick successive plays
+            audio.play().catch(e => console.log("Audio play failed:", e));
+        }
+    }
+    // ----------------------------------------
+    
+    // --- 1. Game Constants & Setup ---
+    const SUITS = ["clubs", "diamonds", "hearts", "spades"];
+    const RANKS = Array.from({length: 13}, (_, i) => i + 2);
+    const STARTING_CREDITS = 500;
+    const INITIAL_BET = 5;
+    const MOD_CARD_COST = 5;
+    const CARD_IMAGE_PATH = 'cards/';
+    const MODIFICATION_TIMEOUT = 1500;
+    const COUNT_DURATION = 1000; // Duration for credit count animation (1 second)
+    
+    // Paytable based on 5x multiplier (using 800 for RF, 20 for 4K)
+    const PAYTABLE = {
+        "Royal Flush": 4000,
+        "Straight Flush": 250,
+        "Four of a Kind": 100,
+        "Full House": 45,
+        "Flush": 30,
+        "Straight": 20,
+        "Three of a Kind": 15,
+        "Two Pair": 10,
+        "Jacks or Better": 5,
+        "Pair (Below Jacks)": 0,
+        "High Card": 0,
+        "Invalid Hand": 0
+    };
+    
+    // UPDATED ACTION CARD DEFINITIONS WITH NEW NAME
+    const ACTION_CARD_DEFINITIONS = [
+        { name: "upgrade", display: "BOOSTER", filename: "UPGRADE.png" }, // Renamed UPGRADE to BOOSTER
+        { name: "mirror_hand", display: "MIRROR HAND", filename: "1.png" },
+        { name: "flush_fever", display: "FLUSH FEVER", filename: "FEVER.png" },
+    ];
+    
+    // Helper to find a card by its rank and suit for duplicate checks
+    function cardExists(hand, cardToCheck, indexToIgnore) {
+        return hand.some((card, index) =>
+            index !== indexToIgnore && card && card.isEqual(cardToCheck)
+        );
+    }
+    
+    // --- 2. Card Classes ---
+    class Card {
+        constructor(suit, rank) {
+            this.suit = suit;
+            this.rank = rank;
+            this.rankStr = this.getRankStr();
+        }
+
+        getRankStr() {
+            const ranksMap = { 11: 'J', 12: 'Q', 13: 'K', 14: 'A' };
+            return ranksMap[this.rank] || String(this.rank);
+        }
+        
+        toString() {
+            const suitMap = { "clubs": "♣", "diamonds": "♦", "hearts": "♥", "spades": "♠" };
+            return `${this.rankStr}\n${suitMap[this.suit]}`;
+        }
+        
+        isEqual(otherCard) {
+            return otherCard && this.suit === otherCard.suit && this.rank === otherCard.rank;
+        }
+        
+        // Helper to get image path for a card instance
+        getImagePath() {
+            return `${CARD_IMAGE_PATH}${this.rankStr}_of_${this.suit}.png`;
+        }
+        
+        // Helper to get suit color class
+        getColorClass() {
+            return (this.suit === 'hearts' || this.suit === 'diamonds') ? 'red-suit' : '';
+        }
+    }
+
+    class Deck {
+        constructor() {
+            this.cards = [];
+            this.reset();
+        }
+
+        reset() {
+            this.cards = [];
+            for (const suit of SUITS) {
+                for (const rank of RANKS) {
+                    this.cards.push(new Card(suit, rank));
+                }
+            }
+            this.shuffle();
+        }
+
+        shuffle() {
+            for (let i = this.cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+            }
+        }
+
+        dealCard() {
+            if (this.cards.length > 0) {
+                return this.cards.pop();
+            }
+            return null;
+        }
+
+        drawCards(hand, heldIndices) {
+            for (let i = 0; i < 5; i++) {
+                if (!heldIndices.includes(i)) {
+                    let newCard = null;
+                    let attempts = 0;
+                    
+                    do {
+                        newCard = this.dealCard();
+                        attempts++;
+                        if (attempts > this.cards.length + 10) break;
+                    } while (newCard && cardExists(hand, newCard, i));
+                    
+                    if (newCard) {
+                        hand[i] = newCard;
+                    }
+                }
+            }
+            this.shuffle();
+        }
+    }
+    
+    // --- 3. Evaluation Logic ---
+    function evaluateHand(hand) {
+        if (!hand || hand.length !== 5) return "Invalid Hand";
+        const ranks = hand.map(card => card.rank).sort((a, b) => a - b);
+        const suits = hand.map(card => card.suit);
+        const rankCounts = ranks.reduce((counts, rank) => {
+            counts.set(rank, (counts.get(rank) || 0) + 1);
+            return counts;
+        }, new Map());
+
+        const isFlush = new Set(suits).size === 1;
+        const isSequential = ranks[4] - ranks[0] === 4 && new Set(ranks).size === 5;
+        const isAceLow = ranks.toString() === '2,3,4,5,14';
+        const isStraight = isSequential || isAceLow;
+        
+        let pairs = 0;
+        let threes = 0;
+        let fours = 0;
+        
+        for (const count of rankCounts.values()) {
+            if (count === 4) fours++;
+            else if (count === 3) threes++;
+            else if (count === 2) pairs++;
+        }
+
+        if (isStraight && isFlush) {
+            if (ranks.toString() === '10,11,12,13,14') return "Royal Flush";
+            return "Straight Flush";
+        }
+        if (fours === 1) return "Four of a Kind";
+        if (threes === 1 && pairs === 1) return "Full House";
+        if (isFlush) return "Flush";
+        if (isStraight) return "Straight";
+        if (threes === 1) return "Three of a Kind";
+        if (pairs === 2) return "Two Pair";
+        
+        if (pairs === 1) {
+            for (const [rank, count] of rankCounts.entries()) {
+                if (count === 2 && rank >= 11) return "Jacks or Better";
+            }
+            return "Pair (Below Jacks)";
+        }
+        return "High Card";
+    }
+    
+    // Helper function to calculate potential modified card
+    function getModifiedCard(card, hand, activeEffect, cardIndexToIgnore) {
+        if (!card) return null;
+        
+        if (activeEffect === "upgrade") {
+            const newRank = card.rank + 1;
+            if (newRank > 14) return null;
+            return new Card(card.suit, newRank);
+        } else if (activeEffect === "flush_fever") {
+            // Logic for Flush Fever preview (simplified to only show if a change is highly likely)
+            const suitCounts = hand.reduce((counts, c) => {
+                counts.set(c.suit, (counts.get(c.suit) || 0) + 1);
+                return counts;
+            }, new Map());
+            
+            let mostCommonSuit = null;
+            let maxCount = 0;
+            for (const [suit, count] of suitCounts.entries()) {
+                if (count > maxCount) { maxCount = count; mostCommonSuit = suit; }
+            }
+            
+            if (mostCommonSuit && card.suit !== mostCommonSuit) {
+                return new Card(mostCommonSuit, card.rank);
+            }
+        }
+        return null;
+    }
+
+
+    // --- 4. Game Class (Full Logic) ---
+    class PokerGame {
+        constructor() {
+            this.deck = new Deck();
+            this.playerHand = [];
+            this.heldCards = [false, false, false, false, false];
+            this.actionCardsInHand = [];
+
+            this.credits = STARTING_CREDITS;
+            this.bet = INITIAL_BET;
+            this.modCardCost = MOD_CARD_COST;
+            this.lastWinnings = 0;
+            this.winningHandName = null;
+
+            this.gameState = "DEAL";
+            this.selectedActionCard = null;
+            this.activeEffect = null;
+            this.actionCardUsedThisRound = false;
+            
+            this.isFirstDeal = true; // Flag to control the display of the initial tip
+
+            this.message = `Welcome! Credits: ${this.credits}. Total Cost per hand: ${this.bet + this.modCardCost}. Click 'DEAL' to start.`;
+            
+            this.initActionCards();
+            this.updateUI();
+        }
+        
+        // NEW: Handler for the single Action Button
+        handleActionButton() {
+             if (this.gameState === "DEAL" || this.gameState === "END_ROUND") {
+                 this.dealHand();
+             } else if (this.gameState === "ACTION_PHASE") {
+                 this.drawCards();
+             }
+        }
+        
+        initActionCards() {
+            this.actionCardsInHand = ACTION_CARD_DEFINITIONS.map(def => ({
+                name: def.name,
+                display: def.display,
+                filename: def.filename,
+                isUsed: false
+            }));
+        }
+
+        dealHand() {
+            const totalCost = this.bet + this.modCardCost;
+
+            if (this.gameState !== "DEAL" && this.gameState !== "END_ROUND") return;
+
+
+            if (this.credits < totalCost) {
+                this.message = `Not enough credits! Required: ${totalCost}.`;
+                this.updateUI();
+                return;
+            }
+
+            // 1. Deduct cost before animation or dealing
+            this.credits -= totalCost;
+
+            // 2. Trigger Fade Out Animation
+            const cardElements = document.querySelectorAll('#card-area .card-image');
+            cardElements.forEach(el => el.classList.add('fade-out'));
+            
+            // Call updateUI immediately to show deducted credits and activate fade-out CSS
+            this.updateUI();
+
+            // 3. Wait for animation, then deal new cards and update state
+            setTimeout(() => {
+                // *** FIX: Clear the DOM elements before repopulating ***
+                document.getElementById('card-area').innerHTML = '';
+                
+                // DEALING NEW CARDS AND UPDATING STATE MOVED INSIDE TIMEOUT
+                this.deck.reset();
+                this.playerHand = [];
+                for (let i = 0; i < 5; i++) {
+                    const card = this.deck.dealCard();
+                    if (card) this.playerHand.push(card);
+                }
+                
+                this.heldCards = [false, false, false, false, false];
+                this.actionCardUsedThisRound = false;
+                this.selectedActionCard = null;
+                this.activeEffect = null;
+                this.winningHandName = null;
+                
+                // --- STATE UPDATE MOVED HERE ---
+                this.gameState = "ACTION_PHASE";
+                
+                // NEW: Evaluate hand immediately after dealing to set status text
+                const currentHandName = evaluateHand(this.playerHand);
+                this.message = `Credits: ${this.credits}. Choose a Joker Card or cards to HOLD.`;
+                document.getElementById('hand-status').textContent = currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)" ? currentHandName : '';
+                document.getElementById('hand-status').classList.toggle('winning-hand', currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)");
+
+                this.initActionCards();
+                this.updateUI();
+                
+                // --- SOUND: DEAL ---
+                playSound('sound-deal-draw');
+
+            }, 500); // 500ms for the fade-out
+        }
+
+        drawCards() {
+            if (this.gameState !== "ACTION_PHASE" || this.activeEffect) {
+                this.message = "Finish your Joker Card effect or select another card.";
+                this.updateUI();
+                return;
+            }
+            
+            // Clear hand status before draw
+            document.getElementById('hand-status').textContent = '';
+            document.getElementById('hand-status').classList.remove('winning-hand');
+
+
+            const heldIndices = this.heldCards.map((held, i) => held ? i : -1).filter(i => i !== -1);
+            this.deck.drawCards(this.playerHand, heldIndices);
+
+            this.gameState = "EVALUATE";
+            this.evaluateFinalHand();
+            this.updateUI();
+            
+            // --- SOUND: DRAW ---
+            playSound('sound-deal-draw');
+        }
+        
+        // MODIFIED: Added logic for credit count animation
+        evaluateFinalHand() {
+            const handName = evaluateHand(this.playerHand);
+            const winnings = PAYTABLE[handName] || 0;
+
+            this.lastWinnings = winnings;
+            this.winningHandName = handName;
+
+            this.message = `You have a ${handName}! Winnings: ${winnings}. Credits: ${this.credits + winnings}. Click 'NEW HAND' to play again.`;
+            this.gameState = "END_ROUND";
+            
+            // Clear hand status after evaluation
+            document.getElementById('hand-status').textContent = '';
+            document.getElementById('hand-status').classList.remove('winning-hand');
+
+            // --- SOUND: WIN ---
+            if (winnings > 0) {
+                 playSound('sound-win');
+            }
+            
+            // NEW: Credit Count Animation Logic
+            this.animateCreditCount(winnings);
+        }
+        
+        animateCreditCount(amount) {
+            if (amount === 0) {
+                // If no winnings, update UI immediately
+                this.updateUI();
+                return;
+            }
+
+            const startCredits = this.credits;
+            const endCredits = this.credits + amount;
+            const startTime = performance.now();
+            const creditsStatEl = document.getElementById('credits-stat');
+
+            // Apply temporary visual highlight
+            creditsStatEl.style.color = '#00CC00';
+            creditsStatEl.style.fontSize = '1.3em';
+
+
+            const step = (timestamp) => {
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(elapsed / COUNT_DURATION, 1);
+                
+                // Use ease-out for smoother deceleration
+                const easedProgress = progress * progress * (3 - 2 * progress);
+                
+                const currentValue = Math.floor(startCredits + amount * easedProgress);
+
+                creditsStatEl.textContent = currentValue;
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    // Animation complete, set final value and store in model
+                    this.credits = endCredits;
+                    creditsStatEl.textContent = endCredits;
+                    
+                    setTimeout(() => {
+                        // Final visual reset and UI update
+                        creditsStatEl.style.color = '#000';
+                        creditsStatEl.style.fontSize = '';
+                        this.updateUI();
+                    }, 200);
+                }
+            };
+
+            requestAnimationFrame(step);
+        }
+        
+        // --- Hold Logic / Action Card Click Handler ---
+        toggleHold(cardIndex) {
+            if (this.gameState === "ACTION_PHASE" && !this.activeEffect) {
+                this.heldCards[cardIndex] = !this.heldCards[cardIndex];
+                this.message = "Choose cards to hold, then click 'DRAW'.";
+                
+                // Re-evaluate and update status line when card status changes
+                const currentHandName = evaluateHand(this.playerHand);
+                document.getElementById('hand-status').textContent = currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)" ? currentHandName : '';
+                document.getElementById('hand-status').classList.toggle('winning-hand', currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)");
+                
+                this.updateUI();
+                // --- SOUND: HOLD ---
+                playSound('sound-hold');
+            } else if (this.activeEffect && cardIndex !== null) {
+                this.applyActionCardEffect(cardIndex);
+            }
+        }
+        
+        // --- Action Card Selection Logic ---
+        selectActionCard(cardName) {
+            const card = this.actionCardsInHand.find(ac => ac.name === cardName);
+            if (!card || card.isUsed) return;
+            
+            if (this.selectedActionCard && this.selectedActionCard.name === cardName) {
+                // Special check: Cannot cancel MIRROR_HAND
+                if (cardName === "mirror_hand") return;
+
+                this.selectedActionCard = null;
+                this.activeEffect = null;
+                this.actionCardUsedThisRound = false;
+                this.message = "Joker Card deselected. Choose cards to hold or another Joker Card.";
+                this.updateUI();
+                // --- SOUND: ACTION CARD (Deselect) ---
+                playSound('sound-action-card');
+                return;
+            }
+
+            if (this.actionCardUsedThisRound) {
+                this.message = "You have already used a Joker Card this round.";
+                this.updateUI();
+                return;
+            }
+
+            this.selectedActionCard = card;
+            this.activeEffect = cardName;
+            this.actionCardUsedThisRound = true;
+            
+            // --- SOUND: ACTION CARD (Select) ---
+            playSound('sound-action-card');
+            
+            // Clear hand status display when Joker is selected/active
+            document.getElementById('hand-status').textContent = '';
+            document.getElementById('hand-status').classList.remove('winning-hand');
+
+
+            if (cardName === "mirror_hand") {
+                 this.applyActionCardEffect(null);
+            } else {
+                 this.message = `Action: ${card.display} selected. Click a card to apply the effect.`;
+                 this.updateUI();
+            }
+        }
+        
+        // --- Action Card Application Logic ---
+        applyActionCardEffect(clickedCardIndex) {
+            const hand = this.playerHand;
+            const cardToModify = hand[clickedCardIndex];
+            
+            let cardModified = false; // Flag to check if a modification occurred
+            
+            // 1. Logic for Mirror Hand (Immediate Effect)
+            if (this.activeEffect === "mirror_hand" && clickedCardIndex === null) {
+                const cardsToModifyIndices = [];
+
+                for (let i = 0; i < hand.length; i++) {
+                    const cardOriginal = hand[i];
+                    let newRank = cardOriginal.rank;
+
+                    // Rank calculation for Mirror Hand (2->A, 3->K, 4->Q)
+                    if (cardOriginal.rank === 2) newRank = 14; // A
+                    else if (cardOriginal.rank === 3) newRank = 13; // K
+                    else if (cardOriginal.rank === 4) newRank = 12; // Q
+
+                    if (cardOriginal.rank !== newRank) {
+                        const tempSimulatedCard = new Card(cardOriginal.suit, newRank);
+                        
+                        if (!cardExists(hand, tempSimulatedCard, i)) {
+                            cardsToModifyIndices.push({ index: i, newRank: newRank });
+                        }
+                    }
+                }
+                
+                cardsToModifyIndices.forEach(change => {
+                    hand[change.index].rank = change.newRank;
+                    hand[change.index].rankStr = hand[change.index].getRankStr();
+                    cardModified = true;
+                    // Add 'modified' class
+                    document.getElementById(`card-${change.index}`).classList.add('modified');
+                    setTimeout(() => {
+                         document.getElementById(`card-${change.index}`).classList.remove('modified');
+                    }, MODIFICATION_TIMEOUT);
+                });
+
+                this.message = `Mirror Hand Activated! Upgraded ${cardsToModifyIndices.length} cards. Choose cards to HOLD.`;
+                this.endActionCardEffect();
+                return;
+            }
+
+            // 2. Logic for BOOSTER (renamed from Upgrade) and Flush Fever (Require card click)
+            if (clickedCardIndex === null || clickedCardIndex === undefined) return;
+            
+            if (this.activeEffect === "upgrade") { // Booster
+                const newRank = cardToModify.rank + 1;
+                if (newRank > 14) { this.message = "Cannot upgrade an Ace. Choose another card."; this.updateUI(); return; }
+                const tempSimulatedCard = new Card(cardToModify.suit, newRank);
+
+                if (cardExists(hand, tempSimulatedCard, clickedCardIndex)) {
+                    this.message = `Cannot upgrade to duplicate (${tempSimulatedCard.rankStr} of ${tempSimulatedCard.suit}). Choose another card.`;
+                    this.updateUI();
+                    return;
+                }
+
+                cardToModify.rank = newRank;
+                cardToModify.rankStr = cardToModify.getRankStr();
+                this.message = "Card Upgraded! Choose cards to HOLD.";
+                cardModified = true;
+                
+            } else if (this.activeEffect === "flush_fever") {
+                const suitCounts = hand.reduce((counts, card) => {
+                    counts.set(card.suit, (counts.get(card.suit) || 0) + 1);
+                    return counts;
+                }, new Map());
+                
+                let mostCommonSuit = null;
+                let maxCount = 0;
+                // Find most common suit
+                for (const [suit, count] of suitCounts.entries()) {
+                    if (count > maxCount) {
+                        maxCount = count;
+                        mostCommonSuit = suit;
+                    }
+                }
+                
+                if (mostCommonSuit && cardToModify.suit !== mostCommonSuit) {
+                    const tempSimulatedCard = new Card(mostCommonSuit, cardToModify.rank);
+
+                    if (cardExists(hand, tempSimulatedCard, clickedCardIndex)) {
+                        this.message = `Cannot change to duplicate (${tempSimulatedCard.rankStr} of ${tempSimulatedCard.suit}). Choose another card.`;
+                        this.updateUI();
+                        return;
+                    }
+                    cardToModify.suit = mostCommonSuit;
+                    this.message = "Suit changed! Choose cards to HOLD.";
+                    cardModified = true;
+                } else {
+                    this.message = "No suit change needed. Choose cards to HOLD.";
+                    cardModified = true;
+                }
+            }
+            
+            if (cardModified) {
+                 this.endActionCardEffect();
+                 // Add 'modified' class for non-Mirror Hand effects
+                 document.getElementById(`card-${clickedCardIndex}`).classList.add('modified');
+                 setTimeout(() => {
+                     document.getElementById(`card-${clickedCardIndex}`).classList.remove('modified');
+                 }, MODIFICATION_TIMEOUT);
+
+                 // --- SOUND: ACTION CARD (After effect) ---
+                 playSound('sound-action-card');
+            }
+            
+            // NEW: Re-evaluate hand after Joker effect
+            const currentHandName = evaluateHand(this.playerHand);
+            document.getElementById('hand-status').textContent = currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)" ? currentHandName : '';
+            document.getElementById('hand-status').classList.toggle('winning-hand', currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)");
+        }
+
+        endActionCardEffect() {
+            if (this.selectedActionCard) {
+                const originalCard = this.actionCardsInHand.find(ac => ac.name === this.selectedActionCard.name);
+                if (originalCard) originalCard.isUsed = true;
+            }
+            this.selectedActionCard = null;
+            this.activeEffect = null;
+            this.gameState = "ACTION_PHASE";
+            this.updateUI();
+        }
+
+        // --- UI Rendering Logic ---
+        updateUI() {
+            // Update Stats Bar
+            document.getElementById('winnings-stat').textContent = this.lastWinnings;
+            document.getElementById('bet-stat').textContent = this.bet + this.modCardCost;
+            
+            // LOGIC FOR SINGLE-TIME TIP MESSAGE (Only in DEAL state for the first time)
+            const messageArea = document.getElementById('message-area');
+            if (this.gameState === "DEAL" && this.isFirstDeal) {
+                 // Set the message with the one-time tip
+                 messageArea.textContent = `Welcome! Credits: ${this.credits}. Total Cost per hand: ${this.bet + this.modCardCost}. Click 'DEAL' to start. (Tip: Click active Booster/Fever Joker again to cancel)`;
+                 this.isFirstDeal = false; // Tip has been displayed, turn off flag
+            } else {
+                 // Use the standard game message
+                 messageArea.textContent = this.message;
+            }
+
+            // Update Control Button state and text
+            const actionButton = document.getElementById('action-button');
+            
+            if (this.gameState === "END_ROUND") {
+                 actionButton.disabled = false;
+                 actionButton.textContent = "NEW HAND";
+            } else if (this.gameState === "DEAL") {
+                 actionButton.disabled = false;
+                 actionButton.textContent = "DEAL";
+            } else { // ACTION_PHASE
+                 actionButton.disabled = this.activeEffect;
+                 actionButton.textContent = "DRAW";
+            }
+
+
+            // Update Payout Table Highlights (RESET and APPLY)
+            const payoutRows = document.querySelectorAll('#payout-table tbody tr');
+            payoutRows.forEach(row => {
+                row.classList.remove('highlight-win');
+                if (this.gameState === "END_ROUND" && row.getAttribute('data-hand') === this.winningHandName) {
+                    row.classList.add('highlight-win');
+                }
+            });
+
+
+            // Update Cards and Hold Buttons
+            const cardArea = document.getElementById('card-area');
+            
+            // Only update the actual card elements if not in the middle of a fade-out transition
+            if (!document.querySelector('#card-area .fade-out')) {
+                cardArea.innerHTML = '';
+            }
+
+            this.playerHand.forEach((card, index) => {
+                const slot = document.createElement('div');
+                slot.className = 'card-slot';
+
+                const cardDiv = document.createElement('div');
+                cardDiv.className = `card-image ${card.getColorClass()}`;
+                cardDiv.id = `card-${index}`; // Added ID for modification indicator
+                
+                // Set image as background
+                cardDiv.style.backgroundImage = `url('${card.getImagePath()}')`;
+                cardDiv.style.backgroundSize = 'cover';
+
+                // Image/Fallback visibility check
+                // FIX: Check if background image URL is valid/set, if so, add has-image class to hide text.
+                if (cardDiv.style.backgroundImage && !cardDiv.style.backgroundImage.includes('url("")')) {
+                    // Check if the image source looks like a file path (assuming valid)
+                    if (cardDiv.style.backgroundImage.includes('.png') || cardDiv.style.backgroundImage.includes('.jpg')) {
+                         cardDiv.classList.add('has-image');
+                    }
+                } else {
+                    cardDiv.classList.remove('has-image');
+                }
+
+                // Fallback (Text with Red/Black color)
+                cardDiv.textContent = card.toString();
+                
+                // APPLY HOLD VISUALS
+                if (this.heldCards[index]) cardDiv.classList.add('held');
+                
+                // --- Card Pre-visualization Logic ---
+                cardDiv.onmouseover = (e) => {
+                    if (this.activeEffect && this.activeEffect !== 'mirror_hand') {
+                        this.showCardPreview(index, cardDiv);
+                    }
+                };
+                cardDiv.onmouseout = (e) => {
+                    this.hideCardPreview(cardDiv);
+                };
+                
+                cardDiv.onclick = () => this.toggleHold(index);
+
+                const holdButton = document.createElement('button');
+                holdButton.className = 'hold-button';
+                holdButton.textContent = this.heldCards[index] ? "HELD" : "HOLD";
+                holdButton.disabled = (this.gameState !== "ACTION_PHASE" || this.activeEffect);
+                holdButton.onclick = () => this.toggleHold(index);
+                if (this.heldCards[index]) holdButton.classList.add('held');
+
+                slot.appendChild(cardDiv);
+                if (this.gameState === "ACTION_PHASE") {
+                    slot.appendChild(holdButton);
+                }
+                cardArea.appendChild(slot);
+            });
+            
+            // Update Joker Cards
+            const actionContainer = document.getElementById('action-cards-container');
+            actionContainer.innerHTML = '';
+            
+            const ACTION_CARD_IMAGE_PATH = 'Action_Cards/';
+            
+            this.actionCardsInHand.forEach(ac => {
+                const slot = document.createElement('div');
+                slot.className = 'action-card-slot';
+                if (ac.isUsed) slot.classList.add('used');
+                
+                const button = document.createElement('button');
+                button.className = 'action-card-button';
+                
+                // Set Action Card image as background
+                button.style.backgroundImage = `url('${ACTION_CARD_IMAGE_PATH}${ac.filename}')`;
+                button.style.backgroundSize = 'contain';
+                
+                button.textContent = ac.display;
+                
+                if (this.selectedActionCard && this.selectedActionCard.name === ac.name) button.classList.add('selected');
+
+                button.disabled = (ac.isUsed || this.actionCardUsedThisRound && !(this.selectedActionCard && this.selectedActionCard.name === ac.name));
+                button.onclick = () => this.selectActionCard(ac.name);
+                
+                slot.appendChild(button);
+                actionContainer.appendChild(slot);
+            });
+            
+             // Ensure initial credits are displayed correctly
+             document.getElementById('credits-stat').textContent = this.credits;
+        }
+        
+        // Method to handle card preview on hover
+        showCardPreview(index, cardEl) {
+            const card = this.playerHand[index];
+            const activeEffect = this.activeEffect;
+            if (!activeEffect || activeEffect === 'mirror_hand') return;
+
+            let modifiedCard = getModifiedCard(card, this.playerHand, activeEffect, index);
+            
+            if (modifiedCard) {
+                // Check for duplicates
+                let currentHandForLogic = this.playerHand.map(c => new Card(c.suit, c.rank));
+                currentHandForLogic[index] = modifiedCard;
+
+                if (cardExists(currentHandForLogic, modifiedCard, index)) return;
+
+
+                let previewDiv = cardEl.querySelector('.preview-card');
+                if (!previewDiv) {
+                    previewDiv = document.createElement('div');
+                    previewDiv.className = 'preview-card';
+                    cardEl.appendChild(previewDiv);
+                }
+
+                // If image exists, use it as background
+                const cardImagePath = modifiedCard.getImagePath();
+                previewDiv.style.backgroundImage = `url('${cardImagePath}')`;
+                
+                // Text fallback
+                previewDiv.textContent = modifiedCard.toString();
+                previewDiv.style.color = modifiedCard.getColorClass() === 'red-suit' ? '#cc0000' : '#000';
+
+                previewDiv.classList.add('visible');
+            }
+        }
+
+        hideCardPreview(cardEl) {
+            const previewDiv = cardEl.querySelector('.preview-card');
+            if (previewDiv) {
+                previewDiv.classList.remove('visible');
+            }
+        }
+    }
+
+    // Initialize the game when the script loads
+    const game = new PokerGame();
+</script>
+
+</body>
+</html>

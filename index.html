@@ -34,16 +34,15 @@
             border-radius: 15px;
             border: 4px solid #FFD700; /* Gold border */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            padding: 20px; 
+            padding: 10px; /* Reduced padding for mobile space */
             width: 100%; 
-            height: 90vh; /* Fixed height for structure */
-            min-height: 700px;
+            height: auto;
+            min-height: 90vh; 
             position: relative;
-            /* Flex for vertical flow of main content */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* MODIFIED: Start content from the top */
+            justify-content: flex-start;
         }
         
         /* --- Title Styling (Top Center) --- */
@@ -53,7 +52,7 @@
             font-weight: 900;
             letter-spacing: 5px;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-transform: uppercase;
             
             color: #FFD700; 
@@ -153,6 +152,10 @@
             /* MODIFIED: הגדלת קלפי המשחק */
             width: 145px; 
             height: 205px; 
+            background-color: #fff;
+            border: 3px solid transparent;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
         }
         
         /* --- HOLD Button Styling (Polished & Resized) --- */
@@ -308,6 +311,115 @@
             font-size: 0; 
         }
         
+        /* ======================================================= */
+        /* --- MOBILE RESPONSIVENESS (BREAKPOINT: 1024px) --- */
+        /* ======================================================= */
+        @media (max-width: 1024px) {
+            
+            #game-container {
+                height: auto;
+                min-height: 90vh;
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2.2em !important;
+            }
+
+            /* --- Payout Table: Moved to full width, below title --- */
+            #payout-container {
+                position: static;
+                width: 95%;
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            /* --- Stats Bar: Full width, reduced padding --- */
+            #stats-bar-local {
+                width: 95%;
+                padding: 10px 0;
+                margin-bottom: 10px;
+            }
+
+            .stat-box {
+                font-size: 1em;
+            }
+            
+            /* --- Joker Cards: Moved to full width, below stats --- */
+            #action-cards-container {
+                position: static;
+                flex-direction: row; /* Horizontal alignment on mobile */
+                width: 100%;
+                justify-content: space-around;
+                gap: 5px;
+                margin-bottom: 15px;
+            }
+
+            .action-card-button {
+                /* MODIFIED: Small size for phone width */
+                width: 90px; 
+                height: 60px;
+                font-size: 0.8em;
+                padding: 0;
+            }
+            
+            /* --- Card Area: Center of screen --- */
+            #card-area-wrapper {
+                position: static;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin-top: 10px;
+            }
+            
+            /* --- Playing Cards: Smaller size for phone width --- */
+            #card-area {
+                gap: 5px;
+                width: 98%;
+                margin-bottom: 5px;
+            }
+
+            .card-image {
+                width: 55px; /* MODIFIED: Smaller width */
+                height: 80px; /* MODIFIED: Smaller height */
+            }
+
+            .hold-button {
+                font-size: 0.7em;
+                padding: 5px 10px;
+                margin-top: 5px;
+            }
+            
+            #status-area-bottom {
+                margin-bottom: 10px;
+            }
+            
+            /* --- Control Buttons: Normal position, reduced size --- */
+            #control-buttons {
+                position: static;
+                padding-bottom: 10px;
+            }
+            
+            #action-button {
+                padding: 15px 50px;
+                font-size: 1.4em;
+            }
+
+            /* --- Footer/Log: Position at absolute bottom/corner --- */
+            #company-logo {
+                position: static;
+                margin-top: 10px;
+                font-size: 1em;
+            }
+
+            #secondary-message-area-wrapper {
+                position: static; 
+                width: 95%;
+                margin: 10px auto;
+            }
+        }
+        /* ======================================================= */
     </style>
 </head>
 <body>
@@ -972,7 +1084,7 @@
             if (this.gameState === "END_ROUND") {
                  actionButton.disabled = false;
                  actionButton.textContent = "NEW HAND";
-                 secondaryMessageArea.textContent = ""; 
+                 secondaryMessageArea.textContent = ""; /* Clear secondary message */
                  messageArea.textContent = this.message;
                  messageArea.style.visibility = 'visible';
             } else if (this.gameState === "DEAL") {

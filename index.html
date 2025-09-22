@@ -34,7 +34,7 @@
             border-radius: 15px;
             border: 4px solid #FFD700; /* Gold border */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            padding: 10px; /* Reduced padding for mobile space */
+            padding: 10px; 
             width: 100%; 
             height: auto;
             min-height: 90vh; 
@@ -64,11 +64,40 @@
                  0 0 10px rgba(255, 255, 255, 0.7); 
         }
 
+        /* --- New Global Controls Container (Top Left) --- */
+        #global-controls {
+            position: absolute;
+            top: 25px;
+            left: 20px;
+            z-index: 100; /* Ensure it's on top of everything */
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-icon {
+            background-color: #CC0000;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 2px rgba(0,0,0,0.5); 
+            transition: background-color 0.2s;
+        }
+
+        .control-icon:hover {
+            background-color: #8B0000;
+        }
+
+
         /* --- Payout Table (Top Right) --- */
         #payout-container {
             position: absolute;
             top: 15px;
-            right: 20px;
+            right: 5px; 
             background-color: #000050; 
             padding: 15px;
             width: 250px; 
@@ -104,7 +133,7 @@
             width: 70%; 
             max-width: 800px;
             margin-bottom: 20px; 
-            padding: 15px 0; /* MODIFIED: הרחבה אנכית */
+            padding: 15px 0; 
             background-color: #CC0000; 
             border-radius: 5px;
             border: 2px solid #FFD700; 
@@ -122,6 +151,8 @@
         #credits-stat, #bet-stat, #winnings-stat {
             color: #FFFFFF; 
             text-shadow: 0 0 3px #000;
+            font-size: 1.4em; 
+            display: inline-block;
         }
 
         /* --- Card Display Area (Below Stats) --- */
@@ -130,13 +161,11 @@
              display: flex;
              flex-direction: column;
              align-items: center;
-             justify-content: center;
+             justify-content: flex-start;
              
-             /* MODIFIED: הורדת הקלפים למטה */
-             position: absolute;
-             top: 45%; 
-             left: 50%;
-             transform: translate(-50%, -50%);
+             /* ⚡️ FIX: מעבר למיקום סטטי - מונע תזוזה ⚡️ */
+             position: static; 
+             margin-top: 50px; 
         }
         
         #card-area {
@@ -147,46 +176,139 @@
             width: 100%; 
             min-height: 220px; 
         }
-
+        
+        .card-slot {
+            position: relative; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; 
+        }
+        
+        /* ⚡️ NEW: HOLD Indicator above the card ⚡️ */
+        .hold-indicator {
+            position: absolute;
+            top: -30px; 
+            z-index: 10;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #FFFF00; 
+            background-color: #CC0000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #FFD700;
+            visibility: hidden;
+            pointer-events: none; 
+            transition: visibility 0.1s;
+        }
+        
+        .hold-indicator.held {
+             visibility: visible;
+             background-color: #00CC00;
+             color: #000050;
+             border-color: #008000;
+        }
+        
         .card-image {
-            /* MODIFIED: הגדלת קלפי המשחק */
             width: 145px; 
             height: 205px; 
             background-color: #fff;
             border: 3px solid transparent;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
             cursor: pointer;
+            position: relative; 
         }
         
-        /* --- HOLD Button Styling (Polished & Resized) --- */
-        .hold-button {
-            padding: 10px 20px;
-            margin-top: 10px;
-            font-size: 1.1em;
-            width: 100%;
-            border: 2px solid #8B0000;
+        .card-image.modified {
+            border: 4px solid #00FF00; /* ירוק בוהק */
+            box-shadow: 0 0 15px #00FF00; /* הילה ירוקה */
+        }
+        
+        /* ⚡️ Action Icons below cards ⚡️ */
+        .card-action-icon {
+            position: absolute;
+            width: 45px; 
+            height: 45px; 
             border-radius: 8px; 
+            background-color: #FFFFFF; /* רקע לבן */
+            color: #CC0000; /* אדום פנימי */
+            border: 2px solid #FFD700;
+            font-size: 1.5em; 
             font-weight: bold;
-            box-shadow: 0 4px 0 #8B0000;
-            transition: all 0.1s ease-out;
-
-            background-color: #CC0000; 
-            color: #FFFFFF; 
+            cursor: pointer;
+            line-height: 40px; 
+            text-align: center;
+            z-index: 50; 
+            transition: background-color 0.1s;
+            box-shadow: 0 0 8px rgba(0,0,0,0.8); 
         }
-        .hold-button.held {
-            background-color: #00CC00; 
-            color: #000050; 
-            border-color: #008000;
-            box-shadow: 0 4px 0 #008000;
+        
+        .card-action-icon .red-suit-symbol { color: #CC0000; } 
+        .card-action-icon .black-suit-symbol { color: #000000; } 
+
+        .card-action-icon:hover:not(:disabled) {
+            background-color: #FFD700; 
         }
 
+        .card-action-icon:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background-color: #555555;
+        }
+
+        .booster-icon {
+            bottom: -55px; 
+            left: 50%;
+            transform: translateX(-140%); 
+        }
+
+        .flush-icon {
+            bottom: -55px; 
+            left: 50%;
+            transform: translateX(40%); 
+        }
+
+
+        /* --- Mirror Joker Button (Bottom Center) --- */
+        #mirror-joker-container {
+            width: 100%;
+            margin-top: 50px; 
+        }
+
+        #mirror-joker-button {
+            padding: 8px 30px; 
+            font-size: 1.1em; 
+            border: 4px solid #FFD700;
+            background-color: #008000; 
+            color: #FFD700;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #005000;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+
+        #mirror-joker-button:hover:not(:disabled) {
+            background-color: #006400;
+        }
+        
+        #mirror-joker-button:active:not(:disabled) {
+            box-shadow: 0 2px 0 #005000;
+            transform: translateY(3px);
+        }
+
+        #mirror-joker-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
         /* --- Status Messages (Above Cards) --- */
         #status-area-bottom {
             width: 100%;
             max-width: 750px;
-            margin-top: 10px;
+            margin-bottom: 10px; 
             padding: 5px 0;
-            min-height: 50px;
+            min-height: 50px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -195,55 +317,62 @@
 
         #message-area {
             font-size: 1.8em; 
-            color: #FFFF00; 
+            color: #FFFF00; /* צהוב זוהר */
             font-weight: bold;
             min-height: 30px;
             margin-bottom: 10px; 
         }
         
-        /* --- Joker Cards (Vertical, Top Left) --- */
+        /* --- Joker Cards (Vertical, Top Left) - Display Only --- */
         #action-cards-container {
             position: absolute;
-            top: 80px;
+            top: 130px; 
             left: 20px;
             display: flex;
             flex-direction: column; 
             justify-content: flex-start;
-            gap: 15px; 
+            /* ⚡️ FIX: רווח אנכי 0px ⚡️ */
+            gap: 0px; 
             padding: 0;
-            background-color: transparent; 
-            width: 200px;
+            width: 230px;
             z-index: 10;
         }
-
+        
         .action-card-slot {
              transition: opacity 0.3s ease-in-out;
+             cursor: default !important; 
+             display: flex;
+             flex-direction: column; 
+             align-items: center; 
+             /* ⚡️ FIX: גודל מכולה מותאם לגודל החדש (209px גובה תמונה + 6px רווח) ⚡️ */
+             height: 215px; 
+             gap: 0; 
         }
-
+        
         .action-card-button {
-            background-color: #CC0000; 
+            /* ⚡️ FIX: גודל תמונה גדול (165px רוחב, 209px גובה) - הגדלה של 10% ⚡️ */
+            width: 165px; 
+            height: 209px; 
+            background-color: transparent !important; 
             color: white;
-            /* MODIFIED: הגדלת כפתורי הפעולה פי 2 */
-            width: 260px; 
-            height: 180px; 
             font-size: 1.5em; 
             line-height: 1.1;
-            border: 3px solid transparent; 
+            border: none;
             border-radius: 8px;
             background-size: contain !important; 
             background-repeat: no-repeat !important;
             background-position: center !important;
+            cursor: default !important; 
         }
         
-        .action-card-slot.dimmed .action-card-button {
-             opacity: 0.6; 
+        /* ⚡️ NEW: Styling for icon text below side images (Hidden now) ⚡️ */
+        .action-card-icon-display {
+             display: none;
         }
 
-        .action-card-slot.selected .action-card-button {
-             border-color: #CCFF00; 
-             border-width: 4px;
-             box-shadow: 0 0 10px #CCFF00;
-             opacity: 1; 
+
+        .action-card-slot.used .action-card-button {
+             opacity: 0.5; 
         }
         
         /* --- Control Buttons (Bottom Center) --- */
@@ -252,7 +381,7 @@
             display: flex;
             justify-content: center;
             position: absolute;
-            bottom: 60px;
+            bottom: 60px; 
         }
 
         #action-button {
@@ -278,34 +407,6 @@
             text-shadow: 1px 1px 2px #000;
         }
 
-        /* NEW: Secondary Message Area (Action Log) - Bottom Right */
-        #secondary-message-area-wrapper {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            max-width: 350px;
-            text-align: left;
-            z-index: 20;
-        }
-        
-        #secondary-message-area-wrapper h3 {
-             /* MODIFIED: שינוי כותרת ל-ACTION */
-             margin: 0 0 5px 0;
-             color: #FFD700;
-             font-size: 1.4em; 
-             text-shadow: 1px 1px 1px #000;
-        }
-
-        #secondary-message-area {
-            background-color: #000; 
-            color: #FFFFFF; 
-            padding: 10px 15px; 
-            font-size: 1.2em; 
-            border-radius: 5px;
-            border: 1px solid #FFD700;
-            display: block;
-        }
-        
         /* FIX: Hide text on card image (display only the image) */
         .card-image.has-image {
             font-size: 0; 
@@ -326,6 +427,19 @@
                 font-size: 2.2em !important;
             }
 
+            /* --- Global Controls: Moved to static, center on mobile --- */
+            #global-controls {
+                position: static;
+                margin: 10px auto;
+                justify-content: center;
+            }
+            .control-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2em;
+            }
+
+
             /* --- Payout Table: Moved to full width, below title --- */
             #payout-container {
                 position: static;
@@ -345,9 +459,10 @@
                 font-size: 1em;
             }
             
-            /* --- Joker Cards: Moved to full width, below stats --- */
+            /* --- Joker Cards: Moved to full width, below stats (Adjusted top) --- */
             #action-cards-container {
                 position: static;
+                height: auto;
                 flex-direction: row; /* Horizontal alignment on mobile */
                 width: 100%;
                 justify-content: space-around;
@@ -355,12 +470,17 @@
                 margin-bottom: 15px;
             }
 
+            .action-card-slot {
+                height: auto;
+                flex-direction: column;
+            }
             .action-card-button {
-                /* MODIFIED: Small size for phone width */
-                width: 90px; 
-                height: 60px;
-                font-size: 0.8em;
-                padding: 0;
+                width: 60px; 
+                height: 90px;
+            }
+            
+            .action-card-icon-display {
+                font-size: 1.2em;
             }
             
             /* --- Card Area: Center of screen --- */
@@ -385,14 +505,44 @@
                 height: 80px; /* MODIFIED: Smaller height */
             }
 
-            .hold-button {
-                font-size: 0.7em;
-                padding: 5px 10px;
-                margin-top: 5px;
+            .hold-indicator {
+                 top: -25px;
+                 font-size: 1em;
             }
             
+            /* ⚡️ Action Icons below cards (Mobile) ⚡️ */
+            .card-action-icon {
+                width: 35px; 
+                height: 35px; 
+                font-size: 1em;
+                line-height: 30px;
+                border-width: 2px;
+            }
+            .booster-icon {
+                bottom: -40px; 
+                left: 50%;
+                transform: translateX(-120%); 
+            }
+            .flush-icon {
+                bottom: -40px; 
+                left: 50%;
+                transform: translateX(20%); 
+            }
+
+            
+            #mirror-joker-container {
+                margin-top: 40px; 
+            }
+
+            #mirror-joker-button {
+                padding: 6px 20px;
+                font-size: 0.9em;
+            }
+            
+            /* --- Status Area --- */
             #status-area-bottom {
                 margin-bottom: 10px;
+                margin-top: 0; 
             }
             
             /* --- Control Buttons: Normal position, reduced size --- */
@@ -412,12 +562,6 @@
                 margin-top: 10px;
                 font-size: 1em;
             }
-
-            #secondary-message-area-wrapper {
-                position: static; 
-                width: 95%;
-                margin: 10px auto;
-            }
         }
         /* ======================================================= */
     </style>
@@ -433,6 +577,11 @@
         <div id="game-container">
             
             <h1>SWITCHUP POKER</h1>
+            
+            <div id="global-controls">
+                <button id="sound-toggle" class="control-icon" title="Toggle Sound">🔊</button>
+                <button id="help-button" class="control-icon" title="Game Help">?</button>
+            </div>
             
             <div id="stats-bar-local">
                 <div class="stat-box">Credits: <span id="credits-stat">500</span></div>
@@ -462,7 +611,7 @@
                     </tbody>
                 </table>
             </div>
-
+            
             <div id="action-cards-container">
             </div>
 
@@ -474,6 +623,13 @@
                  
                 <div id="card-area">
                 </div>
+                
+                <div id="mirror-joker-container">
+                    <button id="mirror-joker-button" class="action-control-button" 
+                            onclick="game.useCardAction(null, 'mirror_hand')">
+                        🔄 MIRROR JOKER
+                    </button>
+                </div>
             </div>
 
             <div id="control-buttons">
@@ -482,11 +638,7 @@
             
             <div id="company-logo">Brightly Games</div>
 
-            <div id="secondary-message-area-wrapper">
-                <h3 id="secondary-message-title">ACTION</h3>
-                <span id="secondary-message-area"></span>
             </div>
-        </div>
         
     </div>
 
@@ -494,10 +646,28 @@
     // --- SOUND HELPER FUNCTION ADDED HERE ---
     function playSound(elementId) {
         const audio = document.getElementById(elementId);
-        if (audio) {
+        if (audio && !audio.muted) {
             audio.currentTime = 0; // Rewind to start for quick successive plays
             audio.play().catch(e => console.log("Audio play failed:", e));
         }
+    }
+    
+    // --- NEW: Global Sound and Help Functions ---
+    let isSoundOn = true;
+
+    function toggleSound() {
+        isSoundOn = !isSoundOn;
+        const soundButton = document.getElementById('sound-toggle');
+        soundButton.textContent = isSoundOn ? '🔊' : '🔇';
+
+        const allAudio = document.querySelectorAll('audio');
+        allAudio.forEach(audio => {
+            audio.muted = !isSoundOn;
+        });
+    }
+
+    function openHelpFile() {
+        window.open('HOWTOPLAY.pdf', '_blank');
     }
     // ----------------------------------------
     
@@ -527,11 +697,11 @@
         "Invalid Hand": 0
     };
     
-    // **תיקון קריטי**: שמות קובצי תמונה עבור כרטיסי הפעולה
+    // **תיקון קריטי**: שמות קובצי תמונה עבור כרטיסי הפעולה - רק לתצוגה ויזואלית
     const ACTION_CARD_DEFINITIONS = [
-        { name: "upgrade", display: "BOOSTER JOKER", filename: "booster_final.png" }, 
-        { name: "mirror_hand", display: "MIRROR JOKER", filename: "1.png" }, 
-        { name: "flush_fever", display: "FLUSH JOKER", filename: "FEVER.png" }, 
+        { name: "upgrade", display: "BOOSTER JOKER", filename: "booster_final.png", icon: '⬆️' }, 
+        { name: "mirror_hand", display: "MIRROR JOKER", filename: "1.png", icon: '🔄' }, 
+        { name: "flush_fever", display: "FLUSH JOKER", filename: "FEVER.png", icon: '♦️♣️♥️♠️' }, 
     ];
     
     function cardExists(hand, cardToCheck, indexToIgnore) {
@@ -692,6 +862,56 @@
         }
         return null;
     }
+    
+    // ⚡️ NEW: Get Dominant Suit for Flush Joker Icon ⚡️
+    function getDominantSuit(hand) {
+        if (!hand || hand.length === 0) return '♠️'; // Default
+        
+        const suitCounts = hand.reduce((counts, card) => {
+            counts.set(card.suit, (counts.get(card.suit) || 0) + 1);
+            return counts;
+        }, new Map());
+
+        let maxCount = 0;
+        let dominantSuits = [];
+        
+        for (const [suit, count] of suitCounts.entries()) {
+            if (count > maxCount) {
+                maxCount = count;
+                dominantSuits = [suit];
+            } else if (count === maxCount) {
+                dominantSuits.push(suit);
+            }
+        }
+        
+        if (dominantSuits.length === 0) return '♠️'; // Should not happen with 5 cards
+        
+        // Convert suit name to symbol
+        const suitSymbols = {
+            'clubs': '♣️',
+            'diamonds': '♦️',
+            'hearts': '♥️',
+            'spades': '♠️'
+        };
+
+        // If multiple dominant suits (e.g., 2 spades, 2 hearts), choose the one with the highest ranked card
+        if (dominantSuits.length > 1) {
+            let highestRank = -1;
+            let finalSuit = '';
+
+            for (const suit of dominantSuits) {
+                const highCardInSuit = hand.filter(card => card.suit === suit)
+                                           .sort((a, b) => b.rank - a.rank)[0];
+                if (highCardInSuit && highCardInSuit.rank > highestRank) {
+                    highestRank = highCardInSuit.rank;
+                    finalSuit = suit;
+                }
+            }
+            return suitSymbols[finalSuit] || '♠️';
+        }
+
+        return suitSymbols[dominantSuits[0]] || '♠️';
+    }
 
 
     // --- 4. Game Class (Full Logic) ---
@@ -700,7 +920,14 @@
             this.deck = new Deck();
             this.playerHand = [];
             this.heldCards = [false, false, false, false, false];
-            this.actionCardsInHand = [];
+            
+            // ⚡️ MODIFIED: Simplified Action Card tracking ⚡️
+            this.actionCardsUsed = {
+                "upgrade": false,
+                "flush_fever": false,
+                "mirror_hand": false
+            }; 
+            this.actionCardUsedThisRound = false; 
 
             this.credits = STARTING_CREDITS;
             this.bet = INITIAL_BET;
@@ -709,15 +936,11 @@
             this.winningHandName = null;
 
             this.gameState = "DEAL";
-            this.selectedActionCard = null;
-            this.activeEffect = null;
-            this.actionCardUsedThisRound = false;
-            
+            this.activeEffect = null; // Used temporarily during a Joker's execution
             this.isFirstDeal = true; 
-
+            
             this.message = `Click 'DEAL' to start.`;
             
-            this.initActionCards();
             this.updateUI();
         }
         
@@ -729,15 +952,6 @@
              }
         }
         
-        initActionCards() {
-            this.actionCardsInHand = ACTION_CARD_DEFINITIONS.map(def => ({
-                name: def.name,
-                display: def.display,
-                filename: def.filename,
-                isUsed: false
-            }));
-        }
-
         dealHand() {
             const totalCost = this.bet + this.modCardCost;
 
@@ -745,14 +959,13 @@
 
 
             if (this.credits < totalCost) {
-                document.getElementById('secondary-message-area').textContent = `Not enough credits! Required: ${totalCost}.`;
+                document.getElementById('message-area').textContent = `Not enough credits! Required: ${totalCost}.`;
                 this.updateUI();
                 return;
             }
 
             this.credits -= totalCost;
 
-            document.getElementById('card-area').innerHTML = '';
             
             this.deck.reset();
             this.playerHand = [];
@@ -762,37 +975,40 @@
             }
             
             this.heldCards = [false, false, false, false, false];
+            
+            // ⚡️ MODIFIED: Reset Action Card usage state ⚡️
             this.actionCardUsedThisRound = false;
-            this.selectedActionCard = null;
             this.activeEffect = null;
-            this.winningHandName = null;
+            this.actionCardsUsed = {
+                "upgrade": false,
+                "flush_fever": false,
+                "mirror_hand": false
+            };
             
             this.gameState = "ACTION_PHASE";
             
             const currentHandName = evaluateHand(this.playerHand);
-            // MODIFIED: Display only the simple hand name in message-area
-            document.getElementById('message-area').textContent = "Choose a Joker Card or cards to HOLD."; 
-            document.getElementById('message-area').style.visibility = 'visible'; /* הופך לגלוי */
+            // ההנחיה הראשית מעל הקלפים:
+            document.getElementById('message-area').textContent = "Use a Joker Icon or click cards to HOLD."; 
+            document.getElementById('message-area').style.visibility = 'visible'; 
             
             document.getElementById('hand-status').textContent = currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)" ? currentHandName : '';
             document.getElementById('hand-status').classList.toggle('winning-hand', currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)s");
 
-            this.initActionCards();
             this.updateUI();
             
             playSound('sound-deal-draw');
         }
 
         drawCards() {
-            if (this.gameState !== "ACTION_PHASE" || this.activeEffect) {
-                document.getElementById('secondary-message-area').textContent = "Finish your Joker Card effect or select another card.";
+            if (this.gameState !== "ACTION_PHASE") {
+                document.getElementById('message-area').textContent = "Please hold cards or use a Joker.";
                 this.updateUI();
                 return;
             }
             
             document.getElementById('hand-status').textContent = '';
             document.getElementById('hand-status').classList.remove('winning-hand');
-
 
             const heldIndices = this.heldCards.map((held, i) => held ? i : -1).filter(i => i !== -1);
             this.deck.drawCards(this.playerHand, heldIndices);
@@ -847,7 +1063,6 @@
             requestAnimationFrame(step);
         }
         
-        // MODIFIED: Simplified Evaluation Logic for messages
         evaluateFinalHand() {
             const handName = evaluateHand(this.playerHand);
             const winnings = PAYTABLE[handName] || 0;
@@ -855,17 +1070,14 @@
             this.lastWinnings = winnings;
             this.winningHandName = handName;
 
-            // UPDATED MESSAGE FORMAT: HandName - Winnings (Simplified text)
             if (winnings > 0) {
                  this.message = `${handName} - ${winnings}`;
             } else {
-                 this.message = `Try again! Click 'NEW HAND' to play.`;
+                 this.message = `Click 'NEW HAND' to play.`;
             }
             
             this.gameState = "END_ROUND";
             
-            // **תיקון קריטי**: ודא שרק הודעת הניצחון הסופית מופיעה ב-message-area
-            document.getElementById('secondary-message-area').textContent = "";
             document.getElementById('message-area').textContent = this.message;
             document.getElementById('message-area').style.visibility = 'visible';
             
@@ -879,81 +1091,64 @@
             this.animateCreditCount(winnings);
         }
         
-        // --- Hold Logic / Action Card Click Handler ---
+        // ⚡️ MODIFIED: Toggle Hold - only handles hold state ⚡️
         toggleHold(cardIndex) {
-            if (this.gameState === "ACTION_PHASE" && !this.activeEffect) {
+            if (this.gameState === "ACTION_PHASE") { 
                 this.heldCards[cardIndex] = !this.heldCards[cardIndex];
                 
                 const currentHandName = evaluateHand(this.playerHand);
                 
-                // **תיקון קריטי**: העלמת ההנחיה הראשית ב-message-area
-                document.getElementById('message-area').style.visibility = 'hidden';
-
-                // MODIFIED: Set secondary message based on action
-                document.getElementById('secondary-message-area').textContent = "Choose cards to hold or a Joker Card to activate its effect.";
-
+                document.getElementById('message-area').textContent = "Use a Joker Icon or click cards to HOLD."; 
                 document.getElementById('hand-status').textContent = currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)" ? currentHandName : '';
                 document.getElementById('hand-status').classList.toggle('winning-hand', currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)s");
                 
                 this.updateUI();
                 playSound('sound-hold');
-            } else if (this.activeEffect && cardIndex !== null) {
-                this.applyActionCardEffect(cardIndex);
             }
         }
         
-        // --- Action Card Selection Logic ---
-        selectActionCard(cardName) {
-            const card = this.actionCardsInHand.find(ac => ac.name === cardName);
-            if (!card || card.isUsed) return;
+        // ⚡️ NEW: Function to handle all three actions (one-click) ⚡️
+        useCardAction(cardIndex, actionType) {
+            if (this.gameState !== "ACTION_PHASE") return;
             
-            if (this.selectedActionCard && this.selectedActionCard.name === cardName) {
-                if (cardName === "mirror_hand") return;
-
-                this.selectedActionCard = null;
-                this.activeEffect = null;
-                this.actionCardUsedThisRound = false;
-                document.getElementById('secondary-message-area').textContent = "Joker Card deselected. Choose cards to hold or another Joker Card.";
-                this.updateUI();
-                playSound('sound-action-card');
-                return;
-            }
-
             if (this.actionCardUsedThisRound) {
-                document.getElementById('secondary-message-area').textContent = "You have already used a Joker Card this round.";
+                 document.getElementById('message-area').textContent = "Only one Joker per round is allowed.";
+                 this.updateUI();
+                 return;
+            }
+            
+            // Mirror Hand can only be used once per hand (upgrade/flush are per round)
+            if (actionType === 'mirror_hand' && this.actionCardsUsed[actionType]) {
+                document.getElementById('message-area').textContent = "Mirror Joker already used.";
                 this.updateUI();
                 return;
             }
 
-            this.selectedActionCard = card;
-            this.activeEffect = cardName;
+            // Set state and mark as used (before applying effect, in case it fails and needs rollback)
+            this.activeEffect = actionType;
             this.actionCardUsedThisRound = true;
-            
-            playSound('sound-action-card');
-            
-            document.getElementById('hand-status').textContent = '';
-            document.getElementById('hand-status').classList.remove('winning-hand');
+            this.actionCardsUsed[actionType] = true;
 
-            // **תיקון קריטי**: הסתרת הודעת ההנחיה הראשית ב-message-area
-            document.getElementById('message-area').style.visibility = 'hidden';
-
-            if (cardName === "mirror_hand") {
-                 this.applyActionCardEffect(null);
-            } else {
-                 document.getElementById('secondary-message-area').textContent = `Action: ${card.display} selected. Click a card to apply the effect.`;
-                 this.updateUI();
-            }
+            this.applyActionCardEffect(cardIndex);
         }
         
-        // --- Action Card Application Logic ---
+        // ⚡️ MODIFIED: Action Card Application Logic with FIX for immediate response ⚡️
         applyActionCardEffect(clickedCardIndex) {
             const hand = this.playerHand;
-            const cardToModify = hand[clickedCardIndex];
-            
             let cardModified = false;
-            
+            let cardToModify = clickedCardIndex !== null && clickedCardIndex !== undefined ? hand[clickedCardIndex] : null;
+
+            // Helper function for quick rollback
+            const rollback = (jokerType, message) => {
+                 this.actionCardUsedThisRound = false;
+                 this.actionCardsUsed[jokerType] = false;
+                 this.activeEffect = null;
+                 document.getElementById('message-area').textContent = message;
+                 this.updateUI(); 
+            };
+
             // 1. Logic for Mirror Hand
-            if (this.activeEffect === "mirror_hand" && clickedCardIndex === null) {
+            if (this.activeEffect === "mirror_hand") {
                 const cardsToModifyIndices = [];
 
                 for (let i = 0; i < hand.length; i++) {
@@ -977,40 +1172,42 @@
                     hand[change.index].rank = change.newRank;
                     hand[change.index].rankStr = hand[change.index].getRankStr();
                     cardModified = true;
-                    document.getElementById(`card-${change.index}`).classList.add('modified');
-                    setTimeout(() => {
-                         document.getElementById(`card-${change.index}`).classList.remove('modified');
-                    }, MODIFICATION_TIMEOUT);
+                    
+                    const cardEl = document.getElementById(`card-${change.index}`);
+                    if (cardEl) {
+                       cardEl.classList.add('modified');
+                       // FIX: הסרת הקלאס לאחר האנימציה, אך לא דוחים את ה-updateUI
+                       setTimeout(() => {
+                            cardEl.classList.remove('modified');
+                       }, MODIFICATION_TIMEOUT);
+                    }
                 });
-
-                document.getElementById('secondary-message-area').textContent = `Mirror Hand Activated! Upgraded ${cardsToModifyIndices.length} cards. Choose cards to HOLD.`;
-                this.endActionCardEffect();
-                return;
+                
+                document.getElementById('message-area').textContent = `Joker used. Click cards to HOLD or DRAW.`;
             }
 
             // 2. Logic for BOOSTER (Upgrade)
-            if (this.activeEffect === "upgrade") {
-                if (clickedCardIndex === null || clickedCardIndex === undefined) return;
+            else if (this.activeEffect === "upgrade" && cardToModify) {
                 
                 const newRank = cardToModify.rank + 1;
-                if (newRank > 14) { document.getElementById('secondary-message-area').textContent = "Cannot upgrade an Ace. Choose another card."; this.updateUI(); return; }
-                const tempSimulatedCard = new Card(cardToModify.suit, newRank);
-
-                if (cardExists(hand, tempSimulatedCard, clickedCardIndex)) {
-                    document.getElementById('secondary-message-area').textContent = `Cannot upgrade to duplicate (${tempSimulatedCard.rankStr} of ${tempSimulatedCard.suit}). Choose another card.`;
-                    this.updateUI();
-                    return;
+                
+                if (newRank > 14) { 
+                    rollback('upgrade', "Cannot upgrade an Ace. Choose another Joker/card."); 
+                    return; 
+                }
+                if (cardExists(hand, new Card(cardToModify.suit, newRank), clickedCardIndex)) {
+                    rollback('upgrade', 'Duplicate card. Choose another Joker/card.'); 
+                    return; 
                 }
 
                 cardToModify.rank = newRank;
                 cardToModify.rankStr = cardToModify.getRankStr();
-                document.getElementById('secondary-message-area').textContent = "Card Upgraded! Choose cards to HOLD.";
+                document.getElementById('message-area').textContent = "Joker used. Click cards to HOLD or DRAW.";
                 cardModified = true;
             }
             
             // 3. Logic for Flush Fever
-            if (this.activeEffect === "flush_fever") {
-                if (clickedCardIndex === null || clickedCardIndex === undefined) return;
+            else if (this.activeEffect === "flush_fever" && cardToModify) {
                 
                 const suitCounts = hand.reduce((counts, card) => {
                     counts.set(card.suit, (counts.get(card.suit) || 0) + 1);
@@ -1030,44 +1227,41 @@
                     const tempSimulatedCard = new Card(mostCommonSuit, cardToModify.rank);
 
                     if (cardExists(hand, tempSimulatedCard, clickedCardIndex)) {
-                        document.getElementById('secondary-message-area').textContent = `Cannot change to duplicate (${tempSimulatedCard.rankStr} of ${tempSimulatedCard.suit}). Choose another card.`;
-                        this.updateUI();
-                        return;
+                         rollback('flush_fever', 'Duplicate card. Choose another Joker/card.');
+                         return;
                     }
                     cardToModify.suit = mostCommonSuit;
-                    document.getElementById('secondary-message-area').textContent = "Suit changed! Choose cards to HOLD.";
-                    cardModified = true;
-                } else {
-                    document.getElementById('secondary-message-area').textContent = "No suit change needed. Choose cards to HOLD.";
                     cardModified = true;
                 }
+                document.getElementById('message-area').textContent = "Joker used. Click cards to HOLD or DRAW.";
             }
             
+            // ⚠️ FIX: Final Animation and Update Control (Mede Immediate) ⚠️
             if (cardModified) {
-                 this.endActionCardEffect();
-                 document.getElementById(`card-${clickedCardIndex}`).classList.add('modified');
-                 setTimeout(() => {
-                     document.getElementById(`card-${clickedCardIndex}`).classList.remove('modified');
-                 }, MODIFICATION_TIMEOUT);
-
+                 if (clickedCardIndex !== null && clickedCardIndex !== undefined) {
+                     document.getElementById(`card-${clickedCardIndex}`).classList.add('modified');
+                     // FIX: הסרת הקלאס לאחר האנימציה, אך לא דוחים את ה-updateUI
+                     const cardEl = document.getElementById(`card-${clickedCardIndex}`);
+                     if (cardEl) {
+                         setTimeout(() => {
+                             cardEl.classList.remove('modified');
+                         }, MODIFICATION_TIMEOUT);
+                     }
+                 }
                  playSound('sound-action-card');
-            }
+            } 
             
+            // Clear active effect state
+            this.activeEffect = null;
+            
+            // ⚡️ FIX: קריאה מיידית ל-updateUI ⚡️
+            this.updateUI();
+
             const currentHandName = evaluateHand(this.playerHand);
             document.getElementById('hand-status').textContent = currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)" ? currentHandName : '';
             document.getElementById('hand-status').classList.toggle('winning-hand', currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)s");
         }
 
-        endActionCardEffect() {
-            if (this.selectedActionCard) {
-                const originalCard = this.actionCardsInHand.find(ac => ac.name === this.selectedActionCard.name);
-                if (originalCard) originalCard.isUsed = true;
-            }
-            this.selectedActionCard = null;
-            this.activeEffect = null;
-            this.gameState = "ACTION_PHASE";
-            this.updateUI();
-        }
 
         // --- UI Rendering Logic ---
         updateUI() {
@@ -1077,37 +1271,32 @@
             document.getElementById('credits-stat').textContent = this.credits; 
             
             const messageArea = document.getElementById('message-area');
-            const secondaryMessageArea = document.getElementById('secondary-message-area');
 
             const actionButton = document.getElementById('action-button');
             
             if (this.gameState === "END_ROUND") {
                  actionButton.disabled = false;
                  actionButton.textContent = "NEW HAND";
-                 secondaryMessageArea.textContent = ""; /* Clear secondary message */
                  messageArea.textContent = this.message;
                  messageArea.style.visibility = 'visible';
             } else if (this.gameState === "DEAL") {
                  actionButton.disabled = false;
                  actionButton.textContent = "DEAL";
-                 secondaryMessageArea.textContent = "";
                  messageArea.textContent = "Click 'DEAL' to start.";
                  messageArea.style.visibility = 'visible';
+                 // ⚡️ FIX: איפוס/הסתרת סטטוס היד במצב DEAL ⚡️
+                 document.getElementById('hand-status').textContent = '';
+                 document.getElementById('hand-status').classList.remove('winning-hand');
             } else { // ACTION_PHASE
-                 actionButton.disabled = this.activeEffect;
+                 actionButton.disabled = false; // Always allow DRAW once in action phase
                  actionButton.textContent = "DRAW";
                  
-                 // MODIFIED: Display only Hand Name in hand-status
                  const currentHandName = evaluateHand(this.playerHand);
                  document.getElementById('hand-status').textContent = currentHandName !== "High Card" && currentHandName !== "Pair (Below Jacks)" ? currentHandName : '';
                  
-                 // MODIFIED: Show main instruction OR hide it if an action is taken
-                 if (this.selectedActionCard || this.heldCards.some(h => h)) {
-                    messageArea.style.visibility = 'hidden';
-                 } else {
-                    messageArea.textContent = "Choose a Joker Card or cards to HOLD.";
-                    messageArea.style.visibility = 'visible';
-                 }
+                 // Main instruction
+                 messageArea.textContent = "Use a Joker Icon or click cards to HOLD.";
+                 messageArea.style.visibility = 'visible';
             }
 
             // Update Payout Table Highlights (RESET and APPLY)
@@ -1120,19 +1309,36 @@
             });
 
 
-            // Update Cards and Hold Buttons
+            // ⚡️ MODIFIED SECTION: Card Rendering ⚡️
             const cardArea = document.getElementById('card-area');
+            cardArea.innerHTML = '';
             
-            // **תיקון קריטי**: לוודא שהקלפים נוצרים מחדש
-            if (this.playerHand.length === 0 || this.gameState === "DEAL") {
-                 cardArea.innerHTML = ''; // Clear only when dealing new hand
-            }
+            const dominantSuitSymbol = getDominantSuit(this.playerHand);
 
-            // **תיקון קריטי**: יצירת הקלפים רק אם הם חסרים
-            if (cardArea.children.length === 0 && this.playerHand.length > 0) {
-                 this.playerHand.forEach((card, index) => {
+            if (this.playerHand.length === 5) {
+                this.playerHand.forEach((card, index) => {
                     const slot = document.createElement('div');
                     slot.className = 'card-slot';
+
+                    // ⚡️ NEW: HOLD Indicator element ⚡️
+                    const holdIndicator = document.createElement('div');
+                    holdIndicator.className = 'hold-indicator';
+                    holdIndicator.textContent = 'HELD';
+                    if (this.heldCards[index]) holdIndicator.classList.add('held');
+                    slot.appendChild(holdIndicator);
+                    
+                    // --- ⚡️ NEW: BOOSTER ICON (Restored/Modified) ⚡️ ---
+                    const boosterIcon = document.createElement('button');
+                    boosterIcon.className = 'card-action-icon booster-icon';
+                    boosterIcon.textContent = '⬆️'; // Up arrow for BOOSTER
+                    boosterIcon.title = "BOOSTER JOKER (Upgrade Card)";
+                    boosterIcon.disabled = this.actionCardUsedThisRound;
+                    boosterIcon.onclick = (e) => {
+                         e.stopPropagation(); 
+                         this.useCardAction(index, 'upgrade');
+                    };
+                    slot.appendChild(boosterIcon);
+                    // --- ⚡️ END NEW ⚡️ ---
 
                     const cardDiv = document.createElement('div');
                     cardDiv.className = `card-image ${card.getColorClass()}`;
@@ -1149,99 +1355,84 @@
 
                     cardDiv.textContent = card.toString();
                     
-                    if (this.heldCards[index]) cardDiv.classList.add('held');
-                    
-                    cardDiv.onmouseover = (e) => {
-                        if (this.activeEffect && this.activeEffect !== 'mirror_hand') {
-                            this.showCardPreview(index, cardDiv);
-                        }
-                    };
-                    cardDiv.onmouseout = (e) => {
-                        this.hideCardPreview(cardDiv);
-                    };
-                    
                     cardDiv.onclick = () => this.toggleHold(index);
 
-                    const holdButton = document.createElement('button');
-                    holdButton.className = 'hold-button';
-                    holdButton.textContent = this.heldCards[index] ? "HELD" : "HOLD";
-                    holdButton.disabled = (this.gameState !== "ACTION_PHASE" || this.activeEffect);
-                    holdButton.onclick = () => this.toggleHold(index);
-                    if (this.heldCards[index]) holdButton.classList.add('held');
-
                     slot.appendChild(cardDiv);
-                    if (this.gameState === "ACTION_PHASE") {
-                        slot.appendChild(holdButton);
-                    }
+                    
+                    // --- ⚡️ NEW: FLUSH JOKER ICON (Restored/Modified) ⚡️ ---
+                    const flushIcon = document.createElement('button');
+                    flushIcon.className = 'card-action-icon flush-icon';
+                    flushIcon.title = "FLUSH JOKER (Match Common Suit)";
+                    flushIcon.disabled = this.actionCardUsedThisRound;
+                    
+                    const isRed = dominantSuitSymbol === '♥️' || dominantSuitSymbol === '♦️';
+                    flushIcon.innerHTML = `<span class="${isRed ? 'red-suit-symbol' : 'black-suit-symbol'}">${dominantSuitSymbol}</span>`;
+                    
+                    flushIcon.onclick = (e) => {
+                         e.stopPropagation(); 
+                         this.useCardAction(index, 'flush_fever');
+                    };
+                    slot.appendChild(flushIcon);
+                    // --- ⚡️ END NEW ⚡️ ---
+                    
                     cardArea.appendChild(slot);
                 });
-            } else {
-                 // **תיקון קריטי**: עדכון מצב ההחזקה/תמונה בלבד, אם הקלפים כבר ב-DOM
-                 this.playerHand.forEach((card, index) => {
-                    const cardDiv = document.getElementById(`card-${index}`);
-                    const holdButton = cardDiv ? cardDiv.nextElementSibling : null;
-
-                    if (cardDiv) {
-                        // עדכון תמונת הקלף לאחר DRAW או EFFECT
-                        cardDiv.style.backgroundImage = `url('${card.getImagePath()}')`;
-                        cardDiv.classList.toggle('held', this.heldCards[index]);
-                    }
-                    if (holdButton) {
-                        holdButton.textContent = this.heldCards[index] ? "HELD" : "HOLD";
-                        holdButton.classList.toggle('held', this.heldCards[index]);
-                        holdButton.disabled = (this.gameState !== "ACTION_PHASE" || this.activeEffect);
-                    }
-                });
             }
+            // ⚡️ END MODIFIED SECTION ⚡️
+
             
-            // Update Joker Cards
+            // Joker Card Display (Display Only - No inner icons/text)
             const actionContainer = document.getElementById('action-cards-container');
             actionContainer.innerHTML = '';
             
             const ACTION_CARD_IMAGE_PATH = 'Action_Cards/';
             
-            this.actionCardsInHand.forEach(ac => {
+            ACTION_CARD_DEFINITIONS.forEach(ac => {
                 const slot = document.createElement('div');
                 slot.className = 'action-card-slot';
-                if (ac.isUsed) slot.classList.add('used');
                 
-                // --- לוגיקת הכהייה ---
-                const isSelected = this.selectedActionCard && this.selectedActionCard.name === ac.name;
-                const isAnySelected = this.selectedActionCard !== null;
-                
-                if (isAnySelected && !isSelected) {
-                    slot.classList.add('dimmed');
-                }
-                if (isSelected) {
-                    slot.classList.add('selected');
-                }
-                
-                
+                if (this.actionCardsUsed[ac.name]) slot.classList.add('used');
+
                 const button = document.createElement('button');
                 button.className = 'action-card-button';
                 
-                // ודא שהתמונה מופיעה על ידי הסרת הטקסט אם התמונה נטענת
                 if (ac.filename) {
                      button.style.backgroundImage = `url('${ACTION_CARD_IMAGE_PATH}${ac.filename}')`;
-                     button.textContent = ''; // הסרת הטקסט להצגת התמונה
+                     button.textContent = ''; 
                 } else {
-                     button.textContent = ac.display; // פולבק טקסט אם אין שם קובץ
+                     button.textContent = ac.display; 
                 }
 
-
-                if (this.selectedActionCard && this.selectedActionCard.name === ac.name) button.classList.add('selected');
-
-                button.disabled = (ac.isUsed || this.actionCardUsedThisRound && !(this.selectedActionCard && this.selectedActionCard.name === ac.name));
-                
-                button.onclick = () => this.selectActionCard(ac.name);
+                button.disabled = true; // Make it non-functional
                 
                 slot.appendChild(button);
+                
+                // ⚠️ REMOVED: Display icon text below the image (as requested)
+                
                 actionContainer.appendChild(slot);
             });
-            
+
+            // Mirror Joker Button State
+            const mirrorButtonContainer = document.getElementById('mirror-joker-container');
+            if (mirrorButtonContainer) {
+                 // ⚡️ FIX: מציג את הכפתור רק במצב ACTION_PHASE ⚡️
+                 mirrorButtonContainer.style.visibility = this.gameState === "ACTION_PHASE" ? 'visible' : 'hidden';
+                 mirrorButtonContainer.style.height = this.gameState === "ACTION_PHASE" ? 'auto' : '0';
+
+                const actualButton = document.getElementById('mirror-joker-button');
+                if (actualButton) {
+                    actualButton.disabled = this.actionCardUsedThisRound;
+                    
+                    let text = `🔄 MIRROR JOKER`; 
+                    if (this.actionCardsUsed['mirror_hand']) {
+                        text += ' - USED';
+                    }
+                    actualButton.textContent = text;
+                }
+            }
         }
         
-        // Method to handle card preview on hover (No Change)
+        // Method to handle card preview on hover (Kept for compatibility, but not used by new icons)
         showCardPreview(index, cardEl) {
             const card = this.playerHand[index];
             const activeEffect = this.activeEffect;
@@ -1283,6 +1474,20 @@
 
     // Initialize the game when the script loads
     const game = new PokerGame();
+    
+    // Attach events for new global controls
+    document.addEventListener('DOMContentLoaded', () => {
+        const soundToggle = document.getElementById('sound-toggle');
+        const helpButton = document.getElementById('help-button');
+
+        if (soundToggle) {
+             soundToggle.onclick = toggleSound;
+        }
+        if (helpButton) {
+             helpButton.onclick = openHelpFile;
+        }
+    });
+
 </script>
 
 </body>

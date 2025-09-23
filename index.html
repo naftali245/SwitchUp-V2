@@ -326,13 +326,12 @@
         /* --- Joker Cards (Vertical, Top Left) - Display Only --- */
         #action-cards-container {
             position: absolute;
-            top: 130px; 
+            top: 80px;  /* הגבהה ב-5 ס"מ */
             left: 20px;
             display: flex;
             flex-direction: column; 
             justify-content: flex-start;
-            /* ⚡️ FIX: רווח אנכי 0px ⚡️ */
-            gap: 0px; 
+            gap: 5px; /* היה 0px - מעט רווח בין התמונות */
             padding: 0;
             width: 230px;
             z-index: 10;
@@ -344,15 +343,13 @@
              display: flex;
              flex-direction: column; 
              align-items: center; 
-             /* ⚡️ FIX: גודל מכולה מותאם לגודל החדש (209px גובה תמונה + 6px רווח) ⚡️ */
-             height: 215px; 
+             height: 255px; /* הוגדל ב-20% כדי להתאים לגודל החדש */
              gap: 0; 
         }
         
         .action-card-button {
-            /* ⚡️ FIX: גודל תמונה גדול (165px רוחב, 209px גובה) - הגדלה של 10% ⚡️ */
-            width: 165px; 
-            height: 209px; 
+            width: 198px; /* 20% יותר גדול */
+            height: 251px; /* 20% יותר גדול */
             background-color: transparent !important; 
             color: white;
             font-size: 1.5em; 
@@ -397,15 +394,72 @@
         }
 
         /* --- Company Logo Styling (Absolute Bottom Left) --- */
-        #company-logo {
+        /* הסרנו את הקוד של הלוגו בצד שמאל מכאן */
+
+        /* --- NEW: CSS for the logo --- */
+        .brightly-logo-container {
             position: absolute;
-            bottom: 15px; 
-            left: 35px;
-            font-size: 1.6em; 
-            letter-spacing: 2px;
-            color: #FFD700; 
-            text-shadow: 1px 1px 2px #000;
+            bottom: 20px;
+            right: 20px;
+            z-index: 11;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #FFD700; /* Gold color */
+            background-color: transparent; 
         }
+
+        .brightly-logo-icon {
+            display: block;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #FFD700 30%, transparent 30%); /* צהוב */
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            margin: 0 auto;
+        }
+
+        .brightly-logo-icon:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background-color: #CC0000; /* אדום כהה יותר */
+            border-radius: 50%;
+        }
+
+        .brightly-logo-icon::after {
+            content: 'B G'; /* Brightly Games */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8px;
+            font-weight: bold;
+            color: #FFD700; /* צהוב */
+            line-height: 1;
+        }
+
+        .brightly-logo-text h2 {
+            margin: 5px 0 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .brightly-logo-text h3 {
+            margin: 0;
+            font-size: 1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #CC0000; /* Red color */
+        }
+
 
         /* FIX: Hide text on card image (display only the image) */
         .card-image.has-image {
@@ -480,7 +534,7 @@
             }
             
             .action-card-icon-display {
-                font-size: 1.2em;
+                display: none; /* Removed from previous versions, kept for consistency */
             }
             
             /* --- Card Area: Center of screen --- */
@@ -557,11 +611,7 @@
             }
 
             /* --- Footer/Log: Position at absolute bottom/corner --- */
-            #company-logo {
-                position: static;
-                margin-top: 10px;
-                font-size: 1em;
-            }
+            /* הסרנו גם את החלק הזה מתוך ה-media query */
         }
         /* ======================================================= */
     </style>
@@ -576,6 +626,14 @@
         
         <div id="game-container">
             
+            <div class="brightly-logo-container">
+                <div class="brightly-logo-icon"></div>
+                <div class="brightly-logo-text">
+                    <h2>BRIGHTLY</h2>
+                    <h3>GAMES</h3>
+                </div>
+            </div>
+
             <h1>SWITCHUP POKER</h1>
             
             <div id="global-controls">
@@ -636,8 +694,6 @@
                 <button id="action-button" onclick="game.handleActionButton()">DEAL</button>
             </div>
             
-            <div id="company-logo">Brightly Games</div>
-
             </div>
         
     </div>

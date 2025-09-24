@@ -465,6 +465,73 @@
         .card-image.has-image {
             font-size: 0;
         }
+        
+        /* --- Pop-up styles --- */
+        #help-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        #help-modal > div {
+            position: relative;
+            background-color: #000080;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid gold;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: left;
+        }
+        #help-modal h2, #help-modal h4 {
+            color: #FFD700;
+        }
+        #help-modal ul {
+            padding-left: 20px;
+        }
+        #help-modal li {
+            margin-bottom: 8px;
+        }
+        #help-modal button {
+            background-color: #CC0000;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+            color: #FFD700;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            text-align: center;
+        }
+        .close-button:hover {
+            color: #fff;
+        }
 
         /* ======================================================= */
         /* --- MOBILE RESPONSIVENESS (BREAKPOINT: 1024px) --- */
@@ -622,6 +689,36 @@
     <audio id="sound-hold" src="SOUNDS/Button Click.mp3" preload="auto"></audio>
     <audio id="sound-win" src="SOUNDS/correct-choice.wav" preload="auto"></audio>
     <audio id="sound-action-card" src="SOUNDS/HELD.mp3" preload="auto"></audio>
+    
+    <div id="help-modal">
+        <div>
+            <button class="close-button" onclick="document.getElementById('help-modal').style.display = 'none';">X</button>
+            <h2>SwitchUp Poker - How to Play</h2>
+
+            <p>Your objective is to form the strongest possible 5-card poker hand and win credits based on the payout table.</p>
+            
+            <h4>Game Setup</h4>
+            <ul>
+                <li>The bet per hand is set automatically, along with an extra fee for accessing the Joker cards.</li>
+            </ul>
+            
+            <h4>Types of Jokers</h4>
+            <ul>
+                <li><b>BOOSTER JOKER</b>: Upgrades a selected card by one rank. Note that it cannot upgrade Aces or create a duplicate card in your hand.</li>
+                <li><b>FLUSH JOKER</b>: Changes the suit of a selected card to match the most common suit in your hand. If two suits are dominant, the one with the highest card is chosen.</li>
+                <li><b>MIRROR JOKER</b>: Converts low-value cards (2→A, 3→K, 4→Q) across your entire hand, as long as it doesn't create a duplicate.</li>
+            </ul>
+
+            <h4>Gameplay Flow</h4>
+            <p>1. Click **DEAL** to get your first 5 cards.</p>
+            <p>2. During the **Action Phase**, you can **Hold** cards by clicking on them or **use a Joker**. You can only use one Joker per round. To use the Booster or Flush Jokers, click their icons under the specific card. To use the Mirror Joker, click the green button below your cards.</p>
+            <p>3. Click **DRAW** to replace all non-held cards with new ones.</p>
+            <p>4. Your final hand is evaluated, and any winnings are added to your credits. Click **NEW HAND** to start a new round.</p>
+
+            <button onclick="document.getElementById('help-modal').style.display = 'none';" style="margin-top: 20px;">Close</button>
+        </div>
+    </div>
+
     <div id="main-container">
 
         <div id="game-container">
@@ -723,10 +820,7 @@
     }
 
     function openHelpFile() {
-        // הערה חשובה: בקוד HTML מקומי, הנתיב היחסי 'HOWTOPLAY.pdf' הוא הנכון.
-        // אם אתה מעלה את זה ל-GitHub Pages, נתיב זה אמור לעבוד גם כן,
-        // בתנאי שהקובץ נמצא באותה תיקייה.
-        window.open('HOWTOPLAY.pdf', '_blank');
+        document.getElementById('help-modal').style.display = 'flex';
     }
     // ----------------------------------------
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwitchUp Poker - Final Stable Strategy Mode</title>
+    <title>SwitchUp Poker - Mobile Optimized</title>
     <style>
         /* --- General Styling and Layout (DEEP NAVY BLUE) --- */
         body {
@@ -16,31 +16,31 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* Start content from the top */
             align-items: center;
         }
 
         #main-container {
             display: block;
-            max-width: 1400px;
-            margin: 20px auto;
-            width: 98%;
+            max-width: 100%; /* Full width on mobile */
+            margin: 0; /* Remove fixed margin */
+            width: 100%;
             padding: 0;
         }
 
-        /* --- Game Container: Single Unified Area --- */
+        /* --- Game Container: Single Unified Area (FLEX COLUMN FOR MOBILE) --- */
         #game-container {
             background-color: #000080; /* Navy Blue (Contrast) */
-            border-radius: 15px;
-            border: 4px solid #FFD700; /* Gold border */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            padding: 10px;
+            border-radius: 0; /* No border radius on small screen edge-to-edge */
+            border: none; /* Removed border */
+            box-shadow: none; /* Removed shadow */
+            padding: 10px 5px; /* Reduced padding */
             width: 100%;
             height: auto;
-            min-height: 90vh;
+            min-height: 100vh;
             position: relative;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Stacks elements vertically */
             align-items: center;
             justify-content: flex-start;
         }
@@ -48,32 +48,29 @@
         /* --- Title Styling (Top Center) --- */
         #game-container h1 {
             font-family: 'Georgia', serif;
-            font-size: 3.2em;
+            font-size: 2em; /* Reduced size for mobile */
             font-weight: 900;
-            letter-spacing: 5px;
-            margin-top: 0;
-            margin-bottom: 15px;
+            letter-spacing: 2px; /* Reduced spacing */
+            margin-top: 10px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-
             color: #FFD700;
             text-shadow:
-                -3px -3px 0 #8B0000,
-                 3px -3px 0 #8B0000,
-                -3px 3px 0 #8B0000,
-                 3px 3px 0 #8B0000,
-                 0 0 10px rgba(255, 255, 255, 0.7);
+                -2px -2px 0 #8B0000,
+                 2px -2px 0 #8B0000,
+                -2px 2px 0 #8B0000,
+                 2px 2px 0 #8B0000,
+                 0 0 5px rgba(255, 255, 255, 0.7);
         }
 
-        /* ⚡️ MODIFIED: Global Controls (Moved to Bottom Right) ⚡️ */
+        /* ⚡️ REFACTOR: Global Controls (Placed inline at the top) ⚡️ */
         #global-controls {
             position: absolute;
-            bottom: 20px; /* Aligned with the logo */
-            right: 150px; /* Moved next to the logo */
-            top: auto;
-            left: auto;
+            top: 10px;
+            right: 10px;
             z-index: 100;
             display: flex;
-            gap: 10px;
+            gap: 5px;
         }
 
         .control-icon {
@@ -81,9 +78,9 @@
             color: #FFD700;
             border: 2px solid #FFD700;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5em;
+            width: 30px; /* Smaller icon */
+            height: 30px;
+            font-size: 1.2em;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 0 2px rgba(0,0,0,0.5);
@@ -97,67 +94,73 @@
 
         /* ⚡️ NEW: Hint Controls Container (Near Draw Button) ⚡️ */
         #hint-controls-container {
-             position: absolute;
-             bottom: 120px; 
-             width: 100%;
+             position: static; /* No absolute position */
+             order: 5;
+             width: 95%;
+             margin: 10px auto;
              text-align: center;
              z-index: 100;
-             display: flex; /* Ensure the button is centered horizontally */
+             display: flex;
              justify-content: center;
-             pointer-events: none; /* Allows clicks to pass through if empty/hidden */
+             pointer-events: none;
         }
 
         #cancel-hint-button {
-            padding: 10px 25px; /* Bigger padding */
-            font-size: 1em; /* Larger text */
+            padding: 8px 15px; /* Smaller button */
+            font-size: 0.9em;
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.2s, box-shadow 0.2s;
-            border: 3px solid #FFD700; /* Gold border */
-            background-color: #CC0000; /* Red color */
-            box-shadow: 0 4px 0 #8B0000;
+            border: 2px solid #FFD700; /* Reduced border */
+            background-color: #CC0000;
+            box-shadow: 0 3px 0 #8B0000; /* Reduced shadow */
             color: #FFD700;
             
-            pointer-events: auto; /* Re-enable pointer events for the button itself */
+            pointer-events: auto;
         }
         
         #cancel-hint-button:hover {
-            background-color: #A00000; /* Darker red on hover */
-            box-shadow: 0 6px 0 #8B0000;
+            background-color: #A00000;
+            box-shadow: 0 4px 0 #8B0000;
         }
 
         #cancel-hint-button:active {
              box-shadow: 0 1px 0 #8B0000;
-             transform: translateY(3px);
+             transform: translateY(2px);
         }
 
 
-        /* --- Payout Table (Top Right) --- */
+        /* --- Payout Table (Top Right -> Below Title/Controls on Mobile) --- */
         #payout-container {
-            position: absolute;
-            top: 15px;
-            right: 5px;
+            position: static; /* No absolute position */
+            margin: 10px auto;
             background-color: #000050;
-            padding: 15px;
-            width: 250px;
+            padding: 10px;
+            width: 95%; /* Wider on mobile */
+            max-width: 400px;
             border-radius: 10px;
-            border: 3px solid #CC0000;
+            border: 2px solid #CC0000;
             z-index: 10;
+        }
+        
+        #payout-container h2 {
+             font-size: 1.2em;
+             margin-top: 0;
         }
 
         #payout-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 1.1em;
-            margin-top: 15px;
+            font-size: 0.9em; /* Smaller font */
+            margin-top: 10px;
         }
 
         #payout-table th {
-            padding: 8px 10px;
+            padding: 5px 8px;
             background-color: #8B0000;
             color: #FFD700;
-            border-bottom: 2px solid #FFD700;
+            border-bottom: 1px solid #FFD700;
         }
 
         #payout-table tr.highlight-win td {
@@ -170,19 +173,20 @@
         #stats-bar-local {
             display: flex;
             justify-content: space-around;
-            width: 70%;
+            width: 95%; /* Full width */
             max-width: 800px;
-            margin-bottom: 20px;
-            padding: 15px 0;
+            margin-bottom: 15px;
+            padding: 10px 0;
             background-color: #CC0000;
             border-radius: 5px;
             border: 2px solid #FFD700;
             color: #FFD700;
             font-family: 'Courier New', monospace;
+            font-size: 0.9em;
         }
 
         .stat-box {
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: bold;
             flex: 1;
             text-align: center;
@@ -191,35 +195,85 @@
         #credits-stat, #bet-stat, #winnings-stat {
             color: #FFFFFF;
             text-shadow: 0 0 3px #000;
-            font-size: 1.4em;
+            font-size: 1.2em;
             display: inline-block;
         }
 
-        /* --- Card Display Area (Below Stats) --- */
-        #card-area-wrapper {
-             width: 80%;
+        /* ⚡️ REFACTOR: Joker Cards (Moved to flow position) ⚡️ */
+        #action-cards-container {
+            position: static; /* No absolute position */
+            order: 1; /* Positioned after stats bar */
+            width: 100%;
+            display: flex;
+            flex-direction: row; /* Horizontal on mobile */
+            justify-content: center;
+            gap: 5px; /* Reduced gap */
+            margin-bottom: 10px;
+            padding: 0 5px;
+            z-index: 10;
+        }
+
+        .action-card-slot {
              display: flex;
              flex-direction: column;
              align-items: center;
-             justify-content: flex-start;
+             gap: 0; 
+        }
+        
+        .action-card-button {
+             background-color: transparent;
+             border: none;
+             padding: 0;
+             cursor: pointer;
+        }
 
-             /* ⚡️ FIX: Absolute position for max stability ⚡️ */
-             position: absolute; 
-             bottom: 120px; 
-             left: 50%;
-             transform: translateX(-50%);
-             
-             min-height: 400px; /* Ensures enough space for all elements */
-             margin: 0;
+        .action-card-image {
+            width: 80px; /* Significantly smaller joker image */
+            height: 100px;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            border: 3px solid transparent;
+            border-radius: 4px; /* Reduced border radius */
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+        
+        .action-card-slot.used .action-card-image {
+             border-color: #00CC00;
+             box-shadow: 0 0 5px #00CC00;
+        }
+        
+        .action-card-slot.pending .action-card-image {
+             border-color: #FFFF00;
+             box-shadow: 0 0 5px #FFFF00;
+        }
+        
+        .action-card-text {
+             display: none;
+        }
+
+
+        /* --- Card Display Area (Below Jokers) --- */
+        #card-area-wrapper {
+             /* ⚡️ REFACTOR: No absolute positioning ⚡️ */
+             position: static; 
+             order: 2; /* Below joker cards */
+             transform: none; 
+             width: 100%;
+             max-width: 600px; 
+             margin: 0 auto;
+             min-height: auto; 
+             padding: 0 5px;
+             box-sizing: border-box;
         }
 
         #card-area {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-between; /* Space out cards */
+            gap: 5px; /* Reduced gap */
             margin-bottom: 10px;
             width: 100%;
-            min-height: 220px;
+            min-height: auto;
         }
 
         .card-slot {
@@ -227,19 +281,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 5px; /* Reduced gap */
         }
 
-        /* ⚡️ NEW: HOLD Indicator above the card ⚡️ */
         .hold-indicator {
             position: absolute;
-            top: -30px;
+            top: -20px; /* Adjusted position */
             z-index: 10;
-            font-size: 1.2em;
+            font-size: 0.9em;
             font-weight: bold;
             color: #FFFF00;
             background-color: #CC0000;
-            padding: 2px 8px;
+            padding: 1px 5px;
             border-radius: 4px;
             border: 1px solid #FFD700;
             visibility: hidden;
@@ -255,41 +308,37 @@
         }
 
         .card-image {
-            width: 145px;
-            height: 205px;
+            width: 55px; /* Much smaller cards for mobile */
+            height: 77px;
             background-color: #fff;
-            border: 3px solid transparent;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            border: 2px solid transparent; /* Reduced border */
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
             cursor: pointer;
             position: relative;
             transition: border 0.2s, box-shadow 0.2s, opacity 0.2s;
         }
 
-        /* ⚡️ NEW: GLOW effect for one-tap upgrade (THE HINT) ⚡️ */
         .card-image.joker-glow {
-            border: 4px solid #00FF00; /* ירוק בוהק */
-            box-shadow: 0 0 15px #00FF00, 0 0 5px #00FF00 inset;
+            border: 3px solid #00FF00; /* Reduced border */
+            box-shadow: 0 0 10px #00FF00, 0 0 3px #00FF00 inset;
             animation: pulse-glow 1s infinite alternate;
         }
         
         @keyframes pulse-glow {
-          from { box-shadow: 0 0 15px #00FF00, 0 0 5px #00FF00 inset; }
-          to { box-shadow: 0 0 25px #FFFF00, 0 0 8px #FFFF00 inset; }
+          from { box-shadow: 0 0 10px #00FF00, 0 0 3px #00FF00 inset; }
+          to { box-shadow: 0 0 15px #FFFF00, 0 0 5px #FFFF00 inset; }
         }
 
-        /* Styling for successful modification (used briefly) */
         .card-image.modified {
-            border: 4px solid #FF00FF; /* מג'נטה להדגשת השינוי */
-            box-shadow: 0 0 15px #FF00FF; 
+            border: 3px solid #FF00FF;
+            box-shadow: 0 0 10px #FF00FF; 
         }
 
-        /* ⚡️ Highlight for manual selection mode ⚡️ */
         .card-image.selected-for-action {
-             border: 4px dashed #FFFF00;
+             border: 3px dashed #FFFF00;
              cursor: crosshair;
         }
         
-        /* ⚡️ Highlight for invalid manual selection mode ⚡️ */
         .card-image.joker-not-selectable {
             opacity: 0.5;
             cursor: not-allowed;
@@ -299,10 +348,9 @@
         #status-area-bottom {
             width: 100%;
             max-width: 750px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             padding: 5px 0;
-            /* FIX: Fixed height for absolute stability (70px total) */
-            height: 70px; 
+            height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -311,167 +359,108 @@
 
         /* ⚡️ MODIFIED: Message Area Text (Primary instruction) ⚡️ */
         #message-area {
-            font-size: 1.8em;
-            color: #FFFF00; /* צהוב זוהר */
+            font-size: 1.2em; /* Smaller message font */
+            color: #FFFF00; 
             font-weight: bold;
-            min-height: 30px;
+            min-height: 20px;
             margin-bottom: 0px; 
         }
 
         /* ⚡️ NEW: Hand Status Text (Moved to a fixed position under cards) ⚡️ */
         #hand-status-display {
-             position: absolute;
-             bottom: 40px; /* ⚡️ ADJUSTED UP to 40px ⚡️ */
+             position: static; /* No absolute position */
+             bottom: auto;
              left: 0;
              right: 0;
-             font-size: 1.4em;
-             color: #FFFFFF; /* White as requested */
+             margin-top: 5px;
+             font-size: 1.1em;
+             color: #FFFFFF;
              font-weight: bold;
              text-align: center;
-             z-index: 100; /* Ensure it stays above the DRAW button, if needed */
+             z-index: 100;
         }
         
-        /* ⚡️ MODIFIED: Joker Cards (Vertical, Top Left) - Returned as simple image slots ⚡️ */
-        #action-cards-container {
-            position: absolute;
-            top: 25px; /* Pushed up to fill the space */
-            left: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 15px; /* מרווח גדול יותר בין כפתורי הג'וקר */
-            padding: 0;
-            width: 230px;
-            z-index: 10;
-        }
-
-        .action-card-slot {
-             /* Changed back to button wrapper */
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             /* ⚡️ REMOVED TEXT GAP ⚡️ */
-             gap: 0; 
-        }
-        
-        .action-card-button {
-             /* New base style for clickable image containers */
-             background-color: transparent;
-             border: none;
-             padding: 0;
-             cursor: pointer;
-        }
-
-        .action-card-image {
-            width: 198px;
-            height: 251px;
-            background-size: contain !important;
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-            border: 3px solid transparent;
-            border-radius: 8px;
-            transition: border 0.3s, box-shadow 0.3s;
-        }
-        
-        /* ⚡️ NEW: Highlight used joker (green border) ⚡️ */
-        .action-card-slot.used .action-card-image {
-             border-color: #00CC00;
-             box-shadow: 0 0 10px #00CC00;
-        }
-        
-        /* ⚡️ NEW: Highlight PENDING joker (yellow border - indicates what is active) ⚡️ */
-        .action-card-slot.pending .action-card-image {
-             border-color: #FFFF00;
-             box-shadow: 0 0 10px #FFFF00;
-        }
-        
-        /* ⚡️ REMOVED: Text display (only space is left now) ⚡️ */
-        .action-card-text {
-             display: none;
-        }
-
-
         /* --- Control Buttons (Bottom Center) --- */
         #control-buttons {
-            width: 100%;
+            width: 95%;
             display: flex;
             justify-content: center;
-            position: absolute;
-            bottom: 60px;
+            position: static; /* No absolute position */
+            margin: 15px 0 30px 0; /* Margin for spacing in the flow */
         }
 
         #action-button {
-            padding: 20px 100px;
-            font-size: 1.7em;
-            border: 4px solid #FFD700;
+            padding: 15px 50px; /* Smaller button */
+            font-size: 1.5em;
+            border: 3px solid #FFD700; /* Reduced border */
             background-color: #CC0000;
             color: #FFD700;
             font-weight: bold;
-            box-shadow: 0 5px 0 #8B0000;
-            border-radius: 10px;
+            box-shadow: 0 4px 0 #8B0000; /* Reduced shadow */
+            border-radius: 8px;
             cursor: pointer;
         }
         
-        /* ⚡️ NEW: Auto Hold Button is removed - no longer needed ⚡️ */
         #auto-hold-button-container {
              display: none;
         }
 
-        /* FIX: Hide text on card image (display only the image) */
         .card-image.has-image {
             font-size: 0;
         }
         
-        /* ⚡️ MODIFIED: Company Logo Styling (Absolute Bottom Right - ABOVE CONTROLS) ⚡️ */
+        /* ⚡️ REFACTOR: Company Logo Styling (At the bottom) ⚡️ */
         .brightly-logo-container {
-            position: absolute;
-            bottom: 70px; /* Above the global controls */
-            right: 20px;
+            position: static; /* No absolute position */
+            bottom: auto;
+            right: auto;
             z-index: 11;
             font-family: Arial, sans-serif;
             text-align: center;
-            color: #FFD700; /* Gold color */
+            color: #FFD700;
             background-color: transparent;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
 
         .brightly-logo-icon {
             display: block;
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #FFD700 30%, transparent 30%); /* צהוב */
+            width: 40px; /* Smaller logo */
+            height: 40px;
+            background: radial-gradient(circle, #FFD700 30%, transparent 30%);
             border-radius: 50%;
             position: relative;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
             margin: 0 auto;
         }
-        /* ... (rest of logo styles remain the same) ... */
+
         .brightly-logo-icon:before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 30px;
-            height: 30px;
-            background-color: #CC0000; /* אדום כהה יותר */
+            width: 25px; /* Smaller inner circle */
+            height: 25px;
+            background-color: #CC0000;
             border-radius: 50%;
         }
 
         .brightly-logo-icon::after {
-            content: 'B G'; /* Brightly Games */
+            content: 'B G';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 8px;
+            font-size: 7px;
             font-weight: bold;
-            color: #FFD700; /* צהוב */
+            color: #FFD700;
             line-height: 1;
         }
 
         .brightly-logo-text h2 {
             margin: 5px 0 0;
-            font-size: 1.5em;
+            font-size: 1.2em;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -479,14 +468,14 @@
 
         .brightly-logo-text h3 {
             margin: 0;
-            font-size: 1em;
+            font-size: 0.8em;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #CC0000; /* Red color */
+            color: #CC0000;
         }
         
-        /* --- Pop-up styles (No change) --- */
+        /* --- Pop-up styles (Kept responsive) --- */
         #help-modal {
             display: none;
             position: fixed;
@@ -505,12 +494,222 @@
             padding: 20px;
             border-radius: 10px;
             border: 2px solid gold;
-            max-width: 600px;
-            max-height: 80vh;
+            max-width: 90%; 
+            max-height: 90vh;
             overflow-y: auto;
             color: white;
             font-family: Arial, sans-serif;
             text-align: left;
+        }
+
+        
+        /* -------------------------------------------------------- */
+        /* --- DESKTOP / LARGE SCREEN MEDIA QUERY (MIN-WIDTH 768px) --- */
+        /* -------------------------------------------------------- */
+        @media (min-width: 768px) {
+            body {
+                 justify-content: center;
+            }
+            #main-container {
+                max-width: 1400px;
+                margin: 20px auto;
+                width: 98%;
+            }
+            #game-container {
+                 border-radius: 15px;
+                 border: 4px solid #FFD700; 
+                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                 padding: 10px;
+                 width: 100%;
+                 min-height: 90vh;
+                 flex-direction: column; 
+                 position: relative;
+            }
+            
+            #game-container h1 {
+                font-size: 3.2em;
+                letter-spacing: 5px;
+                margin-top: 0;
+                margin-bottom: 15px;
+            }
+            
+            /* Revert Global Controls to original absolute position */
+            #global-controls {
+                position: absolute;
+                bottom: 20px; 
+                right: 150px; 
+                top: auto;
+                left: auto;
+                gap: 10px;
+            }
+            
+            .control-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5em;
+            }
+
+            /* Revert Payout Table to original absolute position */
+            #payout-container {
+                position: absolute;
+                top: 15px;
+                right: 5px;
+                width: 250px;
+                border: 3px solid #CC0000;
+                padding: 15px;
+                max-width: none;
+            }
+            
+            #payout-container h2 {
+                 font-size: 1.5em;
+            }
+            
+            #payout-table {
+                font-size: 1.1em;
+            }
+
+            #stats-bar-local {
+                width: 70%;
+                max-width: 800px;
+                padding: 15px 0;
+                margin-bottom: 20px;
+                font-size: 1.2em;
+            }
+
+            #credits-stat, #bet-stat, #winnings-stat {
+                font-size: 1.4em;
+            }
+
+            /* Revert Joker Cards to original absolute position */
+            #action-cards-container {
+                position: absolute;
+                top: 25px; 
+                left: 20px;
+                flex-direction: column;
+                gap: 15px;
+                width: 230px;
+                order: initial;
+            }
+            
+            .action-card-image {
+                width: 198px;
+                height: 251px;
+            }
+
+            /* Revert Card Area to original stable absolute position */
+            #card-area-wrapper {
+                 position: absolute; 
+                 bottom: 120px; 
+                 left: 50%;
+                 transform: translateX(-50%);
+                 min-height: 400px; 
+                 width: 80%;
+                 order: initial;
+                 margin: 0;
+            }
+            
+            #card-area {
+                gap: 20px;
+                justify-content: center;
+                min-height: 220px;
+            }
+
+            .card-image {
+                width: 145px;
+                height: 205px;
+                border-width: 3px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            }
+            
+            .hold-indicator {
+                top: -30px;
+                font-size: 1.2em;
+                padding: 2px 8px;
+            }
+            
+            #status-area-bottom {
+                width: 100%;
+                max-width: 750px;
+                height: 70px; 
+                margin-bottom: 10px;
+                order: initial;
+            }
+
+            #message-area {
+                font-size: 1.8em;
+                min-height: 30px;
+            }
+            
+            #hand-status-display {
+                 position: absolute;
+                 bottom: 40px;
+                 left: 0;
+                 right: 0;
+                 font-size: 1.4em;
+                 order: initial;
+            }
+            
+            #hint-controls-container {
+                 position: absolute;
+                 bottom: 120px; 
+                 width: 100%;
+                 order: initial;
+                 margin: 0;
+            }
+
+            #cancel-hint-button {
+                padding: 10px 25px;
+                font-size: 1em;
+                border-width: 3px;
+                box-shadow: 0 4px 0 #8B0000;
+            }
+
+
+            #control-buttons {
+                position: absolute;
+                bottom: 60px;
+                order: initial;
+                width: 100%;
+                margin: 0;
+            }
+            
+            #action-button {
+                padding: 20px 100px;
+                font-size: 1.7em;
+                border-width: 4px;
+                box-shadow: 0 5px 0 #8B0000;
+            }
+            
+            /* Revert Logo to original absolute position */
+            .brightly-logo-container {
+                position: absolute;
+                bottom: 70px;
+                right: 20px;
+                order: initial;
+                margin: 0;
+            }
+
+            .brightly-logo-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .brightly-logo-icon:before {
+                width: 30px;
+                height: 30px;
+            }
+
+            .brightly-logo-icon::after {
+                font-size: 8px;
+            }
+
+            .brightly-logo-text h2 {
+                font-size: 1.5em;
+            }
+    
+            .brightly-logo-text h3 {
+                font-size: 1em;
+            }
         }
     </style>
 </head>

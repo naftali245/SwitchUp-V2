@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwitchUp Poker - Final Stable Strategy Mode</title>
+    <title>SwitchUp Poker - Final Stable Strategy Mode (Desktop First + Mobile Support)</title>
     <style>
         /* --- General Styling and Layout (DEEP NAVY BLUE) --- */
         body {
@@ -28,7 +28,7 @@
             padding: 0;
         }
 
-        /* --- Game Container: Single Unified Area --- */
+        /* --- Game Container: Single Unified Area (Desktop Base) --- */
         #game-container {
             background-color: #000080; /* Navy Blue (Contrast) */
             border-radius: 15px;
@@ -38,8 +38,8 @@
             width: 100%;
             height: auto;
             min-height: 90vh;
-            position: relative;
-            display: flex;
+            position: relative; /* CRITICAL: Allows absolute positioning of children */
+            display: flex; /* Kept flex to align H1 and Stats Bar */
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
@@ -64,7 +64,7 @@
                  0 0 10px rgba(255, 255, 255, 0.7);
         }
 
-        /* ⚡️ MODIFIED: Global Controls (Moved to Bottom Right) ⚡️ */
+        /* ⚡️ DESKTOP: Global Controls (Absolute Position) ⚡️ */
         #global-controls {
             position: absolute;
             bottom: 20px; 
@@ -78,14 +78,14 @@
         }
 
         .control-icon {
+            /* (Styling for control-icon remains the same) */
             background-color: #CC0000;
             color: #FFD700;
             border: 2px solid #FFD700;
-            /* ⚡️ CHANGED: Base control-icon is now rectangular for all buttons ⚡️ */
             border-radius: 8px; 
             min-width: 40px; 
             height: 40px;
-            font-size: 0.9em; /* Keeping smaller font size for wider text to fit */
+            font-size: 0.9em; 
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 0 2px rgba(0,0,0,0.5);
@@ -94,15 +94,13 @@
             line-height: 40px; 
             text-transform: uppercase;
             letter-spacing: 1px;
-            /* ⚡️ CRITICAL FIX: Left align text and content ⚡️ */
             text-align: left; 
             display: flex;
             align-items: center;
             justify-content: flex-start; 
-            white-space: nowrap; /* Ensure text stays on one line */
+            white-space: nowrap; 
         }
 
-        /* ⚡️ NEW: Styling for Sound and Help icons (to keep them circular) ⚡️ */
         #sound-toggle, #help-button {
              width: 40px;
              min-width: 40px;
@@ -110,7 +108,6 @@
              font-size: 1.5em;
              padding: 0;
              line-height: 36px;
-             /* Override: center content for circular buttons */
              justify-content: center; 
              text-align: center;
         }
@@ -119,21 +116,19 @@
             background-color: #8B0000;
         }
 
-        /* ⚡️ NEW: AUTO HOLD Specific Styling ⚡️ */
         #auto-hold-toggle {
-            width: 150px; /* Wider for "AUTO HOLD ON/OFF" text */
+            width: 150px; 
         }
         
         #auto-hold-toggle.on {
-            background-color: #00CC00; /* Green ON */
-            color: #000050; /* Deep Navy text */
+            background-color: #00CC00; 
+            color: #000050; 
             border-color: #008000;
         }
 
-        /* ⚡️ NEW: OFF/Darkened state for Auto Hold ⚡️ */
         #auto-hold-toggle.off {
-            background-color: #800000; /* Darker Red/Maroon for 'closed' state */
-            color: #FFD700; /* Gold text */
+            background-color: #800000; 
+            color: #FFD700; 
             border-color: #500000;
         }
         
@@ -141,17 +136,15 @@
             background-color: #600000; 
         }
 
-        /* ⚡️ NEW/MODIFIED: CANCEL HINT Button Style ⚡️ */
         #cancel-hint-button {
-            /* Inherits control-icon base styling */
-            border: 2px solid #AAAAAA; /* Silver border */
-            background-color: #0050A0; /* Deep Royal Blue */
-            box-shadow: 0 4px 0 #003060; /* Darker blue shadow */
-            color: #FFFFFF; /* White/Silver text */
+            border: 2px solid #AAAAAA; 
+            background-color: #0050A0; 
+            box-shadow: 0 4px 0 #003060; 
+            color: #FFFFFF; 
             
-            padding: 0 10px; /* Reduced padding */
+            padding: 0 10px; 
             font-size: 0.9em; 
-            width: 130px; /* Adjusted width to fit shorter text */
+            width: 130px; 
         }
         
         #cancel-hint-button:hover {
@@ -164,7 +157,7 @@
              transform: translateY(3px);
         }
 
-        /* --- Payout Table (Top Right) --- */
+        /* ⚡️ DESKTOP: Payout Table (Absolute Position) ⚡️ */
         #payout-container {
             position: absolute;
             top: 15px;
@@ -226,21 +219,22 @@
             display: inline-block;
         }
 
-        /* --- Card Display Area (Below Stats) --- */
+        /* ⚡️ DESKTOP: Card Display Area (Absolute Position) ⚡️ */
         #card-area-wrapper {
              width: 80%;
+             max-width: 800px;
              display: flex;
              flex-direction: column;
              align-items: center;
              justify-content: flex-start;
 
-             /* ⚡️ FIX: Absolute position for max stability ⚡️ */
+             /* ⚡️ CRITICAL: Reverting to Absolute Positioning for Desktop ⚡️ */
              position: absolute; 
              bottom: 120px; 
              left: 50%;
              transform: translateX(-50%);
              
-             min-height: 400px; /* Ensures enough space for all elements */
+             min-height: 400px; 
              margin: 0;
         }
 
@@ -261,7 +255,6 @@
             gap: 15px;
         }
 
-        /* ⚡️ NEW: HOLD Indicator above the card ⚡️ */
         .hold-indicator {
             position: absolute;
             top: -30px;
@@ -296,9 +289,8 @@
             transition: border 0.2s, box-shadow 0.2s, opacity 0.2s;
         }
 
-        /* ⚡️ NEW: GLOW effect for one-tap upgrade (THE HINT) ⚡️ */
         .card-image.joker-glow {
-            border: 4px solid #00FF00; /* ירוק בוהק */
+            border: 4px solid #00FF00; 
             box-shadow: 0 0 15px #00FF00, 0 0 5px #00FF00 inset;
             animation: pulse-glow 1s infinite alternate;
         }
@@ -308,31 +300,27 @@
           to { box-shadow: 0 0 25px #FFFF00, 0 0 8px #FFFF00 inset; }
         }
 
-        /* Styling for successful modification (used briefly) */
         .card-image.modified {
-            border: 4px solid #FF00FF; /* מג'נטה להדגשת השינוי */
+            border: 4px solid #FF00FF; 
             box-shadow: 0 0 15px #FF00FF; 
         }
 
-        /* ⚡️ Highlight for manual selection mode ⚡️ */
         .card-image.selected-for-action {
              border: 4px dashed #FFFF00;
              cursor: crosshair;
         }
         
-        /* ⚡️ Highlight for invalid manual selection mode ⚡️ */
         .card-image.joker-not-selectable {
             opacity: 0.5;
             cursor: not-allowed;
         }
         
-        /* ⚡️ FIX 2: Pinning the Status Area relative to the Card Wrapper ⚡️ */
+        /* ⚡️ DESKTOP: Status Area (Absolute Position relative to Card Wrapper) ⚡️ */
         #status-area-bottom {
             width: 100%;
             max-width: 750px;
             margin-bottom: 10px;
             padding: 5px 0;
-            /* FIX: Fixed height for absolute stability (70px total) */
             height: 70px; 
             display: flex;
             flex-direction: column;
@@ -340,53 +328,49 @@
             align-items: center;
         }
 
-        /* ⚡️ MODIFIED: Message Area Text (Primary instruction) ⚡️ */
         #message-area {
             font-size: 1.8em;
-            color: #FFFF00; /* צהוב זוהר */
+            color: #FFFF00; 
             font-weight: bold;
             min-height: 30px;
             margin-bottom: 0px; 
         }
 
-        /* ⚡️ NEW: Hand Status Text (Moved to a fixed position under cards) ⚡️ */
+        /* ⚡️ DESKTOP: Hand Status Text (Absolute Position) ⚡️ */
         #hand-status-display {
              position: absolute;
-             bottom: 40px; /* ⚡️ ADJUSTED UP to 40px ⚡️ */
+             bottom: 40px; 
              left: 0;
              right: 0;
              font-size: 1.4em;
-             color: #FFFFFF; /* White as requested */
+             color: #FFFFFF; 
              font-weight: bold;
              text-align: center;
-             z-index: 100; /* Ensure it stays above the DRAW button, if needed */
+             z-index: 100; 
         }
         
-        /* ⚡️ MODIFIED: Joker Cards (Vertical, Top Left) - Returned as simple image slots ⚡️ */
+        /* ⚡️ DESKTOP: Joker Cards (Absolute Position) ⚡️ */
         #action-cards-container {
             position: absolute;
-            top: 25px; /* Pushed up to fill the space */
+            top: 25px; 
             left: 20px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            gap: 15px; /* מרווח גדול יותר בין כפתורי הג'וקר */
+            gap: 15px; 
             padding: 0;
             width: 230px;
             z-index: 10;
         }
 
         .action-card-slot {
-             /* Changed back to button wrapper */
              display: flex;
              flex-direction: column;
              align-items: center;
-             /* ⚡️ REMOVED TEXT GAP ⚡️ */
              gap: 0; 
         }
         
         .action-card-button {
-             /* New base style for clickable image containers */
              background-color: transparent;
              border: none;
              padding: 0;
@@ -404,25 +388,22 @@
             transition: border 0.3s, box-shadow 0.3s;
         }
         
-        /* ⚡️ NEW: Highlight used joker (green border) ⚡️ */
         .action-card-slot.used .action-card-image {
              border-color: #00CC00;
              box-shadow: 0 0 10px #00CC00;
         }
         
-        /* ⚡️ NEW: Highlight PENDING joker (yellow border - indicates what is active) ⚡️ */
         .action-card-slot.pending .action-card-image {
              border-color: #FFFF00;
              box-shadow: 0 0 10px #FFFF00;
         }
         
-        /* ⚡️ REMOVED: Text display (only space is left now) ⚡️ */
         .action-card-text {
              display: none;
         }
 
 
-        /* --- Control Buttons (Bottom Center) --- */
+        /* ⚡️ DESKTOP: Control Buttons (Absolute Position) ⚡️ */
         #control-buttons {
             width: 100%;
             display: flex;
@@ -443,80 +424,133 @@
             cursor: pointer;
         }
         
-        /* ⚡️ NEW: Auto Hold Button is removed - no longer needed ⚡️ */
         #auto-hold-button-container {
              display: none;
         }
 
-        /* FIX: Hide text on card image (display only the image) */
         .card-image.has-image {
             font-size: 0;
         }
         
-        /* ⚡️ MODIFIED: Company Logo Styling (Absolute Bottom Right - ABOVE CONTROLS) ⚡️ */
+        /* ⚡️ DESKTOP: Company Logo Styling (Absolute Position) ⚡️ */
         .brightly-logo-container {
-            bottom: 170px; /* ⚡️ ADJUSTED UP: Elevated logo clearly above controls and hint button ⚡️ */
-            right: 15px; /* ⚡️ ADJUSTED: Moved Logo to the far right ⚡️ */
+            bottom: 170px; 
+            right: 15px; 
             z-index: 11;
             font-family: Arial, sans-serif;
             text-align: center;
-            color: #FFD700; /* Gold color */
+            color: #FFD700; 
             background-color: transparent;
-            position: absolute; /* Kept absolute for position */
+            position: absolute; 
+        }
+        /* ... (rest of logo styles remain the same for Desktop) ... */
+
+        /* --- NEW: Media Query for Mobile (Screen width up to 600px) --- */
+        @media (max-width: 600px) {
+            
+            #game-container {
+                min-height: 100vh;
+                /* Overriding desktop's justify-content: flex-start with space-between for mobile */
+                justify-content: space-between; 
+            }
+
+            /* ⚡️ MOBILE: Revert everything to static/flex flow to stack elements ⚡️ */
+            
+            #payout-container {
+                position: static;
+                width: 95%;
+                max-width: 400px;
+                margin: 10px auto;
+                order: 4; /* Place payout near the bottom */
+            }
+
+            #action-cards-container {
+                position: static;
+                flex-direction: row; /* Layout jokers horizontally */
+                justify-content: center;
+                width: 95%;
+                max-width: 800px;
+                margin: 10px auto;
+                gap: 5px;
+                order: 2; /* Place jokers below the stats bar */
+            }
+
+            .action-card-image {
+                width: 80px; /* Make joker cards smaller */
+                height: 102px;
+            }
+
+            #card-area-wrapper {
+                 position: static;
+                 transform: none;
+                 width: 95%;
+                 margin: 10px auto;
+                 flex-grow: 1;
+                 order: 3; /* Place card area below jokers */
+            }
+            
+            #card-area {
+                gap: 5px; /* Smaller gap for mobile cards */
+            }
+
+            .card-image {
+                width: 60px; /* Make playing cards much smaller */
+                height: 85px;
+                max-width: none;
+            }
+
+            /* ⚡️ Adjust text sizes and messages for smaller screens ⚡️ */
+            #game-container h1 {
+                font-size: 1.8em;
+                letter-spacing: 1px;
+            }
+
+            #stats-bar-local {
+                width: 95%;
+                font-size: 0.8em;
+                margin-bottom: 10px;
+            }
+
+            #message-area {
+                font-size: 1.4em;
+                min-height: 25px;
+            }
+
+            #hand-status-display {
+                position: static; /* Revert to flow */
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+
+            #control-buttons {
+                position: static; /* Revert to flow */
+                margin: 15px 0;
+                order: 5; /* Place action button at the very bottom */
+            }
+            
+            #action-button {
+                padding: 15px 50px;
+                font-size: 1.5em;
+            }
+
+            #global-controls {
+                /* Move controls to the top right on mobile */
+                top: 10px;
+                right: 10px;
+                bottom: auto;
+                gap: 5px;
+                transform: scale(0.8);
+                transform-origin: top right;
+                order: 1;
+            }
+            
+            .brightly-logo-container {
+                /* Hide the logo on small screens to save space */
+                display: none;
+            }
+
         }
 
-        .brightly-logo-icon {
-            display: block;
-            width: 50px;
-            height: 50px;
-            background: radial-gradient(circle, #FFD700 30%, transparent 30%); /* צהוב */
-            border-radius: 50%;
-            position: relative;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-            margin: 0 auto;
-        }
-        /* ... (rest of logo styles remain the same) ... */
-        .brightly-logo-icon:before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 30px;
-            height: 30px;
-            background-color: #CC0000; /* אדום כהה יותר */
-            border-radius: 50%;
-        }
-
-        .brightly-logo-icon::after {
-            content: 'B G'; /* Brightly Games */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 8px;
-            font-weight: bold;
-            color: #FFD700; /* צהוב */
-            line-height: 1;
-        }
-
-        .brightly-logo-text h2 {
-            margin: 5px 0 0;
-            font-size: 1.5em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .brightly-logo-text h3 {
-            margin: 0;
-            font-size: 1em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #CC0000; /* Red color */
-        }
-        
         /* --- Pop-up styles (No change) --- */
         #help-modal {
             display: none;
@@ -574,7 +608,7 @@
             <p>4. Your final hand is evaluated for payout.</p>
             
             <h4>GAME CONTROLS (BOTTOM RIGHT)</h4>
-            <p>You can control the automated features using the bottom right buttons:</p>
+            <p>You can control the automated features using the bottom right buttons (or top right on mobile):</p>
             <ul>
                 <li>**AUTO HOLD (Red/Green):** Toggles the automatic strategy. 
                     <ul>

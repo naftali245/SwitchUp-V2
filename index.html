@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwitchUp Poker - Final Stable Strategy Mode (Desktop First + Mobile Support)</title>
+    <title>SwitchUp Poker - Landscape Mobile Optimized (No Payouts)</title>
     <style>
         /* --- General Styling and Layout (DEEP NAVY BLUE) --- */
         body {
@@ -23,7 +23,7 @@
         #main-container {
             display: block;
             max-width: 1400px;
-            margin: 20px auto;
+            margin: 0 auto;
             width: 98%;
             padding: 0;
         }
@@ -38,8 +38,8 @@
             width: 100%;
             height: auto;
             min-height: 90vh;
-            position: relative; /* CRITICAL: Allows absolute positioning of children */
-            display: flex; /* Kept flex to align H1 and Stats Bar */
+            position: relative; 
+            display: flex; 
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
@@ -78,7 +78,6 @@
         }
 
         .control-icon {
-            /* (Styling for control-icon remains the same) */
             background-color: #CC0000;
             color: #FFD700;
             border: 2px solid #FFD700;
@@ -157,6 +156,45 @@
              transform: translateY(3px);
         }
 
+        /* NEW: Text Toggle Button (Desktop Position) ⚡️ */
+        #text-toggle {
+            position: absolute;
+            bottom: 20px; 
+            left: 200px; 
+            z-index: 100;
+            width: 130px;
+            border-radius: 8px; 
+            min-width: 40px; 
+            height: 40px;
+            font-size: 0.9em; 
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 2px rgba(0,0,0,0.5);
+            transition: background-color 0.2s;
+            padding: 0 10px;
+            line-height: 40px; 
+            text-transform: uppercase;
+            text-align: center;
+        }
+        #text-toggle.off {
+            background-color: #008000; 
+            color: #FFF; 
+            border-color: #00FF00;
+        }
+        #text-toggle.on {
+            background-color: #8B0000; 
+            color: #FFD700;
+            border-color: #CC0000;
+        }
+        #message-area.hidden {
+            visibility: hidden;
+            min-height: 0;
+            height: 0;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+
         /* ⚡️ DESKTOP: Payout Table (Absolute Position) ⚡️ */
         #payout-container {
             position: absolute;
@@ -223,19 +261,16 @@
         #card-area-wrapper {
              width: 80%;
              max-width: 800px;
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             justify-content: flex-start;
-
-             /* ⚡️ CRITICAL: Reverting to Absolute Positioning for Desktop ⚡️ */
              position: absolute; 
              bottom: 120px; 
              left: 50%;
              transform: translateX(-50%);
-             
              min-height: 400px; 
              margin: 0;
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             justify-content: flex-start;
         }
 
         #card-area {
@@ -434,121 +469,291 @@
         
         /* ⚡️ DESKTOP: Company Logo Styling (Absolute Position) ⚡️ */
         .brightly-logo-container {
-            bottom: 170px; 
-            right: 15px; 
+            bottom: 20px; 
+            left: 20px; 
+            right: auto;
+            top: auto;
+
             z-index: 11;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial Black', sans-serif;
             text-align: center;
-            color: #FFD700; 
-            background-color: transparent;
+            background-color: transparent; 
+            
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 130px; 
+            height: 60px;
             position: absolute; 
+            padding: 0; 
+            line-height: 0.9;
+            box-shadow: none;
         }
-        /* ... (rest of logo styles remain the same for Desktop) ... */
+
+        .logo-text-brightly {
+            font-weight: 900;
+            color: #FFFFFF; 
+            text-shadow: 
+                -1px -1px 0 #000,
+                 1px -1px 0 #000,
+                -1px 1px 0 #000,
+                 1px 1px 0 #000; 
+            letter-spacing: 1.5px;
+            margin: 0; 
+            font-size: 1.5em; 
+            text-transform: uppercase;
+        }
+
+        .logo-text-games {
+            font-weight: 900;
+            color: #FFFFFF; 
+            text-shadow: 
+                -1px -1px 0 #000,
+                 1px -1px 0 #000,
+                -1px 1px 0 #000,
+                 1px 1px 0 #000; 
+            letter-spacing: 1px;
+            margin: 0; 
+            font-size: 1em; 
+            text-transform: uppercase;
+        }
+        
+        /* ⚡️ NEW: Text Toggle Button (Desktop Position) ⚡️ */
+        #text-toggle {
+            position: absolute;
+            bottom: 20px; 
+            left: 200px; 
+            z-index: 100;
+            width: 130px;
+            border-radius: 8px; 
+            min-width: 40px; 
+            height: 40px;
+            font-size: 0.9em; 
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 2px rgba(0,0,0,0.5);
+            transition: background-color 0.2s;
+            padding: 0 10px;
+            line-height: 40px; 
+            text-transform: uppercase;
+            text-align: center;
+        }
+        #text-toggle.off {
+            background-color: #008000; 
+            color: #FFF; 
+            border-color: #00FF00;
+        }
+        #text-toggle.on {
+            background-color: #8B0000; 
+            color: #FFD700;
+            border-color: #CC0000;
+        }
+        #message-area.hidden {
+            visibility: hidden;
+            min-height: 0;
+            height: 0;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
 
         /* --- NEW: Media Query for Mobile (Screen width up to 600px) --- */
         @media (max-width: 600px) {
             
             #game-container {
                 min-height: 100vh;
-                /* Overriding desktop's justify-content: flex-start with space-between for mobile */
                 justify-content: space-between; 
+                padding-top: 5px;
             }
 
-            /* ⚡️ MOBILE: Revert everything to static/flex flow to stack elements ⚡️ */
-            
+            /* 🔴 ביטול תצוגת טבלת התשלומים במובייל (למטרת חיסכון במקום) */
             #payout-container {
-                position: static;
-                width: 95%;
-                max-width: 400px;
-                margin: 10px auto;
-                order: 4; /* Place payout near the bottom */
+                display: none !important; 
             }
 
             #action-cards-container {
                 position: static;
-                flex-direction: row; /* Layout jokers horizontally */
+                flex-direction: row; 
                 justify-content: center;
                 width: 95%;
                 max-width: 800px;
-                margin: 10px auto;
+                margin: 5px auto; 
                 gap: 5px;
-                order: 2; /* Place jokers below the stats bar */
+                order: 2; 
             }
 
             .action-card-image {
-                width: 80px; /* Make joker cards smaller */
-                height: 102px;
+                width: 70px; 
+                height: 90px;
             }
 
             #card-area-wrapper {
                  position: static;
                  transform: none;
-                 width: 95%;
-                 margin: 10px auto;
+                 width: 98%;
+                 margin: 5px auto; 
                  flex-grow: 1;
-                 order: 3; /* Place card area below jokers */
+                 order: 3; 
+                 min-height: 300px;
             }
             
             #card-area {
-                gap: 5px; /* Smaller gap for mobile cards */
+                gap: 5px; 
             }
 
             .card-image {
-                width: 60px; /* Make playing cards much smaller */
-                height: 85px;
+                width: 65px; 
+                height: 95px;
                 max-width: none;
             }
 
-            /* ⚡️ Adjust text sizes and messages for smaller screens ⚡️ */
             #game-container h1 {
-                font-size: 1.8em;
+                font-size: 1.6em;
                 letter-spacing: 1px;
+                margin-top: 5px;
             }
 
             #stats-bar-local {
-                width: 95%;
+                width: 98%;
                 font-size: 0.8em;
-                margin-bottom: 10px;
+                margin-bottom: 5px;
             }
 
             #message-area {
-                font-size: 1.4em;
-                min-height: 25px;
+                font-size: 1.3em;
+                min-height: 20px;
             }
 
             #hand-status-display {
-                position: static; /* Revert to flow */
-                font-size: 1.2em;
-                margin-bottom: 10px;
+                position: static; 
+                font-size: 1.1em;
+                margin-bottom: 5px;
             }
 
             #control-buttons {
-                position: static; /* Revert to flow */
-                margin: 15px 0;
-                order: 5; /* Place action button at the very bottom */
+                position: static; 
+                margin: 10px 0; 
+                order: 5; 
             }
             
             #action-button {
-                padding: 15px 50px;
-                font-size: 1.5em;
+                padding: 10px 40px;
+                font-size: 1.4em;
             }
 
+            /* 🔴 מיקום חדש וגודל של כפתורי השליטה הגלובליים (Fixed למעלה) */
             #global-controls {
-                /* Move controls to the top right on mobile */
-                top: 10px;
-                right: 10px;
-                bottom: auto;
-                gap: 5px;
-                transform: scale(0.8);
-                transform-origin: top right;
-                order: 1;
+                 position: fixed; 
+                 top: 5px; 
+                 right: 5px;
+                 bottom: auto;
+                 left: auto;
+                 gap: 5px;
+                 z-index: 200; 
+                 flex-direction: row;
             }
             
-            .brightly-logo-container {
-                /* Hide the logo on small screens to save space */
-                display: none;
+            .control-icon {
+                min-width: 35px;
+                height: 35px;
+                font-size: 0.8em;
+                padding: 0 5px;
+                line-height: 35px;
+            }
+            
+            #sound-toggle, #help-button {
+                 width: 35px;
+                 min-width: 35px;
+                 line-height: 31px;
+                 font-size: 1.3em;
+            }
+            
+            #auto-hold-toggle, #cancel-hint-button {
+                 width: 100px;
+                 font-size: 0.75em;
             }
 
+            /* 🔴 מיקום חדש לכפתור הטקסט (Fixed למעלה שמאל) */
+            #text-toggle {
+                position: fixed;
+                top: 5px; 
+                left: 5px; 
+                bottom: auto;
+                right: auto;
+                width: 100px;
+                z-index: 200; 
+            }
+
+            .brightly-logo-container {
+                display: none !important;
+            }
+
+        }
+
+        /* ⚡️ NEW: Media Query for Landscape Mobile (Height restriction, e.g., max 450px) ⚡️ */
+        @media (max-height: 450px) and (max-width: 900px) {
+            
+            /* 1. כיווץ כללי */
+            #game-container {
+                min-height: 98vh;
+                padding: 2px;
+            }
+
+            /* 2. כותרת סטטיסטיקה */
+            #game-container h1 {
+                font-size: 1.4em;
+                margin-bottom: 5px;
+            }
+            
+            #stats-bar-local {
+                padding: 5px 0;
+                margin-bottom: 5px;
+                font-size: 0.7em;
+            }
+
+            /* 3. קלפי פעולה (ג'וקרים) */
+            #action-cards-container {
+                margin: 2px auto;
+                gap: 3px;
+            }
+            
+            .action-card-image {
+                width: 60px; 
+                height: 78px;
+            }
+
+            /* 4. קלפי המשחק */
+            #card-area-wrapper {
+                min-height: 200px;
+                margin: 5px auto;
+                padding: 0;
+            }
+            
+            .card-image {
+                width: 60px; 
+                height: 85px;
+            }
+
+            /* 5. הודעות וכפתורים */
+            #message-area {
+                font-size: 1.2em;
+                min-height: 15px;
+            }
+            
+            #hand-status-display {
+                font-size: 1em;
+                margin-bottom: 5px;
+            }
+
+            #control-buttons {
+                margin: 5px 0;
+            }
+            
+            #action-button {
+                padding: 8px 30px;
+                font-size: 1.3em;
+            }
         }
 
         /* --- Pop-up styles (No change) --- */
@@ -612,12 +817,13 @@
             <ul>
                 <li>**AUTO HOLD (Red/Green):** Toggles the automatic strategy. 
                     <ul>
-                        <li>**GREEN (ON):** Automatically applies the optimal holds once a Joker is used or the hint is cancelled.</li>
+                        <li>**GREEN (ON)::** Automatically applies the optimal holds once a Joker is used or the hint is cancelled.</li>
                         <li>**RED (OFF):** You must select all cards to hold manually. (Default state).</li>
                     </ul>
                 </li>
                 <li>**CANCEL UPGRADE HINT:** Instantly clears the green 'best move' glow hint, allowing you to manually select your holds or apply a different Joker.</li>
                 <li>**🔊/🔇:** Toggle sound effects.</li>
+                <li>**TEXT ON/OFF:** Toggles the messages displayed below the cards to keep the screen cleaner.</li>
             </ul>
 
 
@@ -630,11 +836,8 @@
         <div id="game-container">
 
             <div class="brightly-logo-container">
-                <div class="brightly-logo-icon"></div>
-                <div class="brightly-logo-text">
-                    <h2>BRIGHTLY</h2>
-                    <h3>GAMES</h3>
-                </div>
+                <div class="logo-text-brightly">BRIGHTLY</div>
+                <div class="logo-text-games">GAMES</div>
             </div>
 
             <h1>SWITCHUP POKER</h1>
@@ -647,6 +850,9 @@
                 <button id="sound-toggle" class="control-icon" title="Toggle Sound">🔊</button>
                 <button id="help-button" class="control-icon" title="Game Help">?</button>
             </div>
+            
+            <button id="text-toggle" class="control-icon on" title="Toggle Text Messages" onclick="game.toggleTextDisplay()">HIDE TEXT</button>
+
 
             <div id="stats-bar-local">
                 <div class="stat-box">Credits: <span id="credits-stat">500</span></div>
@@ -682,7 +888,7 @@
 
             <div id="card-area-wrapper">
                 <div id="status-area-bottom">
-                    <div id="message-area">Click 'DEAL' to start.</div>
+                    <div id="message-area">Click DEAL.</div>
                 </div>
 
                 <div id="card-area">
@@ -993,11 +1199,56 @@
             
             // ⚡️ FIXED: Auto Hold starts OFF (Red) ⚡️
             this.isAutoHoldOn = false; // ⚡️ Default is OFF (Red) ⚡️
+            this.isTextHidden = false; // Default is ON (Text visible)
 
-            this.message = `Click 'DEAL' to start.`;
+            this.message = `Click DEAL.`;
 
             this.updateUI();
         }
+
+        // ⚡️ NEW: Helper to safely set message based on text display state ⚡️
+        setMessage(newMessage, isCritical = false) {
+             if (this.isTextHidden && !isCritical) {
+                 this.message = '';
+             } else {
+                 this.message = newMessage;
+             }
+        }
+        
+        // ⚡️ NEW: Toggles the visibility of messages in #message-area
+        toggleTextDisplay() {
+            this.isTextHidden = !this.isTextHidden;
+            const messageAreaEl = document.getElementById('message-area');
+            const textToggleEl = document.getElementById('text-toggle');
+
+            if (this.isTextHidden) {
+                messageAreaEl.classList.add('hidden');
+                textToggleEl.classList.remove('on');
+                textToggleEl.classList.add('off');
+                textToggleEl.textContent = 'SHOW TEXT'; // Show text when button is GREEN/OFF
+                this.setMessage('');
+            } else {
+                messageAreaEl.classList.remove('hidden');
+                textToggleEl.classList.remove('off');
+                textToggleEl.classList.add('on');
+                textToggleEl.textContent = 'HIDE TEXT'; // Hide text when button is RED/ON
+                
+                // Restore the appropriate message based on current game state
+                if (this.gameState === "DEAL" || this.gameState === "END_ROUND") {
+                     this.setMessage(`Click NEW HAND.`);
+                } else if (this.gameState === "ACTION_PHASE") {
+                     if (this.activeManualJoker) {
+                         this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`); // Updated message
+                     } else if (this.bestJokerAction && this.bestJokerAction.type && this.isGlowActive) {
+                         this.setMessage(`Tap Glowing Card to UPGRADE or HOLD.`);
+                     } else {
+                         this.setMessage(`Your Hand.`);
+                     }
+                }
+            }
+            this.updateUI();
+        }
+
 
         handleActionButton() {
              if (this.gameState === "DEAL" || this.gameState === "END_ROUND") {
@@ -1005,7 +1256,7 @@
              } else if (this.gameState === "ACTION_PHASE") {
                  // Prevent Draw if manual selection is active (only happens for Booster/Flush)
                  if (this.activeManualJoker && this.activeManualJoker !== 'mirror_hand') {
-                      this.message = `Please tap a card to apply ${this.activeManualJoker.toUpperCase().replace('_', ' ')} or click the Joker again to cancel.`;
+                      this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`, true); // CRITICAL
                       this.updateUI();
                       return;
                  }
@@ -1019,7 +1270,7 @@
             if (this.gameState !== "DEAL" && this.gameState !== "END_ROUND") return;
 
             if (this.credits < totalCost) {
-                document.getElementById('message-area').textContent = `Not enough credits! Required: ${totalCost}.`;
+                this.setMessage(`Not Enough Credits: ${totalCost}`, true); // CRITICAL message
                 this.updateUI();
                 return;
             }
@@ -1041,7 +1292,7 @@
             this.isGlowActive = false; // Initial state: no glow yet
 
             this.gameState = "ACTION_PHASE";
-            this.message = "Cards dealt.";
+            this.setMessage("Your Hand."); // שימוש בהודעה הקצרה
             
             // ⚡️ NEW: Display initial hand status
             this.updateHandStatus(evaluateHand(this.playerHand));
@@ -1053,7 +1304,7 @@
             if (this.bestJokerAction.type) {
                 setTimeout(() => {
                     this.isGlowActive = true;
-                    this.message = "Tap the glowing card to UPGRADE or tap others to HOLD.";
+                    this.setMessage("Tap Glowing Card to UPGRADE or HOLD."); // שימוש בהודעה הקצרה
                     this.updateUI();
                     
                     // The glow stays active until the player taps it or hits DRAW.
@@ -1063,7 +1314,7 @@
                  if (this.isAutoHoldOn) { // ⚡️ CONDITION ADDED ⚡️
                       this.autoHoldBestCards();
                  }
-                 this.message = "Click cards to HOLD or DRAW.";
+                 this.setMessage("Select HOLDs or DRAW."); // שימוש בהודעה הקצרה
                  this.updateUI(); // Update UI to show final message if no action is possible
             }
         }
@@ -1141,9 +1392,10 @@
             this.winningHandName = handName;
 
             if (winnings > 0) {
-                 this.message = `${handName} - ${winnings}`;
+                 // פורמט ניצחון: [Hand Name] - [Winnings]
+                 this.setMessage(`${handName} - ${winnings}`);
             } else {
-                 this.message = `Click 'NEW HAND' to play.`;
+                 this.setMessage(`Click NEW HAND.`); // שימוש בהודעה הקצרה
             }
 
             this.gameState = "END_ROUND";
@@ -1211,7 +1463,6 @@
                             if (tempCardModified) {
                                 const mirrorRank = HAND_RANKING[evaluateHand(mirrorTestHand)];
                                 if (mirrorRank > bestAction.rank) {
-                                    // Mirror is global, but the index is the one to tap for activation
                                     bestAction = { rank: mirrorRank, type: 'mirror_hand', index: index }; 
                                 }
                             }
@@ -1282,10 +1533,11 @@
                 if (this.isAutoHoldOn) { // ⚡️ NEW: Auto Hold after Mirror Use, if ON ⚡️
                     this.autoHoldBestCards();
                 }
-                // Update message for clarity
-                this.message = `Joker (${jokerType.toUpperCase().replace('_', ' ')}) applied! Now select HOLDs or DRAW.`; 
+                // שימוש בהודעה הקצרה
+                this.setMessage(`Joker Used. Select HOLDs or DRAW.`); 
             } else {
-                 this.message = `Tap the card to apply ${jokerType.toUpperCase().replace('_', ' ')}.`;
+                 // שימוש בהודעה הקצרה
+                 this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`); // הודעה מעודכנת
             }
             
             this.updateUI();
@@ -1297,9 +1549,9 @@
             // Restore Glow Hint if action hasn't been used yet
             if (!this.actionCardUsedThisRound && this.bestJokerAction.type) {
                 this.isGlowActive = true;
-                this.message = "Tap the glowing card to UPGRADE or tap others to HOLD.";
+                this.setMessage("Tap Glowing Card to UPGRADE or HOLD."); // שימוש בהודעה הקצרה
             } else {
-                this.message = "Click cards to HOLD or DRAW.";
+                this.setMessage("Select HOLDs or DRAW."); // שימוש בהודעה הקצרה
             }
             this.updateUI();
         }
@@ -1308,10 +1560,10 @@
         cancelJokerHint() {
             if (this.isGlowActive && !this.actionCardUsedThisRound) {
                  this.isGlowActive = false;
-                 this.message = "Click cards to HOLD or DRAW.";
                  if (this.isAutoHoldOn) { // ⚡️ CONDITION ADDED ⚡️
                       this.autoHoldBestCards(); // ⚡️ NEW: Auto Hold after cancelling hint
                  }
+                 this.setMessage("Select HOLDs or DRAW."); // שימוש בהודעה הקצרה
                  this.updateUI();
             }
         }
@@ -1341,9 +1593,10 @@
                 const isInteractive = target.closest('#control-buttons') || 
                                       target.closest('.card-image') || 
                                       target.closest('.action-card-button') ||
-                                      target.closest('#cancel-hint-button'); // ⚡️ Added cancel button check ⚡️
+                                      target.closest('#cancel-hint-button') ||
+                                      target.closest('#text-toggle'); // ⚡️ Added text toggle check ⚡️
                 
-                // If the click is NOT on an interactive element, cancel the hint/manual mode
+                // If the click is NOT on an interactive element, cancel the mode
                 if (!isInteractive) {
                     // Only perform if the hint is active (Glow) or manual mode is active
                     if (this.isGlowActive || this.activeManualJoker) {
@@ -1367,7 +1620,7 @@
                  
                  // Check validity for the manually selected Joker on the tapped card
                  if (!isCardValidForAction(this.playerHand[cardIndex], this.playerHand, cardIndex, actionToExecute)) {
-                      this.message = `Cannot use ${actionToExecute.toUpperCase().replace('_', ' ')} on this card. Try another.`;
+                      this.setMessage(`Invalid Target. Choose another card.`, true); // CRITICAL message
                       this.updateUI();
                       return;
                  }
@@ -1380,7 +1633,7 @@
                 let isTriggerCard = false;
                 
                 if (bestAction.type === 'mirror_hand') {
-                    // If Mirror is the suggested action, clicking ANY low card (2,3,4) triggers the global action
+                    // If Mirror is the suggested action, clicking ANY low card (2, 3, 4) triggers the global action
                     if (this.playerHand[cardIndex].rank >= 2 && this.playerHand[cardIndex].rank <= 4) {
                         // Mirror is an instant effect; we handle it via setManualJokerMode which applies it immediately
                         this.setManualJokerMode(bestAction.type);
@@ -1408,7 +1661,7 @@
                  if (this.isAutoHoldOn) { // ⚡️ CONDITION ADDED ⚡️
                       this.autoHoldBestCards(); // ⚡️ NEW: Auto Hold after any Joker Use
                  }
-                 this.message = `Joker (${actionToExecute.toUpperCase().replace('_', ' ')}) applied! Now select HOLDs or DRAW.`;
+                 this.setMessage(`Joker Used. Select HOLDs or DRAW.`); // שימוש בהודעה הקצרה
                  this.updateUI();
             } else {
                 // Priority 3: Toggle HOLD (This is the default action for non-glowing cards/no active manual mode)
@@ -1541,7 +1794,7 @@
                  }
             }
 
-            // Rule 11: 2 suited high cards (non-sequential)
+            // Rule 11: 2 unsuited high cards (pick lowest 2 if more than 2 high cards)
             for (let suit of SUITS) {
                  let suitedHigh = hand.filter(c => c.suit === suit && isHighCard(c.rank));
                  if (suitedHigh.length >= 2) {
@@ -1599,14 +1852,14 @@
                 
                 // Block HOLD if in manual Booster/Flush mode (as clicking should be for applying action)
                 if (this.activeManualJoker && this.activeManualJoker !== 'mirror_hand') {
-                     this.message = `Please tap a card to apply ${this.activeManualJoker.toUpperCase().replace('_', ' ')} or click the Joker again to cancel.`;
+                     this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`, true); // CRITICAL message
                      this.updateUI();
                      return;
                 }
                 
                 this.heldCards[cardIndex] = !this.heldCards[cardIndex];
 
-                this.message = this.actionCardUsedThisRound ? "Joker used. Select HOLDs or DRAW." : "Tap the glowing card to UPGRADE or tap others to HOLD.";
+                this.setMessage(this.actionCardUsedThisRound ? "Joker Used. Select HOLDs or DRAW." : "Tap Glowing Card to UPGRADE or HOLD.");
                 
                 // Note: Hand status text is handled by updateUI() at the end, so no need to clear it here.
 
@@ -1697,8 +1950,15 @@
                  autoHoldButton.classList.remove('on', 'off');
                  autoHoldButton.classList.add(this.isAutoHoldOn ? 'on' : 'off');
                  // Set the display text based on status
-                 // ⚡️ CRITICAL FIX: Ensure text fits using clear ON/OFF suffix ⚡️
                  autoHoldButton.textContent = this.isAutoHoldOn ? 'AUTO HOLD ON' : 'AUTO HOLD OFF';
+            }
+            
+            // ⚡️ NEW: Update Text Toggle Button Text and Color ⚡️
+            const textToggleButton = document.getElementById('text-toggle');
+            if (textToggleButton) {
+                textToggleButton.classList.remove('on', 'off');
+                textToggleButton.classList.add(this.isTextHidden ? 'off' : 'on');
+                textToggleButton.textContent = this.isTextHidden ? 'SHOW TEXT' : 'HIDE TEXT';
             }
 
 
@@ -1846,6 +2106,14 @@
                 actionContainer.appendChild(slot);
             });
             
+            // ⚡️ Apply message display state ⚡️
+            const messageAreaEl = document.getElementById('message-area');
+            if (this.isTextHidden) {
+                 messageAreaEl.classList.add('hidden');
+            } else {
+                 messageAreaEl.classList.remove('hidden');
+            }
+            
             // Ensure message is updated
             document.getElementById('message-area').textContent = this.message;
             
@@ -1862,6 +2130,7 @@
         const soundToggle = document.getElementById('sound-toggle');
         const helpButton = document.getElementById('help-button');
         const autoHoldToggle = document.getElementById('auto-hold-toggle'); // ⚡️ NEW ⚡️
+        const textToggle = document.getElementById('text-toggle'); // ⚡️ NEW ⚡️
 
         if (soundToggle) {
              soundToggle.onclick = toggleSound;
@@ -1872,6 +2141,18 @@
         
         if (autoHoldToggle) { // ⚡️ NEW: Attach Auto Hold Toggle ⚡️
              autoHoldToggle.onclick = () => game.toggleAutoHold();
+        }
+        
+        if (textToggle) { // ⚡️ NEW: Attach Text Toggle ⚡️
+             textToggle.onclick = () => game.toggleTextDisplay();
+             // Set initial state of text toggle button
+             if (game.isTextHidden) {
+                 textToggle.classList.add('off');
+                 textToggle.textContent = 'SHOW TEXT';
+             } else {
+                 textToggle.classList.add('on');
+                 textToggle.textContent = 'HIDE TEXT';
+             }
         }
         
         game.updateUI();

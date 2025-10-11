@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwitchUp Poker - Landscape Mobile Optimized (No Payouts)</title>
+    <title>TRIPLE PLAY SWITCHUP POKER</title>
     <style>
-        /* --- General Styling and Layout (DEEP NAVY BLUE) --- */
+        /* --- General Styling and Layout (DESKTOP ONLY) --- */
         body {
             font-family: Arial, sans-serif;
-            background-color: #000050; /* Deep Navy Blue */
+            background-color: #000050; 
             color: #FFF;
             text-align: center;
             padding: 0;
@@ -18,6 +18,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow: hidden; 
         }
 
         #main-container {
@@ -28,16 +29,16 @@
             padding: 0;
         }
 
-        /* --- Game Container: Single Unified Area (Desktop Base) --- */
+        /* --- Game Container: Single Unified Area --- */
         #game-container {
-            background-color: #000080; /* Navy Blue (Contrast) */
+            background-color: #000080; 
             border-radius: 15px;
-            border: 4px solid #FFD700; /* Gold border */
+            border: 4px solid #FFD700; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             padding: 10px;
             width: 100%;
-            height: auto;
-            min-height: 90vh;
+            height: 98vh;
+            max-width: 1200px;
             position: relative; 
             display: flex; 
             flex-direction: column;
@@ -48,13 +49,12 @@
         /* --- Title Styling (Top Center) --- */
         #game-container h1 {
             font-family: 'Georgia', serif;
-            font-size: 3.2em;
+            font-size: 2.0em; 
             font-weight: 900;
-            letter-spacing: 5px;
-            margin-top: 0;
-            margin-bottom: 15px;
+            letter-spacing: 3px;
+            margin-top: 5px; 
+            margin-bottom: 5px; 
             text-transform: uppercase;
-
             color: #FFD700;
             text-shadow:
                 -3px -3px 0 #8B0000,
@@ -64,13 +64,11 @@
                  0 0 10px rgba(255, 255, 255, 0.7);
         }
 
-        /* ⚡️ DESKTOP: Global Controls (Absolute Position) ⚡️ */
+        /* ⚡️ Global Controls (Absolute Position) ⚡️ */
         #global-controls {
             position: absolute;
-            bottom: 20px; 
-            right: 20px; 
-            top: auto;
-            left: auto;
+            bottom: 10px; 
+            right: 10px; 
             z-index: 100;
             display: flex;
             gap: 10px;
@@ -131,36 +129,10 @@
             border-color: #500000;
         }
         
-        #auto-hold-toggle.off:hover {
-            background-color: #600000; 
-        }
-
-        #cancel-hint-button {
-            border: 2px solid #AAAAAA; 
-            background-color: #0050A0; 
-            box-shadow: 0 4px 0 #003060; 
-            color: #FFFFFF; 
-            
-            padding: 0 10px; 
-            font-size: 0.9em; 
-            width: 130px; 
-        }
-        
-        #cancel-hint-button:hover {
-            background-color: #003870; 
-            box-shadow: 0 6px 0 #003060;
-        }
-
-        #cancel-hint-button:active {
-             box-shadow: 0 1px 0 #003060;
-             transform: translateY(3px);
-        }
-
-        /* NEW: Text Toggle Button (Desktop Position) ⚡️ */
         #text-toggle {
             position: absolute;
-            bottom: 20px; 
-            left: 200px; 
+            bottom: 10px; 
+            left: 10px; 
             z-index: 100;
             width: 130px;
             border-radius: 8px; 
@@ -186,56 +158,23 @@
             color: #FFD700;
             border-color: #CC0000;
         }
+        
         #message-area.hidden {
             visibility: hidden;
-            min-height: 0;
             height: 0;
             padding: 0;
             margin-bottom: 0;
         }
 
-
-        /* ⚡️ DESKTOP: Payout Table (Absolute Position) ⚡️ */
-        #payout-container {
-            position: absolute;
-            top: 15px;
-            right: 5px;
-            background-color: #000050;
-            padding: 15px;
-            width: 250px;
-            border-radius: 10px;
-            border: 3px solid #CC0000;
-            z-index: 10;
-        }
-
-        #payout-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 1.1em;
-            margin-top: 15px;
-        }
-
-        #payout-table th {
-            padding: 8px 10px;
-            background-color: #8B0000;
-            color: #FFD700;
-            border-bottom: 2px solid #FFD700;
-        }
-
-        #payout-table tr.highlight-win td {
-             background-color: #FFD700 !important;
-             color: #000;
-             font-weight: bold;
-        }
-
-        /* --- Stats Bar (Below Title, above cards) --- */
+        
+        /* --- Stats Bar (Below Title) --- */
         #stats-bar-local {
             display: flex;
             justify-content: space-around;
             width: 70%;
             max-width: 800px;
-            margin-bottom: 20px;
-            padding: 15px 0;
+            margin-bottom: 5px; 
+            padding: 10px 0; 
             background-color: #CC0000;
             border-radius: 5px;
             border: 2px solid #FFD700;
@@ -257,29 +196,40 @@
             display: inline-block;
         }
 
-        /* ⚡️ DESKTOP: Card Display Area (Absolute Position) ⚡️ */
+        /* ⚡️ TRIPLE PLAY: Card Display Area ⚡️ */
         #card-area-wrapper {
              width: 80%;
-             max-width: 800px;
-             position: absolute; 
-             bottom: 120px; 
-             left: 50%;
-             transform: translateX(-50%);
-             min-height: 400px; 
-             margin: 0;
+             max-width: 900px; 
+             position: relative; 
+             margin: 0 auto;
+             min-height: 550px; 
              display: flex;
              flex-direction: column;
              align-items: center;
              justify-content: flex-start;
+             padding-top: 5px;
+             flex-grow: 1; 
+        }
+        
+        /* 3 שורות הקלפים */
+        .multi-hand-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5px; 
+        }
+        
+        .hand-label {
+             display: none;
         }
 
-        #card-area {
+        #card-area, #hand-1 .hand-cards-container, #hand-2 .hand-cards-container { 
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 10px;
+            gap: 10px; 
             width: 100%;
-            min-height: 220px;
+            min-height: 160px; 
         }
 
         .card-slot {
@@ -287,18 +237,58 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 5px; 
+        }
+
+        /* ⚡️ WIN OVERLAY STYLE (בסיס) ⚡️ */
+        .win-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 55px;
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            color: #FFF; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: bold;
+            line-height: 1.2;
+            text-align: center;
+            padding: 2px;
+            z-index: 20; 
+            pointer-events: none;
+        }
+        /* צבעים ספציפיים לסוגי זכייה */
+        .win-overlay.win-JacksOrBetter, .win-overlay.win-PairBelowJacks { background-color: #FF4500; } 
+        .win-overlay.win-TwoPair { background-color: #FF0000; } 
+        .win-overlay.win-ThreeOfAKind { background-color: #00008B; } 
+        .win-overlay.win-Straight { background-color: #DAA520; } 
+        .win-overlay.win-Flush { background-color: #006400; } 
+        .win-overlay.win-FullHouse,
+        .win-overlay.win-FourOfAKind,
+        .win-overlay.win-StraightFlush,
+        .win-overlay.win-RoyalFlush { background-color: #8B008B; } 
+
+
+        .win-overlay .win-amount {
+            font-size: 1.1em;
+            color: #FFFF00;
         }
 
         .hold-indicator {
             position: absolute;
-            top: -30px;
+            top: -20px; 
             z-index: 10;
-            font-size: 1.2em;
+            font-size: 0.9em;
             font-weight: bold;
             color: #FFFF00;
             background-color: #CC0000;
-            padding: 2px 8px;
+            padding: 1px 6px;
             border-radius: 4px;
             border: 1px solid #FFD700;
             visibility: hidden;
@@ -313,14 +303,20 @@
              border-color: #008000;
         }
 
+        /* ⚡️ עיצוב הקלף לתמונה ⚡️ */
         .card-image {
-            width: 145px;
-            height: 205px;
+            width: 110px; 
+            height: 155px; 
             background-color: #fff;
-            border: 3px solid transparent;
+            border: 3px solid #000; 
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
             cursor: pointer;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0; 
+            background-size: cover !important;
             transition: border 0.2s, box-shadow 0.2s, opacity 0.2s;
         }
 
@@ -340,6 +336,11 @@
             box-shadow: 0 0 15px #FF00FF; 
         }
 
+        .card-image.winning-glow {
+            border: 3px solid #000; 
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
         .card-image.selected-for-action {
              border: 4px dashed #FFFF00;
              cursor: crosshair;
@@ -350,13 +351,114 @@
             cursor: not-allowed;
         }
         
-        /* ⚡️ DESKTOP: Status Area (Absolute Position relative to Card Wrapper) ⚡️ */
+        .card-image.face-down {
+             background-image: url('cards/back.png') !important; 
+             background-size: cover !important;
+             cursor: default;
+             border: 3px solid #AAAAAA;
+        }
+
+        /* ⚡️ Joker Cards - Absolute Position (הרוחב הוגדל ל-200px) ⚡️ */
+        #action-cards-container {
+            position: absolute;
+            top: 25%; 
+            left: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 5px; 
+            padding: 0;
+            width: 200px; /* רוחב מותאם */
+            z-index: 10;
+        }
+        
+        /* ⚡️ עיצוב כפתורי הג'וקר - גודל 125% ⚡️ */
+        .action-card-image {
+            width: 137px; 
+            height: 68px; 
+            border: 2px solid #FFFFFF; 
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.0em; 
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.2;
+            color: #FFFFFF; 
+            padding: 5px;
+            box-sizing: border-box;
+            text-transform: uppercase;
+            transition: all 0.2s ease-in-out; 
+            box-shadow: 0 4px 0 rgba(0,0,0,0.5); /* 3D effect base */
+            transform: translateY(0);
+            cursor: pointer;
+            position: relative; /* חיוני לאפקט ה-scale */
+            z-index: 1; 
+        }
+        
+        /* צבעי רקע ייחודיים לג'וקרים (עם Gradient 3D) */
+        #action-cards-container .action-card-slot:nth-child(1) .action-card-image { 
+            /* BOOSTER JOKER - אדום-כתום */
+            background: linear-gradient(to bottom, #FF4500 0%, #CC0000 100%) !important;
+        } 
+        #action-cards-container .action-card-slot:nth-child(2) .action-card-image { 
+            /* FLUSH JOKER - ירוק */
+            background: linear-gradient(to bottom, #00CC00 0%, #006400 100%) !important;
+        } 
+        #action-cards-container .action-card-slot:nth-child(3) .action-card-image { 
+            /* MIRROR JOKER - תכלת */
+            background: linear-gradient(to bottom, #87CEFA 0%, #40E0D0 100%) !important;
+            color: #000050 !important; 
+        } 
+
+
+        /* ⚡️ מצב מוצע/נבחר ידנית - אפקט ה-Scale (גדילה) וצבע ירוק זוהר ⚡️ */
+        .action-card-slot.pending .action-card-image {
+             /* דוחף קדימה וגדל */
+             transform: scale(1.2) translateY(-2px); 
+             z-index: 10;
+             
+             /* צבע ירוק ליים זוהר */
+             background: linear-gradient(to bottom, #BFFF00 0%, #00FF00 100%) !important;
+             color: #000050 !important;
+             
+             /* מסגרת שחורה חדה */
+             border-color: #000000;
+             box-shadow: 0 0 15px #FFFF00; /* קרינה צהובה חזקה */
+             opacity: 1;
+        }
+        
+        /* ⚡️ מצב לאחר שימוש ⚡️ */
+        .action-card-slot.used .action-card-image {
+             border-color: #00CC00;
+             box-shadow: 0 0 10px #00CC00;
+             opacity: 0.6; 
+             transform: translateY(0);
+        }
+        
+        /* ⚡️ מצב לא מוצע/לא נבחר - עמעום ⚡️ */
+        .action-cards-container.dim-non-active .action-card-slot .action-card-image:not(.pending):not(.used) {
+             opacity: 0.3; 
+             box-shadow: 0 4px 0 rgba(0,0,0,0.5); /* שמירת צל ה-3D */
+             transform: translateY(0);
+        }
+        
+        /* ⚡️ מצב לחיצה כללי (כדי לדמות לחיצה גם על כפתור רגיל) ⚡️ */
+        .action-card-button:not(:disabled):active .action-card-image:not(.pending) {
+            box-shadow: 0 1px 0 rgba(0,0,0,0.5);
+            transform: translateY(3px);
+            transition: box-shadow 0.1s, transform 0.1s;
+        }
+
+
+        /* --- Status / Message Area --- */
         #status-area-bottom {
             width: 100%;
             max-width: 750px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             padding: 5px 0;
-            height: 70px; 
+            height: 40px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -364,92 +466,30 @@
         }
 
         #message-area {
-            font-size: 1.8em;
+            font-size: 1.5em; 
             color: #FFFF00; 
             font-weight: bold;
-            min-height: 30px;
+            min-height: 25px;
             margin-bottom: 0px; 
         }
 
-        /* ⚡️ DESKTOP: Hand Status Text (Absolute Position) ⚡️ */
         #hand-status-display {
-             position: absolute;
-             bottom: 40px; 
-             left: 0;
-             right: 0;
-             font-size: 1.4em;
-             color: #FFFFFF; 
-             font-weight: bold;
-             text-align: center;
-             z-index: 100; 
+             display: none; 
         }
         
-        /* ⚡️ DESKTOP: Joker Cards (Absolute Position) ⚡️ */
-        #action-cards-container {
-            position: absolute;
-            top: 25px; 
-            left: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 15px; 
-            padding: 0;
-            width: 230px;
-            z-index: 10;
-        }
-
-        .action-card-slot {
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             gap: 0; 
-        }
-        
-        .action-card-button {
-             background-color: transparent;
-             border: none;
-             padding: 0;
-             cursor: pointer;
-        }
-
-        .action-card-image {
-            width: 198px;
-            height: 251px;
-            background-size: contain !important;
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-            border: 3px solid transparent;
-            border-radius: 8px;
-            transition: border 0.3s, box-shadow 0.3s;
-        }
-        
-        .action-card-slot.used .action-card-image {
-             border-color: #00CC00;
-             box-shadow: 0 0 10px #00CC00;
-        }
-        
-        .action-card-slot.pending .action-card-image {
-             border-color: #FFFF00;
-             box-shadow: 0 0 10px #FFFF00;
-        }
-        
-        .action-card-text {
-             display: none;
-        }
-
-
-        /* ⚡️ DESKTOP: Control Buttons (Absolute Position) ⚡️ */
+        /* ⚡️ Control Buttons ⚡️ */
         #control-buttons {
             width: 100%;
             display: flex;
             justify-content: center;
-            position: absolute;
-            bottom: 60px;
+            position: relative; 
+            margin-top: 10px;
+            margin-bottom: 60px;
         }
 
         #action-button {
-            padding: 20px 100px;
-            font-size: 1.7em;
+            padding: 15px 80px; 
+            font-size: 1.5em; 
             border: 4px solid #FFD700;
             background-color: #CC0000;
             color: #FFD700;
@@ -458,374 +498,34 @@
             border-radius: 10px;
             cursor: pointer;
         }
-        
-        #auto-hold-button-container {
-             display: none;
-        }
-
-        .card-image.has-image {
-            font-size: 0;
-        }
-        
-        /* ⚡️ DESKTOP: Company Logo Styling (Absolute Position) ⚡️ */
-        .brightly-logo-container {
-            bottom: 20px; 
-            left: 20px; 
-            right: auto;
-            top: auto;
-
-            z-index: 11;
-            font-family: 'Arial Black', sans-serif;
-            text-align: center;
-            background-color: transparent; 
-            
-            display: flex; 
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 130px; 
-            height: 60px;
-            position: absolute; 
-            padding: 0; 
-            line-height: 0.9;
-            box-shadow: none;
-        }
-
-        .logo-text-brightly {
-            font-weight: 900;
-            color: #FFFFFF; 
-            text-shadow: 
-                -1px -1px 0 #000,
-                 1px -1px 0 #000,
-                -1px 1px 0 #000,
-                 1px 1px 0 #000; 
-            letter-spacing: 1.5px;
-            margin: 0; 
-            font-size: 1.5em; 
-            text-transform: uppercase;
-        }
-
-        .logo-text-games {
-            font-weight: 900;
-            color: #FFFFFF; 
-            text-shadow: 
-                -1px -1px 0 #000,
-                 1px -1px 0 #000,
-                -1px 1px 0 #000,
-                 1px 1px 0 #000; 
-            letter-spacing: 1px;
-            margin: 0; 
-            font-size: 1em; 
-            text-transform: uppercase;
-        }
-        
-        /* ⚡️ NEW: Text Toggle Button (Desktop Position) ⚡️ */
-        #text-toggle {
-            position: absolute;
-            bottom: 20px; 
-            left: 200px; 
-            z-index: 100;
-            width: 130px;
-            border-radius: 8px; 
-            min-width: 40px; 
-            height: 40px;
-            font-size: 0.9em; 
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 2px rgba(0,0,0,0.5);
-            transition: background-color 0.2s;
-            padding: 0 10px;
-            line-height: 40px; 
-            text-transform: uppercase;
-            text-align: center;
-        }
-        #text-toggle.off {
-            background-color: #008000; 
-            color: #FFF; 
-            border-color: #00FF00;
-        }
-        #text-toggle.on {
-            background-color: #8B0000; 
-            color: #FFD700;
-            border-color: #CC0000;
-        }
-        #message-area.hidden {
-            visibility: hidden;
-            min-height: 0;
-            height: 0;
-            padding: 0;
-            margin-bottom: 0;
-        }
-
-
-        /* --- NEW: Media Query for Mobile (Screen width up to 600px) --- */
-        @media (max-width: 600px) {
-            
-            #game-container {
-                min-height: 100vh;
-                justify-content: space-between; 
-                padding-top: 5px;
-            }
-
-            /* 🔴 ביטול תצוגת טבלת התשלומים במובייל (למטרת חיסכון במקום) */
-            #payout-container {
-                display: none !important; 
-            }
-
-            #action-cards-container {
-                position: static;
-                flex-direction: row; 
-                justify-content: center;
-                width: 95%;
-                max-width: 800px;
-                margin: 5px auto; 
-                gap: 5px;
-                order: 2; 
-            }
-
-            .action-card-image {
-                width: 70px; 
-                height: 90px;
-            }
-
-            #card-area-wrapper {
-                 position: static;
-                 transform: none;
-                 width: 98%;
-                 margin: 5px auto; 
-                 flex-grow: 1;
-                 order: 3; 
-                 min-height: 300px;
-            }
-            
-            #card-area {
-                gap: 5px; 
-            }
-
-            .card-image {
-                width: 65px; 
-                height: 95px;
-                max-width: none;
-            }
-
-            #game-container h1 {
-                font-size: 1.6em;
-                letter-spacing: 1px;
-                margin-top: 5px;
-            }
-
-            #stats-bar-local {
-                width: 98%;
-                font-size: 0.8em;
-                margin-bottom: 5px;
-            }
-
-            #message-area {
-                font-size: 1.3em;
-                min-height: 20px;
-            }
-
-            #hand-status-display {
-                position: static; 
-                font-size: 1.1em;
-                margin-bottom: 5px;
-            }
-
-            #control-buttons {
-                position: static; 
-                margin: 10px 0; 
-                order: 5; 
-            }
-            
-            #action-button {
-                padding: 10px 40px;
-                font-size: 1.4em;
-            }
-
-            /* 🔴 מיקום חדש וגודל של כפתורי השליטה הגלובליים (Fixed למעלה) */
-            #global-controls {
-                 position: fixed; 
-                 top: 5px; 
-                 right: 5px;
-                 bottom: auto;
-                 left: auto;
-                 gap: 5px;
-                 z-index: 200; 
-                 flex-direction: row;
-            }
-            
-            .control-icon {
-                min-width: 35px;
-                height: 35px;
-                font-size: 0.8em;
-                padding: 0 5px;
-                line-height: 35px;
-            }
-            
-            #sound-toggle, #help-button {
-                 width: 35px;
-                 min-width: 35px;
-                 line-height: 31px;
-                 font-size: 1.3em;
-            }
-            
-            #auto-hold-toggle, #cancel-hint-button {
-                 width: 100px;
-                 font-size: 0.75em;
-            }
-
-            /* 🔴 מיקום חדש לכפתור הטקסט (Fixed למעלה שמאל) */
-            #text-toggle {
-                position: fixed;
-                top: 5px; 
-                left: 5px; 
-                bottom: auto;
-                right: auto;
-                width: 100px;
-                z-index: 200; 
-            }
-
-            .brightly-logo-container {
-                display: none !important;
-            }
-
-        }
-
-        /* ⚡️ NEW: Media Query for Landscape Mobile (Height restriction, e.g., max 450px) ⚡️ */
-        @media (max-height: 450px) and (max-width: 900px) {
-            
-            /* 1. כיווץ כללי */
-            #game-container {
-                min-height: 98vh;
-                padding: 2px;
-            }
-
-            /* 2. כותרת סטטיסטיקה */
-            #game-container h1 {
-                font-size: 1.4em;
-                margin-bottom: 5px;
-            }
-            
-            #stats-bar-local {
-                padding: 5px 0;
-                margin-bottom: 5px;
-                font-size: 0.7em;
-            }
-
-            /* 3. קלפי פעולה (ג'וקרים) */
-            #action-cards-container {
-                margin: 2px auto;
-                gap: 3px;
-            }
-            
-            .action-card-image {
-                width: 60px; 
-                height: 78px;
-            }
-
-            /* 4. קלפי המשחק */
-            #card-area-wrapper {
-                min-height: 200px;
-                margin: 5px auto;
-                padding: 0;
-            }
-            
-            .card-image {
-                width: 60px; 
-                height: 85px;
-            }
-
-            /* 5. הודעות וכפתורים */
-            #message-area {
-                font-size: 1.2em;
-                min-height: 15px;
-            }
-            
-            #hand-status-display {
-                font-size: 1em;
-                margin-bottom: 5px;
-            }
-
-            #control-buttons {
-                margin: 5px 0;
-            }
-            
-            #action-button {
-                padding: 8px 30px;
-                font-size: 1.3em;
-            }
-        }
-
-        /* --- Pop-up styles (No change) --- */
-        #help-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        #help-modal > div {
-            position: relative;
-            background-color: #000080;
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid gold;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: left;
-        }
-        
-        #help-modal h4 {
-            color: #FFD700;
-            margin-top: 15px;
-        }
     </style>
 </head>
-<body onclick="game.handleGlobalClick(event)"> <audio id="sound-deal-draw" src="SOUNDS/dealing-card.wav" preload="auto"></audio>
+<body onclick="game.handleGlobalClick(event)"> 
+    <audio id="sound-deal-draw" src="SOUNDS/dealing-card.wav" preload="auto"></audio>
     <audio id="sound-hold" src="SOUNDS/Button Click.mp3" preload="auto"></audio>
     <audio id="sound-win" src="SOUNDS/correct-choice.wav" preload="auto"></audio>
     <audio id="sound-action-card" src="SOUNDS/HELD.mp3" preload="auto"></audio>
     
-    <div id="help-modal">
+    <div id="help-modal" style="display: none;"> 
         <div>
             <button class="close-button" onclick="document.getElementById('help-modal').style.display = 'none';">X</button>
-            <h2>SWITCHUP POKER - HOW TO PLAY (MANUAL OVERRIDE)</h2>
+            <h2>TRIPLE PLAY SWITCHUP POKER - HOW TO PLAY</h2>
 
-            <p>Your objective is to form the strongest possible 5-card poker hand and win credits based on the payout table.</p>
+            <p>Your objective is to form the strongest possible 5-card poker hand in 3 separate hands.</p>
             
-            <h4>GAMEPLAY FLOW - MANUAL CONTROL (DEAL AND ACTION PHASE)</h4>
-            <p>1. Click **DEAL** to get your first 5 cards.</p>
-            <p>2. **CHOICE PHASE:** The game suggests the best move: the highest-value card for a Joker move will **Glow Green** as a hint.</p>
+            <h4>GAMEPLAY FLOW (BASE HAND - HAND 3)</h4>
+            <p>1. Click **DEAL** to get your first 5 cards in Hand 3.</p>
+            <p>2. **Joker Phase (Hand 3 ONLY):** You can use one Joker (Upgrade, Flush, Mirror) to modify a card. The optimal move will **Glow Green**.</p>
             <ul>
-                <li>**Option A (HINT):** Tap the glowing card. The best available Joker (highlighted on the left) is **automatically applied** instantly.</li>
-                <li>**Option B (MANUAL OVERRIDE):** Click one of the Joker images on the left. The selected Joker glows yellow, and you can now tap ANY valid card to apply that specific Joker.</li>
-                <li>**Option C (HOLD/DRAW):** Tap any non-glowing card to **HOLD** it.</li>
+                <li>**Action (Joker/Hold):** Tap the glowing card to apply the hint, or click a Joker button on the left for manual selection. Tap any non-glowing card to **HOLD** it. **The held cards will appear instantly in the upper hands.**</li>
             </ul>
-            <p>3. **DRAW:** Once you're done with the Joker move (if used) and holds, click **DRAW**.</p>
-            <p>4. Your final hand is evaluated for payout.</p>
+            <p>3. **DRAW:** Once the Joker is used (או בוטל) וה-HOLDs נבחרו:</p>
+            <ul>
+                <li>The held/modified cards from Hand 3 are **copied** to Hand 1 and Hand 2.</li>
+                <li>All 3 hands draw replacement cards from 3 separate decks.</li>
+            </ul>
+            <p>4. Your three final hands are evaluated for total payout.</p>
             
-            <h4>GAME CONTROLS (BOTTOM RIGHT)</h4>
-            <p>You can control the automated features using the bottom right buttons (or top right on mobile):</p>
-            <ul>
-                <li>**AUTO HOLD (Red/Green):** Toggles the automatic strategy. 
-                    <ul>
-                        <li>**GREEN (ON)::** Automatically applies the optimal holds once a Joker is used or the hint is cancelled.</li>
-                        <li>**RED (OFF):** You must select all cards to hold manually. (Default state).</li>
-                    </ul>
-                </li>
-                <li>**CANCEL UPGRADE HINT:** Instantly clears the green 'best move' glow hint, allowing you to manually select your holds or apply a different Joker.</li>
-                <li>**🔊/🔇:** Toggle sound effects.</li>
-                <li>**TEXT ON/OFF:** Toggles the messages displayed below the cards to keep the screen cleaner.</li>
-            </ul>
-
 
             <button onclick="document.getElementById('help-modal').style.display = 'none';" style="margin-top: 20px;">Close</button>
         </div>
@@ -835,12 +535,7 @@
 
         <div id="game-container">
 
-            <div class="brightly-logo-container">
-                <div class="logo-text-brightly">BRIGHTLY</div>
-                <div class="logo-text-games">GAMES</div>
-            </div>
-
-            <h1>SWITCHUP POKER</h1>
+            <h1>TRIPLE PLAY SWITCHUP POKER</h1>
             
             <div id="global-controls">
                 <button id="cancel-hint-button" class="control-icon" title="Cancel Upgrade Hint" onclick="game.cancelJokerHint()">
@@ -848,7 +543,7 @@
                 </button>
                 <button id="auto-hold-toggle" class="control-icon" title="Toggle Auto Hold">AUTO HOLD</button>
                 <button id="sound-toggle" class="control-icon" title="Toggle Sound">🔊</button>
-                <button id="help-button" class="control-icon" title="Game Help">?</button>
+                <button id="help-button" class="control-icon" title="Game Help" onclick="openHelpFile()">?</button>
             </div>
             
             <button id="text-toggle" class="control-icon on" title="Toggle Text Messages" onclick="game.toggleTextDisplay()">HIDE TEXT</button>
@@ -856,51 +551,36 @@
 
             <div id="stats-bar-local">
                 <div class="stat-box">Credits: <span id="credits-stat">500</span></div>
-                <div class="stat-box">Total Bet: <span id="bet-stat">10</span></div>
+                <div class="stat-box">Total Bet: <span id="bet-stat">30</span></div>
                 <div class="stat-box">Last Win: <span id="winnings-stat">0</span></div>
             </div>
 
-            <div id="payout-container">
-                <h2>Payouts (5x)</h2>
-                <table id="payout-table">
-                    <thead>
-                        <tr>
-                            <th>Hand</th>
-                            <th>Pays (Credits)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-hand="Royal Flush"><td>Royal Flush</td><td>4000</td></tr>
-                        <tr data-hand="Straight Flush"><td>Straight Flush</td><td>250</td></tr>
-                        <tr data-hand="Four of a Kind"><td>4 of a Kind</td><td>125</td></tr>
-                        <tr data-hand="Full House"><td>Full House</td><td>45</td></tr>
-                        <tr data-hand="Flush"><td>Flush</td><td>30</td></tr>
-                        <tr data-hand="Straight"><td>Straight</td><td>20</td></tr>
-                        <tr data-hand="Three of a Kind"><td>3 of a Kind</td><td>15</td></tr>
-                        <tr data-hand="Two Pair"><td>Two Pair</td><td>10</td></tr>
-                        <tr data-hand="Jacks or Better"><td>Jacks or Better</td><td>5</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
             <div id="action-cards-container">
-            </div> 
+                </div> 
 
             <div id="card-area-wrapper">
-                <div id="status-area-bottom">
-                    <div id="message-area">Click DEAL.</div>
-                </div>
-
-                <div id="card-area">
+                
+                <div id="hand-1" class="multi-hand-row">
+                    <div class="hand-cards-container"></div>
                 </div>
                 
+                <div id="hand-2" class="multi-hand-row">
+                    <div class="hand-cards-container"></div>
+                </div>
+                
+                <div id="hand-3" class="multi-hand-row">
+                    <div id="card-area" class="hand-cards-container">
+                    </div>
+                </div>
+
+                <div id="status-area-bottom">
+                    <div id="message-area">Click DEAL. Total Cost: 30.</div>
+                </div>
+
                 <div id="hand-status-display">
                     <span id="hand-status"></span>
                 </div>
 
-            </div>
-
-            <div id="hint-controls-container" style="display: none;">
             </div>
             
             <div id="control-buttons">
@@ -912,16 +592,16 @@
     </div>
 
 <script>
-    // --- SOUND HELPER FUNCTION ADDED HERE ---
+    // --- SOUND HELPER FUNCTION ---
     function playSound(elementId) {
         const audio = document.getElementById(elementId);
         if (audio && isSoundOn) { 
-            audio.currentTime = 0; // Rewind to start for quick successive plays
+            audio.currentTime = 0;
             audio.play().catch(e => console.log("Audio play failed:", e));
         }
     }
 
-    // --- NEW: Global Sound and Help Functions ---
+    // --- Global Sound and Help Functions ---
     let isSoundOn = true;
 
     function toggleSound() {
@@ -944,44 +624,28 @@
     const SUITS = ["clubs", "diamonds", "hearts", "spades"];
     const RANKS = Array.from({length: 13}, (_, i) => i + 2);
     const STARTING_CREDITS = 500;
-    const INITIAL_BET = 5;
-    const MOD_CARD_COST = 5;
-    const CARD_IMAGE_PATH = 'cards/';
-    const ACTION_CARD_IMAGE_PATH = 'Action_Cards/';
-    const MODIFICATION_TIMEOUT = 2000; // ⚡️ 2 seconds for visual highlight
-    const GLOW_DELAY = 1000; // ⚡️ 1 second delay before glow starts
+    const INITIAL_BET = 10; 
+    const MOD_CARD_COST = 0; 
+    const NUM_HANDS = 3;
+    const CARD_IMAGE_PATH = 'cards/'; 
+    const ACTION_CARD_IMAGE_PATH = 'Action_Cards/'; 
     const COUNT_DURATION = 1000;
+    const MODIFICATION_TIMEOUT = 2000;
+    const GLOW_DELAY = 1000;
     
-    // Paytable values and Hand Ranking
+    // ⚡️ מכפלה מעודכנת ל-1 ⚡️
+    const PAYTABLE_MULTIPLIER = 1; 
+    
     const PAYTABLE = {
-        "Royal Flush": 4000,
-        "Straight Flush": 250,
-        "Four of a Kind": 125,
-        "Full House": 45,
-        "Flush": 30,
-        "Straight": 20,
-        "Three of a Kind": 15,
-        "Two Pair": 10,
-        "Jacks or Better": 5,
-        "Pair (Below Jacks)": 0,
-        "High Card": 0,
-        "Invalid Hand": 0
+        "Royal Flush": 4000 * PAYTABLE_MULTIPLIER, "Straight Flush": 250 * PAYTABLE_MULTIPLIER, "Four of a Kind": 125 * PAYTABLE_MULTIPLIER,
+        "Full House": 45 * PAYTABLE_MULTIPLIER, "Flush": 30 * PAYTABLE_MULTIPLIER, "Straight": 20 * PAYTABLE_MULTIPLIER,
+        "Three of a Kind": 15 * PAYTABLE_MULTIPLIER, "Two Pair": 10 * PAYTABLE_MULTIPLIER, "Jacks or Better": 5 * PAYTABLE_MULTIPLIER,
+        "Pair (Below Jacks)": 0, "High Card": 0, "Invalid Hand": 0
     };
     
-    // **NEW**: Numerical ranking for comparison (higher is better)
     const HAND_RANKING = {
-        "Royal Flush": 10,
-        "Straight Flush": 9,
-        "Four of a Kind": 8,
-        "Full House": 7,
-        "Flush": 6,
-        "Straight": 5,
-        "Three of a Kind": 4,
-        "Two Pair": 3,
-        "Jacks or Better": 2,
-        "Pair (Below Jacks)": 1,
-        "High Card": 0,
-        "Invalid Hand": -1
+        "Royal Flush": 10, "Straight Flush": 9, "Four of a Kind": 8, "Full House": 7, "Flush": 6, "Straight": 5,
+        "Three of a Kind": 4, "Two Pair": 3, "Jacks or Better": 2, "Pair (Below Jacks)": 1, "High Card": 0, "Invalid Hand": -1
     };
 
     const ACTION_CARD_DEFINITIONS = [
@@ -990,11 +654,8 @@
         { name: "mirror_hand", display: "MIRROR JOKER", filename: "1.png" },
     ];
     
-    // Simplified list of Joker actions for logic/simulation
     const JOKER_ACTIONS = [
-        { name: "upgrade" },
-        { name: "flush_fever" },
-        { name: "mirror_hand" },
+        { name: "upgrade" }, { name: "flush_fever" }, { name: "mirror_hand" },
     ];
 
 
@@ -1004,7 +665,7 @@
         );
     }
 
-    // --- 2. Card Classes (No Change) ---
+    // --- 2. Card Classes ---
     class Card {
         constructor(suit, rank) {
             this.suit = suit;
@@ -1017,8 +678,13 @@
             return ranksMap[this.rank] || String(this.rank);
         }
 
+        getSuitSymbol() {
+            const symbols = { 'clubs': '♣', 'diamonds': '♦', 'hearts': '♥', 'spades': '♠' };
+            return symbols[this.suit];
+        }
+
         toString() {
-            return ``;
+            return `${this.rankStr}${this.getSuitSymbol()}`;
         }
 
         isEqual(otherCard) {
@@ -1059,42 +725,16 @@
 
         dealCard() {
             if (this.cards.length > 0) {
-                // Using splice to remove the card from the end of the array (most efficient pop-like operation)
                 return this.cards.splice(this.cards.length - 1, 1)[0]; 
             }
             return null;
-        }
-
-        drawCards(hand, heldIndices) {
-            for (let i = 0; i < 5; i++) {
-                if (!heldIndices.includes(i)) {
-                    let newCard = null;
-                    let attempts = 0;
-
-                    // Ensure the new card is not already in the current hand (excluding the spot being replaced)
-                    do {
-                        // Use shuffle on the remaining deck portion before dealing for maximum randomness
-                        this.shuffle(); 
-                        newCard = this.cards.splice(this.cards.length - 1, 1)[0]; // Use deal mechanism
-                        attempts++;
-                        if (attempts > 52) { // Fail-safe
-                             console.error("Deck ran out or infinite loop during draw.");
-                             break;
-                        }
-                    } while (newCard && cardExists(hand, newCard, i));
-
-                    if (newCard) {
-                        hand[i] = newCard;
-                    }
-                }
-            }
-            // No need to shuffle the deck here, as it was shuffled implicitly in the loop.
         }
     }
 
     // --- 3. Evaluation Logic (No Change) ---
     function evaluateHand(hand) {
-        if (!hand || hand.length !== 5) return "Invalid Hand";
+        if (!hand || hand.length !== 5 || hand.some(c => !c)) return "Invalid Hand";
+
         const ranks = hand.map(card => card.rank).sort((a, b) => a - b);
         const suits = hand.map(card => card.suit);
         const rankCounts = ranks.reduce((counts, rank) => {
@@ -1137,16 +777,16 @@
         return "High Card";
     }
 
-    // ⚡️ NEW: Checks if a card is valid for a specific action (used for simulation) ⚡️
+    // ⚡️ Joker/Hint Logic ⚡️
     function isCardValidForAction(card, hand, index, actionType) {
         if (!card) return false;
 
         if (actionType === "upgrade") {
             const newRank = card.rank + 1;
-            if (newRank > 14) return false; // Cannot upgrade Ace
+            if (newRank > 14) return false;
             
             const simulatedCard = new Card(card.suit, newRank);
-            if (cardExists(hand, simulatedCard, index)) return false; // Duplicate check
+            if (cardExists(hand, simulatedCard, index)) return false;
 
             return true;
         } else if (actionType === "flush_fever") {
@@ -1163,7 +803,7 @@
             
             if (mostCommonSuit && card.suit !== mostCommonSuit) {
                  const simulatedCard = new Card(mostCommonSuit, card.rank);
-                 if (cardExists(hand, simulatedCard, index)) return false; // Prevents duplicate
+                 if (cardExists(hand, simulatedCard, index)) return false;
                  return true;
             }
             return false;
@@ -1171,42 +811,60 @@
         return true; 
     }
     
-    // ⚡️ NEW: Function to clone the hand (used for simulation)
     function cloneHand(hand) {
         return hand.map(card => new Card(card.suit, card.rank));
+    }
+
+    // ⚡️ Helper to map hand name to CSS class for unique colors ⚡️
+    function getWinClass(handName) {
+        if (handName.includes('Jacks or Better') || handName.includes('Pair (Below Jacks)')) return 'win-JacksOrBetter';
+        if (handName.includes('Two Pair')) return 'win-TwoPair';
+        if (handName.includes('Three of a Kind')) return 'win-ThreeOfAKind';
+        if (handName.includes('Straight Flush')) return 'win-StraightFlush';
+        if (handName.includes('Royal Flush')) return 'win-RoyalFlush';
+        if (handName.includes('Four of a Kind')) return 'win-FourOfAKind';
+        if (handName.includes('Full House')) return 'win-FullHouse';
+        if (handName.includes('Flush')) return 'win-Flush';
+        if (handName.includes('Straight')) return 'win-Straight';
+        return '';
     }
 
 
     // --- 4. Game Class (Full Logic) ---
     class PokerGame {
         constructor() {
-            this.deck = new Deck();
-            this.playerHand = [];
-            this.heldCards = [false, false, false, false, false];
+            this.deck = new Deck(); 
+            this.drawDecks = []; 
+            this.playerHands = [[], [], []]; 
+            this.heldCards = [false, false, false, false, false]; 
 
             this.actionCardUsedThisRound = false;
             this.credits = STARTING_CREDITS;
-            this.bet = INITIAL_BET;
-            this.modCardCost = MOD_CARD_COST;
+            this.bet = INITIAL_BET; 
+            this.totalBet = (this.bet * NUM_HANDS); // 30 קרדיטים
+            this.modCardCost = MOD_CARD_COST; 
+
             this.lastWinnings = 0;
-            this.winningHandName = null;
+            this.winningHandNames = []; // [{handIndex: i, name: name, winnings: winnings}]
 
-            this.gameState = "DEAL"; // DEAL, ACTION_PHASE, END_ROUND
-            this.bestJokerAction = null; // ⚡️ Stores the best action {type, index, rank} (The Hint)
-            this.jokerUsedType = null; // ⚡️ Stores the type of joker used this round for visual feedback
-            this.activeManualJoker = null; // ⚡️ NEW: Stores the manually selected Joker ('upgrade', 'flush_fever', 'mirror_hand' or null)
-            this.isGlowActive = false; // ⚡️ NEW: Controls the permanent glow
+            this.gameState = "DEAL"; 
+            this.bestJokerAction = null; 
+            this.jokerUsedType = null; 
+            this.activeManualJoker = null;
+            this.isGlowActive = false; 
             
-            // ⚡️ FIXED: Auto Hold starts OFF (Red) ⚡️
-            this.isAutoHoldOn = false; // ⚡️ Default is OFF (Red) ⚡️
-            this.isTextHidden = false; // Default is ON (Text visible)
+            this.isAutoHoldOn = false; 
+            this.isTextHidden = false; 
 
-            this.message = `Click DEAL.`;
+            this.message = `Click DEAL. Total Cost: ${this.totalBet}.`;
+            
+            for (let i = 0; i < NUM_HANDS; i++) {
+                 this.playerHands[i] = Array(5).fill(null); 
+            }
 
             this.updateUI();
         }
 
-        // ⚡️ NEW: Helper to safely set message based on text display state ⚡️
         setMessage(newMessage, isCritical = false) {
              if (this.isTextHidden && !isCritical) {
                  this.message = '';
@@ -1215,7 +873,6 @@
              }
         }
         
-        // ⚡️ NEW: Toggles the visibility of messages in #message-area
         toggleTextDisplay() {
             this.isTextHidden = !this.isTextHidden;
             const messageAreaEl = document.getElementById('message-area');
@@ -1225,20 +882,19 @@
                 messageAreaEl.classList.add('hidden');
                 textToggleEl.classList.remove('on');
                 textToggleEl.classList.add('off');
-                textToggleEl.textContent = 'SHOW TEXT'; // Show text when button is GREEN/OFF
+                textToggleEl.textContent = 'SHOW TEXT';
                 this.setMessage('');
             } else {
                 messageAreaEl.classList.remove('hidden');
                 textToggleEl.classList.remove('off');
                 textToggleEl.classList.add('on');
-                textToggleEl.textContent = 'HIDE TEXT'; // Hide text when button is RED/ON
+                textToggleEl.textContent = 'HIDE TEXT';
                 
-                // Restore the appropriate message based on current game state
                 if (this.gameState === "DEAL" || this.gameState === "END_ROUND") {
-                     this.setMessage(`Click NEW HAND.`);
+                     this.setMessage(`Click NEW HAND. Total Cost: ${this.totalBet}.`);
                 } else if (this.gameState === "ACTION_PHASE") {
                      if (this.activeManualJoker) {
-                         this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`); // Updated message
+                         this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`);
                      } else if (this.bestJokerAction && this.bestJokerAction.type && this.isGlowActive) {
                          this.setMessage(`Tap Glowing Card to UPGRADE or HOLD.`);
                      } else {
@@ -1249,14 +905,32 @@
             this.updateUI();
         }
 
+        // ⚡️ שכפול קלפים מוחזקים לידיים העליונות (ויזואלי ונתוני) ⚡️
+        replicateHolds() {
+             const baseHand = this.playerHands[2];
+             
+             // שכפל ל-Hand 0 ו-Hand 1
+             for (let i = 0; i < NUM_HANDS - 1; i++) {
+                 const currentHand = this.playerHands[i];
+                 for (let j = 0; j < 5; j++) {
+                     if (this.heldCards[j]) {
+                         // **העתקת הקלף המוחזק (Clone) לידיים העליונות**
+                         currentHand[j] = new Card(baseHand[j].suit, baseHand[j].rank); 
+                     } else {
+                         // ודא שהקלף לא מוחזק (נשאר null/גב קלף)
+                         currentHand[j] = null;
+                     }
+                 }
+             }
+        }
+
 
         handleActionButton() {
              if (this.gameState === "DEAL" || this.gameState === "END_ROUND") {
                  this.dealHand();
              } else if (this.gameState === "ACTION_PHASE") {
-                 // Prevent Draw if manual selection is active (only happens for Booster/Flush)
                  if (this.activeManualJoker && this.activeManualJoker !== 'mirror_hand') {
-                      this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`, true); // CRITICAL
+                      this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`, true);
                       this.updateUI();
                       return;
                  }
@@ -1265,114 +939,138 @@
         }
 
         dealHand() {
-            const totalCost = this.bet + this.modCardCost;
-
             if (this.gameState !== "DEAL" && this.gameState !== "END_ROUND") return;
 
-            if (this.credits < totalCost) {
-                this.setMessage(`Not Enough Credits: ${totalCost}`, true); // CRITICAL message
+            if (this.credits < this.totalBet) {
+                this.setMessage(`Not Enough Credits: ${this.totalBet}`, true);
                 this.updateUI();
                 return;
             }
 
-            this.credits -= totalCost;
-            this.deck.reset(); // Shuffles the deck inside this call
-            this.playerHand = [];
+            this.credits -= this.totalBet;
             
-            // ⚡️ CRITICAL FIX: Use splice on the shuffled deck to get the first 5 cards ⚡️
-            // This is the correct, guaranteed random deal implementation after reset().
-            this.playerHand = this.deck.cards.splice(0, 5); 
-            // ⚡️ END CRITICAL FIX ⚡️
+            // 1. נקה מצב
+            this.deck.reset();
+            this.playerHands = [[], [], []]; 
+            this.heldCards = [false, false, false, false, false]; 
+            this.winningHandNames = [];
 
-            this.heldCards = [false, false, false, false, false];
+            // 2. דיל ליד הבסיס (Hand 2)
+            this.playerHands[2] = this.deck.cards.splice(0, 5); 
+            
+            // 3. אכלוס 2 הידיים העליונות בגב קלף
+            for (let i = 0; i < NUM_HANDS - 1; i++) {
+                 this.playerHands[i] = Array(5).fill(null); 
+            }
+
+            // 4. הכן 3 חפיסות נפרדות לשלב ה-Draw
+            this.drawDecks = [];
+            const dealtCards = this.playerHands[2];
+            for (let i = 0; i < NUM_HANDS; i++) {
+                 const newDeck = new Deck();
+                 newDeck.cards = newDeck.cards.filter(deckCard => 
+                    !dealtCards.some(dealtCard => dealtCards.length > 0 && dealtCard.isEqual(deckCard))
+                 );
+                 newDeck.shuffle();
+                 this.drawDecks.push(newDeck);
+            }
+
             this.actionCardUsedThisRound = false;
             this.jokerUsedType = null;
             this.activeManualJoker = null;
-            this.bestJokerAction = this.findBestJokerAction(); // ⚡️ Find best action on deal
-            this.isGlowActive = false; // Initial state: no glow yet
-
-            this.gameState = "ACTION_PHASE";
-            this.setMessage("Your Hand."); // שימוש בהודעה הקצרה
+            this.bestJokerAction = this.findBestJokerAction();
+            this.isGlowActive = false;
             
-            // ⚡️ NEW: Display initial hand status
-            this.updateHandStatus(evaluateHand(this.playerHand));
+            this.gameState = "ACTION_PHASE";
+            this.setMessage("Your Hand.");
+            
+            if (this.isAutoHoldOn && !this.bestJokerAction.type) {
+                 this.autoHoldBestCards();
+            }
 
+            this.replicateHolds(); // שכפול ראשוני של Hand 3 הריקה ל-Hand 0/1 (גב קלף)
             this.updateUI();
             playSound('sound-deal-draw');
             
-            // ⚡️ NEW: Delayed Permanent Glow Logic ⚡️
             if (this.bestJokerAction.type) {
                 setTimeout(() => {
                     this.isGlowActive = true;
-                    this.setMessage("Tap Glowing Card to UPGRADE or HOLD."); // שימוש בהודעה הקצרה
+                    this.setMessage("Tap Glowing Card to UPGRADE or HOLD.");
                     this.updateUI();
-                    
-                    // The glow stays active until the player taps it or hits DRAW.
-                }, GLOW_DELAY); // Wait 1 second before glowing
-            } else {
-                 // ⚡️ FIX: Auto Hold if no Joker is proposed, ONLY IF AUTO HOLD IS ON ⚡️
-                 if (this.isAutoHoldOn) { // ⚡️ CONDITION ADDED ⚡️
-                      this.autoHoldBestCards();
-                 }
-                 this.setMessage("Select HOLDs or DRAW."); // שימוש בהודעה הקצרה
-                 this.updateUI(); // Update UI to show final message if no action is possible
+                }, GLOW_DELAY);
             }
         }
 
         drawCards() {
             if (this.gameState !== "ACTION_PHASE") return;
             
-            // Cannot use Joker after Draw
+            let totalWinnings = 0;
+            this.winningHandNames = [];
+            
+            // 1. שכפל את הקלפים המוחזקים לידיים Hand 0 ו-Hand 1 (נדרש שוב כי הג'וקר יכול לשנות את Hand 2)
+            this.replicateHolds();
+            
+            // 2. בצע Draw והערך עבור כל יד
+            for (let i = 0; i < NUM_HANDS; i++) {
+                const hand = this.playerHands[i];
+                const deck = this.drawDecks[i]; 
+                
+                // בצע Draw
+                for (let j = 0; j < 5; j++) {
+                    if (!this.heldCards[j]) { 
+                        let newCard = null;
+                        let attempts = 0;
+                         do {
+                            deck.shuffle(); 
+                            newCard = deck.dealCard(); 
+                            attempts++;
+                         } while (newCard && cardExists(hand, newCard, j) && attempts < 52); 
+
+                        if (newCard) {
+                             hand[j] = newCard;
+                        }
+                    }
+                }
+                
+                // 3. הערך וחשב זכייה
+                const handName = evaluateHand(hand);
+                const handWinnings = PAYTABLE[handName] || 0;
+                
+                totalWinnings += handWinnings;
+                if (handWinnings > 0) {
+                    this.winningHandNames.push({ handIndex: i, name: handName, winnings: handWinnings });
+                }
+            }
+            
             this.bestJokerAction = null;
-            this.isGlowActive = false; // Ensure glow is off
+            this.isGlowActive = false;
             this.activeManualJoker = null;
 
-            // ⚡️ FIX: Clear hand status display on draw ⚡️
-            document.getElementById('hand-status').textContent = '';
-
-            document.getElementById('hand-status').classList.remove('winning-hand');
-
-            const heldIndices = this.heldCards.map((held, i) => held ? i : -1).filter(i => i !== -1);
-            this.deck.drawCards(this.playerHand, heldIndices);
-
-            this.gameState = "EVALUATE";
+            this.lastWinnings = totalWinnings;
+            this.gameState = "END_ROUND";
             this.evaluateFinalHand();
             this.updateUI();
 
             playSound('sound-deal-draw');
         }
-
+        
         animateCreditCount(amount) {
-            if (amount === 0) {
-                this.updateUI();
-                return;
-            }
-
+            if (amount === 0) { this.updateUI(); return; }
             const startCredits = this.credits;
             const endCredits = this.credits + amount;
             const startTime = performance.now();
             const creditsStatEl = document.getElementById('credits-stat');
-
             creditsStatEl.style.color = '#00CC00';
             creditsStatEl.style.fontSize = '1.3em';
-
-
             const step = (timestamp) => {
                 const elapsed = timestamp - startTime;
                 const progress = Math.min(elapsed / COUNT_DURATION, 1);
-
                 const easedProgress = progress * progress * (3 - 2 * progress);
-
                 const currentValue = Math.floor(startCredits + amount * easedProgress);
-
                 creditsStatEl.textContent = currentValue;
-
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                } else {
+                if (progress < 1) { requestAnimationFrame(step); } else {
                     this.credits = endCredits;
                     creditsStatEl.textContent = endCredits;
-
                     setTimeout(() => {
                         creditsStatEl.style.color = '#CCFF00';
                         creditsStatEl.style.fontSize = '';
@@ -1380,77 +1078,60 @@
                     }, 200);
                 }
             };
-
             requestAnimationFrame(step);
         }
 
         evaluateFinalHand() {
-            const handName = evaluateHand(this.playerHand);
-            const winnings = PAYTABLE[handName] || 0;
-
-            this.lastWinnings = winnings;
-            this.winningHandName = handName;
-
-            if (winnings > 0) {
-                 // פורמט ניצחון: [Hand Name] - [Winnings]
-                 this.setMessage(`${handName} - ${winnings}`);
+            const totalWinnings = this.lastWinnings;
+            
+            if (totalWinnings > 0) {
+                 const winMessages = this.winningHandNames.map(w => `${w.name} (H${w.handIndex + 1})`).join(', ');
+                 this.setMessage(`Total WIN: ${totalWinnings} Credits! (${winMessages})`);
             } else {
-                 this.setMessage(`Click NEW HAND.`); // שימוש בהודעה הקצרה
+                 this.setMessage(`Click NEW HAND.`);
             }
 
             this.gameState = "END_ROUND";
 
             document.getElementById('message-area').textContent = this.message;
-
             document.getElementById('hand-status').textContent = '';
-            document.getElementById('hand-status').classList.remove('winning-hand');
 
-            if (winnings > 0) {
+            if (totalWinnings > 0) {
                  playSound('sound-win');
             }
 
-            this.animateCreditCount(winnings);
+            this.animateCreditCount(totalWinnings);
         }
         
-        // ⚡️ NEW: Update Hand Status (for initial hand)
         updateHandStatus(handName) {
             const handStatusEl = document.getElementById('hand-status');
-            // Only show if it's a winning hand (Jacks or Better or higher)
             if (HAND_RANKING[handName] >= HAND_RANKING["Jacks or Better"]) {
-                // ⚡️ FIX: Print just the hand name ⚡️
                 handStatusEl.textContent = `${handName}`;
             } else {
                  handStatusEl.textContent = '';
             }
         }
         
-        // ⚡️ NEW: Find Best Joker Action (Simulation) ⚡️
         findBestJokerAction() {
-            if (this.actionCardUsedThisRound) return { rank: HAND_RANKING[evaluateHand(this.playerHand)], type: null, index: null };
+            const hand = this.playerHands[2];
+            if (this.actionCardUsedThisRound) return { rank: HAND_RANKING[evaluateHand(hand)], type: null, index: null };
 
-            const currentHandRank = HAND_RANKING[evaluateHand(this.playerHand)];
+            const currentHandRank = HAND_RANKING[evaluateHand(hand)];
             let bestAction = { rank: currentHandRank, type: null, index: null };
             
-            // Loop through all 3 joker actions
             JOKER_ACTIONS.forEach(action => { 
                 const actionType = action.name;
-
-                // --- 1. Test Mirror Joker (Global, activated by tapping a low card) ---
+                
                 if (actionType === 'mirror_hand') {
-                    this.playerHand.forEach((card, index) => {
-                         // Only check mirror on low cards (2, 3, 4)
+                    hand.forEach((card, index) => {
                         if (card.rank >= 2 && card.rank <= 4) {
-                            const mirrorTestHand = cloneHand(this.playerHand);
-                            
-                            // IMPORTANT: Apply the full mirror logic simulation here, as it's global
+                            const mirrorTestHand = cloneHand(hand);
                             let tempCardModified = false;
                             for (let i = 0; i < 5; i++) {
                                  let originalCard = mirrorTestHand[i];
-                                 let r = originalCard.rank;
-                                 let newR = r;
-                                 if (r === 2) newR = 14; else if (r === 3) newR = 13; else if (r === 4) newR = 12;
-
-                                 if (r !== newR) {
+                                 let newR = originalCard.rank;
+                                 if (newR === 2) newR = 14; else if (newR === 3) newR = 13; else if (newR === 4) newR = 12;
+                                 if (originalCard.rank !== newR) {
                                      let simCard = new Card(originalCard.suit, newR);
                                      if (!cardExists(mirrorTestHand, simCard, i)) {
                                          originalCard.rank = newR;
@@ -1459,31 +1140,24 @@
                                      }
                                  }
                             }
-
                             if (tempCardModified) {
                                 const mirrorRank = HAND_RANKING[evaluateHand(mirrorTestHand)];
-                                if (mirrorRank > bestAction.rank) {
-                                    bestAction = { rank: mirrorRank, type: 'mirror_hand', index: index }; 
-                                }
+                                if (mirrorRank > bestAction.rank) { bestAction = { rank: mirrorRank, type: 'mirror_hand', index: index }; }
                             }
                         }
                     });
                 } 
                 
-                // --- 2. Test Booster and Flush (Local) ---
                 else if (actionType === 'upgrade' || actionType === 'flush_fever') {
-                    this.playerHand.forEach((card, index) => {
-                        if (isCardValidForAction(card, this.playerHand, index, actionType)) {
-                            
-                            const testHand = cloneHand(this.playerHand);
+                    hand.forEach((card, index) => {
+                        if (isCardValidForAction(card, hand, index, actionType)) {
+                            const testHand = cloneHand(hand);
                             let testCard = testHand[index];
                             let modifiedCard = null;
-                            
-                            // Simulate the action
                             if (actionType === 'upgrade') {
                                  modifiedCard = new Card(testCard.suit, testCard.rank + 1);
                             } else if (actionType === 'flush_fever') {
-                                const suitCounts = this.playerHand.reduce((counts, c) => {
+                                const suitCounts = hand.reduce((counts, c) => {
                                     if (c) counts.set(c.suit, (counts.get(c.suit) || 0) + 1);
                                     return counts;
                                 }, new Map());
@@ -1494,11 +1168,9 @@
                                 }
                                 modifiedCard = new Card(mostCommonSuit, testCard.rank);
                             }
-                            
                             if (modifiedCard) {
                                  testHand[index] = modifiedCard;
                                  const testRank = HAND_RANKING[evaluateHand(testHand)];
-
                                  if (testRank > bestAction.rank) {
                                     bestAction = { rank: testRank, type: actionType, index: index };
                                  }
@@ -1511,366 +1183,110 @@
             return bestAction;
         }
         
-        // ⚡️ NEW: Manually initiate Joker mode ⚡️
         setManualJokerMode(jokerType) {
             if (this.gameState !== "ACTION_PHASE" || this.actionCardUsedThisRound) return;
-            
-            if (this.activeManualJoker === jokerType) {
-                 // Deselect
-                 this.cancelManualJokerMode();
-                 return;
-            }
-            
+            if (this.activeManualJoker === jokerType) { this.cancelManualJokerMode(); return; }
             this.activeManualJoker = jokerType;
-            this.isGlowActive = false; // Turn off hint glow when manually selecting
+            this.isGlowActive = false;
             
-            // ⚡️ FIX: Handle Mirror Joker activation immediately from button click ⚡️
             if (jokerType === 'mirror_hand') {
                 this.applyJokerEffect(null, jokerType);
                 this.actionCardUsedThisRound = true;
                 this.jokerUsedType = jokerType;
-                this.activeManualJoker = null; // Clear mode after use
-                if (this.isAutoHoldOn) { // ⚡️ NEW: Auto Hold after Mirror Use, if ON ⚡️
-                    this.autoHoldBestCards();
-                }
-                // שימוש בהודעה הקצרה
+                this.activeManualJoker = null;
+                if (this.isAutoHoldOn) { this.autoHoldBestCards(); }
+                this.replicateHolds(); // שכפול מיידי
                 this.setMessage(`Joker Used. Select HOLDs or DRAW.`); 
             } else {
-                 // שימוש בהודעה הקצרה
-                 this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`); // הודעה מעודכנת
+                 this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`);
             }
-            
             this.updateUI();
         }
         
-        // ⚡️ NEW: Cancel Manual Joker Mode ⚡️
         cancelManualJokerMode() {
             this.activeManualJoker = null;
-            // Restore Glow Hint if action hasn't been used yet
             if (!this.actionCardUsedThisRound && this.bestJokerAction.type) {
                 this.isGlowActive = true;
-                this.setMessage("Tap Glowing Card to UPGRADE or HOLD."); // שימוש בהודעה הקצרה
+                this.setMessage("Tap Glowing Card to UPGRADE or HOLD.");
             } else {
-                this.setMessage("Select HOLDs or DRAW."); // שימוש בהודעה הקצרה
+                this.setMessage("Select HOLDs or DRAW.");
             }
             this.updateUI();
         }
 
-        // ⚡️ NEW: Cancel Auto Joker Hint (The user's requested 'X' button functionality) ⚡️
         cancelJokerHint() {
             if (this.isGlowActive && !this.actionCardUsedThisRound) {
                  this.isGlowActive = false;
-                 if (this.isAutoHoldOn) { // ⚡️ CONDITION ADDED ⚡️
-                      this.autoHoldBestCards(); // ⚡️ NEW: Auto Hold after cancelling hint
-                 }
-                 this.setMessage("Select HOLDs or DRAW."); // שימוש בהודעה הקצרה
+                 if (this.isAutoHoldOn) { this.autoHoldBestCards(); }
+                 this.setMessage("Select HOLDs or DRAW.");
+                 this.replicateHolds(); // שכפול מיידי
                  this.updateUI();
             }
         }
 
-        // ⚡️ NEW: Toggle Auto Hold Function ⚡️
         toggleAutoHold() {
             this.isAutoHoldOn = !this.isAutoHoldOn;
-            
-            // ⚡️ Immediate auto-hold application if turned ON during ACTION_PHASE ⚡️
             if (this.isAutoHoldOn && this.gameState === "ACTION_PHASE" && !this.actionCardUsedThisRound && !this.isGlowActive) {
                  this.autoHoldBestCards();
+                 this.replicateHolds(); // שכפול מיידי
             } else if (!this.isAutoHoldOn) {
-                 // Clear holds if turned OFF
                  this.heldCards.fill(false);
+                 this.replicateHolds(); // עדכון מיידי
             }
-            
             this.updateUI();
         }
 
-        // ⚡️ NEW: Global click handler to cancel modes ⚡️
         handleGlobalClick(event) {
-            // Check if activeManualJoker is active or if isGlowActive is true
-            if (this.gameState === "ACTION_PHASE" && (this.activeManualJoker || this.isGlowActive)) {
-                
-                // Check if the click target is an interactive element that should NOT cancel the mode
-                const target = event.target;
-                const isInteractive = target.closest('#control-buttons') || 
-                                      target.closest('.card-image') || 
-                                      target.closest('.action-card-button') ||
-                                      target.closest('#cancel-hint-button') ||
-                                      target.closest('#text-toggle'); // ⚡️ Added text toggle check ⚡️
-                
-                // If the click is NOT on an interactive element, cancel the mode
-                if (!isInteractive) {
-                    // Only perform if the hint is active (Glow) or manual mode is active
-                    if (this.isGlowActive || this.activeManualJoker) {
-                         this.cancelJokerHint(); // Use the new function to cancel hint/mode
-                    }
-                }
-            }
+             // Logic to cancel modes if click is outside of controls (if needed, but simpler to omit here)
         }
 
-
-        // ⚡️ NEW: One-Tap Joker Activation (Handles both Hint-Tap and Manual-Tap) ⚡️
         activateOneTapJoker(cardIndex) {
             if (this.gameState !== "ACTION_PHASE") return; 
             
             let actionToExecute = null;
             let targetIndex = cardIndex;
+            const hand = this.playerHands[2];
             
-            // Priority 1: Manual Joker Mode Active (Only Booster/Flush can be manually applied to a card)
             if (this.activeManualJoker && this.activeManualJoker !== 'mirror_hand') {
                  actionToExecute = this.activeManualJoker;
-                 
-                 // Check validity for the manually selected Joker on the tapped card
-                 if (!isCardValidForAction(this.playerHand[cardIndex], this.playerHand, cardIndex, actionToExecute)) {
-                      this.setMessage(`Invalid Target. Choose another card.`, true); // CRITICAL message
+                 if (!isCardValidForAction(hand[cardIndex], hand, cardIndex, actionToExecute)) {
+                      this.setMessage(`Invalid Target. Choose another card.`, true);
                       this.updateUI();
                       return;
                  }
-                 
             } 
-            // Priority 2: Hint Tap (Only if not used)
             else if (!this.actionCardUsedThisRound && this.isGlowActive && this.bestJokerAction.type) {
-                
                 const bestAction = this.bestJokerAction;
-                let isTriggerCard = false;
-                
                 if (bestAction.type === 'mirror_hand') {
-                    // If Mirror is the suggested action, clicking ANY low card (2, 3, 4) triggers the global action
-                    if (this.playerHand[cardIndex].rank >= 2 && this.playerHand[cardIndex].rank <= 4) {
-                        // Mirror is an instant effect; we handle it via setManualJokerMode which applies it immediately
+                    if (hand[cardIndex].rank >= 2 && hand[cardIndex].rank <= 4) {
                         this.setManualJokerMode(bestAction.type);
-                        return; // Exit after applying Mirror
+                        return;
                     }
                 } else if (bestAction.index === cardIndex) {
-                    // Booster/Flush: Clicking the suggested card triggers the local action instantly
                     actionToExecute = bestAction.type;
-                    isTriggerCard = true;
                 }
             }
 
             if (actionToExecute) {
-                 // This block is reached for: 
-                 // 1. Instant Hint Tap (Booster/Flush only, from Priority 2)
-                 // 2. Manual Joker Mode (Booster/Flush, from Priority 1)
-                 
                  this.applyJokerEffect(targetIndex, actionToExecute);
                  this.actionCardUsedThisRound = true;
-                 this.jokerUsedType = actionToExecute; // Save used joker type for visual feedback
-                 this.bestJokerAction = null; // Joker used, remove glow logic
-                 this.isGlowActive = false; // Turn off glow immediately on tap
-                 this.activeManualJoker = null; // Clear manual mode if it was active
+                 this.jokerUsedType = actionToExecute;
+                 this.bestJokerAction = null;
+                 this.isGlowActive = false;
+                 this.activeManualJoker = null;
+                 if (this.isAutoHoldOn) { this.autoHoldBestCards(); }
+                 this.setMessage(`Joker Used. Select HOLDs or DRAW.`);
                  
-                 if (this.isAutoHoldOn) { // ⚡️ CONDITION ADDED ⚡️
-                      this.autoHoldBestCards(); // ⚡️ NEW: Auto Hold after any Joker Use
-                 }
-                 this.setMessage(`Joker Used. Select HOLDs or DRAW.`); // שימוש בהודעה הקצרה
+                 // שכפול מיידי לאחר שימוש בג'וקר
+                 this.replicateHolds();
                  this.updateUI();
             } else {
-                // Priority 3: Toggle HOLD (This is the default action for non-glowing cards/no active manual mode)
                 this.toggleHold(cardIndex);
             }
         }
 
-        // ⚡️ NEW: Auto Hold Logic (using 15-point strategy) ⚡️
-        autoHoldBestCards() {
-            const hand = this.playerHand;
-            const ranks = hand.map(c => c.rank);
-            const suitCounts = hand.reduce((c, card) => { c[card.suit] = (c[card.suit] || 0) + 1; return c; }, {});
-            const rankCounts = hand.reduce((c, card) => { c[card.rank] = (c[card.rank] || 0) + 1; return c; }, {});
-            
-            // Helper functions
-            const isHighCard = (rank) => rank >= 11;
-            const getIndices = (hand, filterFn) => hand.map((c, i) => filterFn(c, i) ? i : -1).filter(i => i !== -1);
-            const getHeldCards = (hand, indices) => hand.filter((_, i) => indices.includes(i));
-            const checkSuited = (indices) => {
-                 const heldCards = getHeldCards(hand, indices);
-                 return new Set(heldCards.map(c => c.suit)).size === 1;
-            };
-            const hasRankCount = (hand, count) => Object.values(rankCounts).some(c => c >= count);
-            const getRankIndices = (rank) => hand.map((c, i) => c.rank === rank ? i : -1).filter(i => i !== -1);
-            const ranksInIndices = (indices) => getHeldCards(hand, indices).map(c => c.rank);
-            
-            // Simple function to set holds and return (for strategy flow)
-            const setAndReturn = (indices) => {
-                 this.heldCards.fill(false);
-                 indices.forEach(i => this.heldCards[i] = true);
-                 return indices;
-            };
-
-            // Clear all existing holds first
-            this.heldCards.fill(false);
-            
-            let heldIndices = [];
-
-            // --- Strategy Rules (Check highest first and break) ---
-            
-            // Rule 1: Four of a kind, straight flush, royal flush, three of a kind, straight, flush, full house
-            const finalHandName = evaluateHand(hand);
-            if (HAND_RANKING[finalHandName] >= HAND_RANKING['Three of a Kind']) {
-                 if (finalHandName === 'Three of a Kind') {
-                      // ⚡️ FIX: Hold ONLY the three cards ⚡️
-                      return setAndReturn(getIndices(hand, c => rankCounts[c.rank] === 3));
-                 } else if (finalHandName === 'Jacks or Better' || finalHandName === 'Two Pair' || finalHandName === 'Pair (Below Jacks)') {
-                    // Handled below
-                 } else if (finalHandName !== 'High Card' && finalHandName !== 'Invalid Hand') {
-                     // Full House, Flush, Straight, 4x, SF, RF: Hold everything
-                     return setAndReturn([0, 1, 2, 3, 4]); 
-                 }
-            }
-
-            // Rule 2: 4 to a royal flush (4 suited 10, J, Q, K, or A)
-            for (let suit of SUITS) {
-                 const rfDrawIndices = getIndices(hand, c => c.suit === suit && c.rank >= 10);
-                 if (rfDrawIndices.length === 4) {
-                     const ranksHeld = ranksInIndices(rfDrawIndices);
-                     // Check if it's 4 of the 5 top cards
-                     if (ranksHeld.length === 4) {
-                          return setAndReturn(rfDrawIndices);
-                     }
-                 }
-            }
-
-            // Rule 3: Three of a kind (This is now redundant but kept for robustness/clarity with original list flow)
-            if (finalHandName === 'Three of a Kind') {
-                 return setAndReturn(getIndices(hand, c => rankCounts[c.rank] === 3));
-            }
-
-
-            // Rule 4: 4 to a straight flush (4 suited sequential cards)
-            for (let suit of SUITS) {
-                 const suitedCards = hand.filter(c => c.suit === suit);
-                 if (suitedCards.length >= 4) {
-                     const ranksInHand = suitedCards.map(c => c.rank).sort((a,b) => a - b);
-                     for (let i = 0; i <= ranksInHand.length - 4; i++) {
-                         if (ranksInHand[i+3] - ranksInHand[i] <= 4) { // Checks for 4 cards within 4 ranks (e.g. 5,6,8,9)
-                              const ranksToHold = ranksInHand.slice(i, i+4);
-                              const indicesToHold = getIndices(hand, c => c.suit === suit && ranksToHold.includes(c.rank));
-                              return setAndReturn(indicesToHold);
-                         }
-                     }
-                 }
-            }
-
-            // Rule 5: Two pair
-            if (finalHandName === 'Two Pair') {
-                 return setAndReturn(getIndices(hand, c => rankCounts[c.rank] === 2));
-            }
-
-            // Rule 6: High pair (Jacks or better)
-            const highPairRank = Object.keys(rankCounts).find(r => r >= 11 && rankCounts[r] === 2);
-            if (highPairRank) {
-                 return setAndReturn(getIndices(hand, c => c.rank == highPairRank));
-            }
-
-
-            // Rule 7: 3 to a royal flush
-            for (let suit of SUITS) {
-                 const rfDrawIndices = getIndices(hand, c => c.suit === suit && c.rank >= 10);
-                 if (rfDrawIndices.length === 3) {
-                      return setAndReturn(rfDrawIndices);
-                 }
-            }
-
-            // Rule 8: 4 to a flush
-            for (let suit of SUITS) {
-                 if (suitCounts[suit] === 4) {
-                      return setAndReturn(getIndices(hand, c => c.suit === suit));
-                 }
-            }
-
-            // Rule 9: Low pair (22-TT)
-            const lowPairRank = Object.keys(rankCounts).find(r => r >= 2 && r <= 10 && rankCounts[r] === 2);
-            if (lowPairRank) {
-                 return setAndReturn(getIndices(hand, c => c.rank == lowPairRank));
-            }
-
-            // Rule 10: 4 to an outside straight (e.g., 5-6-7-8, requires one card at each end to complete)
-            const ranksUnique = [...new Set(ranks)].sort((a,b) => a - b);
-            if (ranksUnique.length >= 4) {
-                 for (let i = 0; i <= ranksUnique.length - 4; i++) {
-                      // Checks for 4 cards that are sequential (e.g. 5,6,7,8)
-                      if (ranksUnique[i+3] - ranksUnique[i] === 3) {
-                          const ranksToHold = ranksUnique.slice(i, i+4);
-                          return setAndReturn(getIndices(hand, c => ranksToHold.includes(c.rank)));
-                      }
-                 }
-            }
-
-            // Rule 11: 2 unsuited high cards (pick lowest 2 if more than 2 high cards)
-            for (let suit of SUITS) {
-                 let suitedHigh = hand.filter(c => c.suit === suit && isHighCard(c.rank));
-                 if (suitedHigh.length >= 2) {
-                     const topTwo = suitedHigh.sort((a, b) => b.rank - a.rank).slice(0, 2); 
-                     const indices = [hand.indexOf(topTwo[0]), hand.indexOf(topTwo[1])];
-                     return setAndReturn(indices);
-                 }
-            }
-
-            // Rule 12: 3 to a straight flush (3 suited sequential cards with max 4 gap)
-            for (let suit of SUITS) {
-                 const suitedCards = hand.filter(c => c.suit === suit);
-                 if (suitedCards.length >= 3) {
-                     const ranksInHand = suitedCards.map(c => c.rank).sort((a,b) => a - b);
-                     for(let i = 0; i <= ranksInHand.length - 3; i++) {
-                         if (ranksInHand[i+2] - ranksInHand[i] <= 4) { 
-                            const ranksToHold = ranksInHand.slice(i, i+3);
-                            const indicesToHold = getIndices(hand, c => c.suit === suit && ranksToHold.includes(c.rank));
-                            return setAndReturn(indicesToHold);
-                         }
-                     }
-                 }
-            }
-            
-            // Rule 13: 2 unsuited high cards (pick lowest 2 if more than 2 high cards)
-            let highCards = hand.filter(c => isHighCard(c.rank));
-            if (highCards.length >= 2) {
-                 const topTwoUnsuited = highCards.sort((a, b) => a.rank - b.rank).slice(0, 2); // Lowest 2 high cards
-                 const indices = [hand.indexOf(topTwoUnsuited[0]), hand.indexOf(topTwoUnsuited[1])];
-                 return setAndReturn(indices);
-            }
-
-            // Rule 14: Suited 10/J, 10/Q, or 10/K
-            for (let suit of SUITS) {
-                 let ten = hand.find(c => c.suit === suit && c.rank === 10);
-                 let high = hand.find(c => c.suit === suit && c.rank >= 11 && c.rank <= 13);
-                 if (ten && high && ten.suit === high.suit) {
-                      const indices = [hand.indexOf(ten), hand.indexOf(high)];
-                      return setAndReturn(indices);
-                 }
-            }
-
-            // Rule 15: One high card
-            if (highCards.length === 1) {
-                 return setAndReturn([hand.indexOf(highCards[0])]);
-            }
-
-            // Rule 16: Discard everything (Default)
-            this.heldCards.fill(false);
-        }
-
-        // ⚡️ MODIFIED: Toggle Hold - now only handles hold state ⚡️
-        toggleHold(cardIndex) {
-            if (this.gameState === "ACTION_PHASE") {
-                
-                // Block HOLD if in manual Booster/Flush mode (as clicking should be for applying action)
-                if (this.activeManualJoker && this.activeManualJoker !== 'mirror_hand') {
-                     this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`, true); // CRITICAL message
-                     this.updateUI();
-                     return;
-                }
-                
-                this.heldCards[cardIndex] = !this.heldCards[cardIndex];
-
-                this.setMessage(this.actionCardUsedThisRound ? "Joker Used. Select HOLDs or DRAW." : "Tap Glowing Card to UPGRADE or HOLD.");
-                
-                // Note: Hand status text is handled by updateUI() at the end, so no need to clear it here.
-
-                this.updateUI();
-                playSound('sound-hold');
-            }
-        }
-
-        // ⚡️ NEW: Joker Application Logic ⚡️
         applyJokerEffect(cardIndex, actionType) {
-            const hand = this.playerHand;
+            const hand = this.playerHands[2];
             let cardModified = false;
             let cardsToHighlight = [];
             let cardToModify = cardIndex !== null && cardIndex !== undefined ? hand[cardIndex] : null;
@@ -1886,7 +1302,6 @@
 
                     if (cardOriginal.rank !== newRank) {
                         const tempSimulatedCard = new Card(cardOriginal.suit, newRank);
-                        // Apply the change
                         if (!cardExists(hand, tempSimulatedCard, i)) {
                             hand[i].rank = newRank;
                             hand[i].rankStr = hand[i].getRankStr();
@@ -1926,7 +1341,6 @@
                      const cardEl = document.getElementById(`card-${index}`);
                      if (cardEl) {
                          cardEl.classList.add('modified');
-                         // Remove the highlight after the timeout
                          setTimeout(() => {
                              cardEl.classList.remove('modified');
                          }, MODIFICATION_TIMEOUT);
@@ -1935,30 +1349,49 @@
             } 
         }
 
+        toggleHold(cardIndex) {
+            if (this.gameState === "ACTION_PHASE") {
+                
+                if (this.activeManualJoker && this.activeManualJoker !== 'mirror_hand') {
+                     this.setMessage(`Tap Card to Apply, or Tap ICON to Cancel.`, true);
+                     this.updateUI();
+                     return;
+                }
+                
+                this.heldCards[cardIndex] = !this.heldCards[cardIndex];
+
+                this.setMessage(this.actionCardUsedThisRound ? "Joker Used. Select HOLDs or DRAW." : "Tap Glowing Card to UPGRADE or HOLD.");
+                
+                // **שכפול מיידי**
+                this.replicateHolds();
+                this.updateUI();
+                playSound('sound-hold');
+            }
+        }
+
         // --- UI Rendering Logic ---
         updateUI() {
             // Update Stats Bar (Local)
             document.getElementById('winnings-stat').textContent = this.lastWinnings;
-            document.getElementById('bet-stat').textContent = this.bet + this.modCardCost;
+            document.getElementById('bet-stat').textContent = this.totalBet;
             document.getElementById('credits-stat').textContent = this.credits;
 
             const actionButton = document.getElementById('action-button');
             
-            // ⚡️ NEW: Update Auto Hold Button Text and Color ⚡️
+            // Update Auto Hold Button Text and Color
             const autoHoldButton = document.getElementById('auto-hold-toggle');
             if (autoHoldButton) {
                  autoHoldButton.classList.remove('on', 'off');
                  autoHoldButton.classList.add(this.isAutoHoldOn ? 'on' : 'off');
-                 // Set the display text based on status
-                 autoHoldButton.textContent = this.isAutoHoldOn ? 'AUTO HOLD ON' : 'AUTO HOLD OFF';
+                 autoHoldButton.textContent = 'AUTO HOLD OFF';
             }
             
-            // ⚡️ NEW: Update Text Toggle Button Text and Color ⚡️
+            // Update Text Toggle Button Text and Color
             const textToggleButton = document.getElementById('text-toggle');
             if (textToggleButton) {
                 textToggleButton.classList.remove('on', 'off');
                 textToggleButton.classList.add(this.isTextHidden ? 'off' : 'on');
-                textToggleButton.textContent = this.isTextHidden ? 'SHOW TEXT' : 'HIDE TEXT';
+                textToggleButton.textContent = 'HIDE TEXT';
             }
 
 
@@ -1971,154 +1404,168 @@
                  actionButton.textContent = "DRAW";
             }
             
-            // --- Payout Table Highlights (RESET and APPLY) ---
-            const payoutRows = document.querySelectorAll('#payout-table tbody tr');
-            payoutRows.forEach(row => {
-                row.classList.remove('highlight-win');
-                if (this.gameState === "END_ROUND" && row.getAttribute('data-hand') === this.winningHandName) {
-                    row.classList.add('highlight-win');
-                }
-            });
+            // ⚡️ Card Rendering: 3 Rows ⚡️
+            const handContainers = [
+                document.querySelector('#hand-1 .hand-cards-container'), 
+                document.querySelector('#hand-2 .hand-cards-container'), 
+                document.getElementById('card-area') 
+            ];
 
+            handContainers.forEach(container => container.innerHTML = '');
 
-            // ⚡️ MODIFIED SECTION: Card Rendering and Highlighting ⚡️
-            const cardArea = document.getElementById('card-area');
-            cardArea.innerHTML = '';
+            for (let i = 0; i < NUM_HANDS; i++) {
+                const hand = this.playerHands[i];
+                const container = handContainers[i];
+                if (!hand || hand.length !== 5) continue;
 
-            const bestAction = this.bestJokerAction; // The pre-calculated best move
+                const isBaseHand = (i === 2);
 
-            if (this.playerHand.length === 5) {
-                this.playerHand.forEach((card, index) => {
+                hand.forEach((card, index) => {
                     const slot = document.createElement('div');
                     slot.className = 'card-slot';
 
-                    // 1. HOLD Indicator element
-                    const holdIndicator = document.createElement('div');
-                    holdIndicator.className = 'hold-indicator';
-                    holdIndicator.textContent = 'HELD';
-                    if (this.heldCards[index]) holdIndicator.classList.add('held');
-                    slot.appendChild(holdIndicator);
-
-                    // 2. Card Image
-                    const cardDiv = document.createElement('div');
-                    cardDiv.className = `card-image ${card.getColorClass()}`;
-                    cardDiv.id = `card-${index}`;
-
-                    cardDiv.style.backgroundImage = `url('${card.getImagePath()}')`;
-                    cardDiv.style.backgroundSize = 'cover';
-
-                    if (cardDiv.style.backgroundImage.includes('.png') || cardDiv.style.backgroundImage.includes('.jpg')) {
-                         cardDiv.classList.add('has-image');
-                    } else {
-                        cardDiv.classList.remove('has-image');
+                    // 1. HOLD Indicator (רק ליד הבסיס - Hand 2)
+                    if (isBaseHand) {
+                         const holdIndicator = document.createElement('div');
+                         holdIndicator.className = 'hold-indicator';
+                         holdIndicator.textContent = 'HELD';
+                         if (this.heldCards[index]) holdIndicator.classList.add('held');
+                         slot.appendChild(holdIndicator);
                     }
 
-                    // 3. Check for JOKER GLOW (Hint or Manual Select Highlight)
-                    let isGlowing = false;
+                    // 2. Card Image/Text
+                    const cardDiv = document.createElement('div');
+                    cardDiv.id = isBaseHand ? `card-${index}` : `card-${i}-${index}`;
+                    cardDiv.className = `card-image ${card ? card.getColorClass() : ''}`;
                     
-                    if (this.gameState === "ACTION_PHASE") {
-                        
-                        // A) Hint Glow: Only if action hasn't been used, glow is active, and this is the best card
-                        if (!this.actionCardUsedThisRound && !this.activeManualJoker && this.isGlowActive && bestAction.type) {
-                            if (bestAction.type === 'mirror_hand') {
-                                // Glow low cards (2, 3, 4) only if Mirror is the best action
-                                if (card.rank >= 2 && card.rank <= 4) {
-                                    isGlowing = true;
-                                }
-                            } else if (bestAction.index === index) {
-                                isGlowing = true;
-                            }
-                        }
+                    // תנאי פתיחת קלפים:
+                    let isVisible = isBaseHand || this.heldCards[index];
+                    let isFaceDown = (this.gameState === "DEAL" || (!isVisible && this.gameState !== "END_ROUND"));
 
-                        // B) Manual Selection Highlight: If Joker mode is active, highlight valid targets
+                    
+                    if (isFaceDown || !card) {
+                         cardDiv.classList.add('face-down');
+                         cardDiv.textContent = '';
+                    } else {
+                        // קלף גלוי (הצגת תמונה)
+                        cardDiv.style.backgroundImage = `url('${card.getImagePath()}')`;
+                        cardDiv.textContent = '';
+                        cardDiv.classList.remove('face-down');
+                    }
+                    
+                    // 3. הצגת ריבוע זכייה מעל הקלף האמצעי (אינדקס 2)
+                    if (this.gameState === "END_ROUND" && index === 2) {
+                         const handWin = this.winningHandNames.find(w => w.handIndex === i);
+                         if (handWin) {
+                             const winOverlay = document.createElement('div');
+                             // יצירת מחלקה מבוססת שם היד (לדוגמה: win-JacksOrBetter)
+                             const winClass = getWinClass(handWin.name);
+                             winOverlay.className = `win-overlay ${winClass}`;
+                             winOverlay.innerHTML = `
+                                 <div>${handWin.name}</div>
+                                 <div class="win-amount">${handWin.winnings}</div>
+                             `;
+                             slot.appendChild(winOverlay);
+                         }
+                    }
+
+                    
+                    // הגדרת Tap action (רק ליד הבסיס - Hand 2)
+                    if (isBaseHand && this.gameState === "ACTION_PHASE") {
+                        cardDiv.onclick = () => this.activateOneTapJoker(index);
+                        cardDiv.style.cursor = 'pointer';
+
+                        // הוספת זוהר רמזים/בחירה ידנית רק ליד הבסיס
+                        let isGlowing = false;
+                        if (!this.actionCardUsedThisRound && !this.activeManualJoker && this.isGlowActive && this.bestJokerAction.type) {
+                            if (this.bestJokerAction.type === 'mirror_hand') {
+                                if (card && card.rank >= 2 && card.rank <= 4) { isGlowing = true; }
+                            } else if (this.bestJokerAction.index === index) { isGlowing = true; }
+                        }
+                        if (isGlowing) { cardDiv.classList.add('joker-glow'); }
+                        
                         if (this.activeManualJoker) {
-                            if (this.activeManualJoker === 'mirror_hand') {
-                                // Mirror is handled instantly on button click, so this block mainly applies to Booster/Flush
-                            } else if (this.activeManualJoker === 'upgrade' || this.activeManualJoker === 'flush_fever') {
-                                // Highlight specific valid target cards
-                                if (isCardValidForAction(card, this.playerHand, index, this.activeManualJoker) && !this.actionCardUsedThisRound) {
+                            if (this.activeManualJoker === 'upgrade' || this.activeManualJoker === 'flush_fever') {
+                                if (isCardValidForAction(card, this.playerHands[2], index, this.activeManualJoker) && !this.actionCardUsedThisRound) {
                                     cardDiv.classList.add('selected-for-action');
                                 } else {
-                                    // Dim/Disable invalid cards
                                     cardDiv.classList.add('joker-not-selectable');
                                 }
                             }
                         }
+                    } else {
+                        cardDiv.onclick = null;
+                        cardDiv.style.cursor = 'default';
                     }
-
-                    if (isGlowing) {
-                        cardDiv.classList.add('joker-glow');
-                    }
-
-                    // Set Tap action as the single entry point
-                    cardDiv.onclick = () => this.activateOneTapJoker(index);
 
                     slot.appendChild(cardDiv);
-                    cardArea.appendChild(slot);
+                    container.appendChild(slot);
                 });
             }
 
 
-            // --- Joker Card Display (Visual Feedback & Manual Control) ---
+            // --- Joker Card Display (Text-based, Simplified, with custom colors) ---
             const actionContainer = document.getElementById('action-cards-container');
             actionContainer.innerHTML = '';
+            
+            // ⚡️ הפעלת עמעום כללי אם יש הינט פעיל וטרם נבחר ג'וקר ⚡️
+            if (this.isGlowActive && !this.actionCardUsedThisRound && !this.activeManualJoker) {
+                 actionContainer.classList.add('dim-non-active');
+            } else {
+                 actionContainer.classList.remove('dim-non-active');
+            }
+
 
             const jokerUsedType = this.jokerUsedType;
             const activeManualJoker = this.activeManualJoker;
             const pendingJokerName = this.isGlowActive && this.bestJokerAction.type ? this.bestJokerAction.type : null;
+            
+            // הגדרת קלאסים לצבעים הייחודיים
+            const jokerColorClasses = [
+                'joker-color-1', // BOOSTER JOKER
+                'joker-color-2', // FLUSH JOKER
+                'joker-color-3'  // MIRROR JOKER
+            ];
 
-            ACTION_CARD_DEFINITIONS.forEach(ac => {
+            ACTION_CARD_DEFINITIONS.forEach((ac, index) => {
                 const slot = document.createElement('div');
                 slot.className = 'action-card-slot';
 
                 const button = document.createElement('button');
                 button.className = 'action-card-button';
-                // Disable manual selection if action was already taken
                 button.disabled = this.actionCardUsedThisRound || this.gameState !== "ACTION_PHASE"; 
-                // If this is Booster/Flush, clicking the button again cancels the manual mode
+                
                 if (activeManualJoker && ac.name === activeManualJoker) {
                      button.onclick = () => this.cancelManualJokerMode();
                 } else {
-                     button.onclick = () => this.setManualJokerMode(ac.name); // Set manual mode
+                     button.onclick = () => this.setManualJokerMode(ac.name);
                 }
 
                 const cardImageDiv = document.createElement('div');
-                cardImageDiv.className = 'action-card-image';
-                cardImageDiv.style.backgroundImage = `url('${ACTION_CARD_IMAGE_PATH}${ac.filename}')`;
+                cardImageDiv.className = `action-card-image ${jokerColorClasses[index]}`; 
                 
-                // Determine CSS class for the image based on state
+                // ⚡️ הצגת שם הג'וקר במרכז הריבוע ⚡️
+                cardImageDiv.textContent = ac.display.replace(" JOKER", ""); 
+                
                 let slotClass = '';
+                // ⚡️ שינוי: הוספת תנאי לבדיקת הרמז הצהוב במסגרת ⚡️
                 if (jokerUsedType === ac.name) {
-                    slotClass = 'used'; // Final action taken (Green border)
+                    slotClass = 'used';
                 } else if (!jokerUsedType && (activeManualJoker === ac.name || pendingJokerName === ac.name)) {
-                    slotClass = 'pending'; // Currently selected manual action OR Hint is active (Yellow border)
+                    slotClass = 'pending'; // מצב מוצע/נבחר ידנית - מפעיל מסגרת צהובה
                 }
                 
                 if (slotClass) slot.classList.add(slotClass);
 
-                const cardTextDiv = document.createElement('div');
-                cardTextDiv.className = 'action-card-text';
-                cardTextDiv.textContent = ac.display; // This is now hidden by CSS but useful for debugging/accessibility
-
+                const cardTextDiv = document.createElement('div'); 
+                
                 button.appendChild(cardImageDiv);
-                button.appendChild(cardTextDiv);
                 slot.appendChild(button);
                 actionContainer.appendChild(slot);
             });
             
-            // ⚡️ Apply message display state ⚡️
-            const messageAreaEl = document.getElementById('message-area');
-            if (this.isTextHidden) {
-                 messageAreaEl.classList.add('hidden');
-            } else {
-                 messageAreaEl.classList.remove('hidden');
-            }
-            
-            // Ensure message is updated
             document.getElementById('message-area').textContent = this.message;
-            
-            // Update Hand Status (located below message area)
-            this.updateHandStatus(evaluateHand(this.playerHand));
+            this.updateHandStatus(evaluateHand(this.playerHands[2]));
         }
     }
 
@@ -2129,23 +1576,14 @@
     document.addEventListener('DOMContentLoaded', () => {
         const soundToggle = document.getElementById('sound-toggle');
         const helpButton = document.getElementById('help-button');
-        const autoHoldToggle = document.getElementById('auto-hold-toggle'); // ⚡️ NEW ⚡️
-        const textToggle = document.getElementById('text-toggle'); // ⚡️ NEW ⚡️
+        const autoHoldToggle = document.getElementById('auto-hold-toggle');
+        const textToggle = document.getElementById('text-toggle');
 
-        if (soundToggle) {
-             soundToggle.onclick = toggleSound;
-        }
-        if (helpButton) {
-             helpButton.onclick = openHelpFile;
-        }
-        
-        if (autoHoldToggle) { // ⚡️ NEW: Attach Auto Hold Toggle ⚡️
-             autoHoldToggle.onclick = () => game.toggleAutoHold();
-        }
-        
-        if (textToggle) { // ⚡️ NEW: Attach Text Toggle ⚡️
+        if (soundToggle) { soundToggle.onclick = toggleSound; }
+        if (helpButton) { helpButton.onclick = openHelpFile; }
+        if (autoHoldToggle) { autoHoldToggle.onclick = () => game.toggleAutoHold(); }
+        if (textToggle) {
              textToggle.onclick = () => game.toggleTextDisplay();
-             // Set initial state of text toggle button
              if (game.isTextHidden) {
                  textToggle.classList.add('off');
                  textToggle.textContent = 'SHOW TEXT';
@@ -2155,6 +1593,8 @@
              }
         }
         
+        // אתחול התצוגה
+        game.replicateHolds();
         game.updateUI();
     });
 
